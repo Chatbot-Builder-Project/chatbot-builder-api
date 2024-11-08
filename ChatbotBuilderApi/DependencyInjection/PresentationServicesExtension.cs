@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Newtonsoft.Json.Converters;
 
 namespace ChatbotBuilderApi.DependencyInjection;
 
@@ -10,7 +11,8 @@ public static class PresentationServicesExtension
 
         services
             .AddControllers()
-            .AddApplicationPart(Presentation.AssemblyReference.Assembly);
+            .AddApplicationPart(Presentation.AssemblyReference.Assembly)
+            .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter()));
 
         services.AddApiVersioning(options =>
             {
