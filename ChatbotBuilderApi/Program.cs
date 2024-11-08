@@ -2,8 +2,9 @@ using ChatbotBuilderApi.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddPresentationServices();
 builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices();
+builder.Services.AddPresentationServices();
 
 if (builder.Environment.IsDevelopment())
 {
