@@ -5,7 +5,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ChatbotBuilderApi.Domain\ChatbotBuilderApi.Domain.csproj" />
+      <ProjectReference Include="..\ChatbotBuilderApi.Application\ChatbotBuilderApi.Application.csproj" />
     </ItemGroup>
 
     <PropertyGroup>

@@ -12,9 +12,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ChatbotBuilderApi.Application\ChatbotBuilderApi.Application.csproj"/>
+        <ProjectReference Include="..\ChatbotBuilderApi.Infrastructure\ChatbotBuilderApi.Infrastructure.csproj"/>
+        <ProjectReference Include="..\ChatbotBuilderApi.Presentation\ChatbotBuilderApi.Presentation.csproj"/>
     </ItemGroup>
 
 </Project>

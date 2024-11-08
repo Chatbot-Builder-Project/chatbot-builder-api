@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\ChatbotBuilderApi.Application\ChatbotBuilderApi.Application.csproj"/>
+    </ItemGroup>
+
 </Project>
