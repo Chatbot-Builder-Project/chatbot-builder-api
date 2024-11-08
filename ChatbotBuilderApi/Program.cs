@@ -5,8 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddPresentationServices();
 builder.Services.AddApplicationServices();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddSwaggerDocumentation();
+}
 
 var app = builder.Build();
 

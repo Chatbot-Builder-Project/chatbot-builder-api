@@ -20,4 +20,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\ChatbotBuilderApi.Presentation.xml</DocumentationFile>
+      <NoWarn>1701;1702;CS1591</NoWarn>
+    </PropertyGroup>
+
 </Project>
