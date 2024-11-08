@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using ChatbotBuilderApi.Presentation.Filters;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
@@ -14,7 +15,11 @@ public static class PresentationServicesExtension
         services.AddProblemDetails();
 
         services
-            .AddControllers()
+            .AddControllers(options =>
+            {
+                options.Filters.Add(new ValidationExceptionFilter());
+                options.Filters.Add(new JsonPatchExceptionFilter());
+            })
             .AddApplicationPart(Presentation.AssemblyReference.Assembly)
             .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter()));
 
