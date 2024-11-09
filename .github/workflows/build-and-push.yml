@@ -20,6 +20,9 @@ jobs:
 
       - name: Build and push Docker image for staging or production
         run: |
+          # Navigate to the subproject directory
+          cd ChatbotBuilderApi
+          
           # Create a tag that is common to both staging and production
           if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
             IMAGE_TAG="staging-${{ github.sha }}"
