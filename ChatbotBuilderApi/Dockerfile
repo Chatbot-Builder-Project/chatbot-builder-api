@@ -7,8 +7,8 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["ChatbotBuilderApi/ChatbotBuilderApi.csproj", "ChatbotBuilderApi/"]
-RUN dotnet restore "ChatbotBuilderApi/ChatbotBuilderApi.csproj"
+COPY ["ChatbotBuilderApi.csproj", "./"]
+RUN dotnet restore "ChatbotBuilderApi.csproj"
 COPY . .
 WORKDIR "/src/ChatbotBuilderApi"
 RUN dotnet build "ChatbotBuilderApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
