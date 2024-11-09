@@ -11,6 +11,11 @@
       <NoWarn>1701;1702;CS1591</NoWarn>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\ChatbotBuilderApi.Application.xml</DocumentationFile>
+      <NoWarn>1701;1702;CS1591</NoWarn>
+    </PropertyGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\ChatbotBuilderApi.Domain\ChatbotBuilderApi.Domain.csproj"/>
     </ItemGroup>
