@@ -26,12 +26,9 @@ jobs:
           else
             IMAGE_TAG="prod-${{ github.sha }}"
           fi
-          
-          # Navigate to the subproject directory
-          cd ChatbotBuilderApi
-          
+
           # Build and push the Docker image to ACR
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/chatbot-builder-api:${IMAGE_TAG} .
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/chatbot-builder-api:${IMAGE_TAG} -f ChatbotBuilderApi/Dockerfile .
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/chatbot-builder-api:${IMAGE_TAG}
 
       - name: Trigger staging deployment in k8s repo
