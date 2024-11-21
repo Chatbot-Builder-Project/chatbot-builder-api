@@ -37,7 +37,7 @@ jobs:
           IMAGE_FULL_NAME="docker.io/${{ secrets.DOCKER_USERNAME }}/${IMAGE_NAME}:${IMAGE_TAG}"
           
           # Build and push the Docker image to Docker Hub
-          docker build -t "$IMAGE_FULL_NAME" .
+          docker build -t "$IMAGE_FULL_NAME" -f ChatbotBuilderApi/Dockerfile .
           docker push "$IMAGE_FULL_NAME"
           
           # Export variables for use in the next steps
