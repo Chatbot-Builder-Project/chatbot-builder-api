@@ -26,6 +26,7 @@
     <ItemGroup>
         <ProjectReference Include="..\ChatbotBuilderApi.Application\ChatbotBuilderApi.Application.csproj"/>
         <ProjectReference Include="..\ChatbotBuilderApi.Infrastructure\ChatbotBuilderApi.Infrastructure.csproj"/>
+        <ProjectReference Include="..\ChatbotBuilderApi.Persistence\ChatbotBuilderApi.Persistence.csproj" />
         <ProjectReference Include="..\ChatbotBuilderApi.Presentation\ChatbotBuilderApi.Presentation.csproj"/>
     </ItemGroup>
 
