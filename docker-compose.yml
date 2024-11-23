@@ -1,0 +1,27 @@
+﻿services:
+  chatbot-builder-api:
+    image: chatbot-builder-api
+    build:
+      context: .
+      dockerfile: ChatbotBuilderApi/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      sqlserver:
+        condition: service_started
+    environment:
+      - ConnectionStrings__AppDbContextConnection=Server=Server=localhost,1455;Database=master;User Id=sa;Password=cFj23uNY0lT&WP@t;TrustServerCertificate=True;
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=cFj23uNY0lT&WP@t
+      - ACCEPT_EULA=Y
+    ports:
+      - "1455:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+
+volumes:
+  sqlserver-data:
