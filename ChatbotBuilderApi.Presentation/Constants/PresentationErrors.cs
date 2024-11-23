@@ -1,10 +1,11 @@
-﻿namespace ChatbotBuilderApi.Presentation.Constants;
+﻿using ChatbotBuilderApi.Domain.Shared;
+
+namespace ChatbotBuilderApi.Presentation.Constants;
 
 public static class PresentationErrors
 {
-    public static class ContentTypes
-    {
-        public const string Json = "application/json";
-        public const string ProblemJson = "application/problem+json";
-    }
+    public static Error AuthenticationFailed(string message) => new(
+        ErrorType.NotAuthorized,
+        "Authorization Failed",
+        message);
 }
