@@ -11,7 +11,7 @@
       sqlserver:
         condition: service_started
     environment:
-      - ConnectionStrings__AppDbContextConnection=Server=localhost,1455;Database=master;User Id=sa;Password=cFj23uNY0lT&WP@t;TrustServerCertificate=True;
+      - ConnectionStrings__AppDbContextConnection=Server=sqlserver;Database=master;User Id=sa;Password=cFj23uNY0lT&WP@t;TrustServerCertificate=True;
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
