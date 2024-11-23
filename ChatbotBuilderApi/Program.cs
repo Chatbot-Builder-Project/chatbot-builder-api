@@ -8,6 +8,7 @@ builder.Host.UseSerilog((context, configuration) =>
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
+builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddPresentationServices();
 
 if (!builder.Environment.IsProduction())
