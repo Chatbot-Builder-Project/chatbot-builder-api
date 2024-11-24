@@ -1,5 +1,6 @@
 using ChatbotBuilderApi.DependencyInjection;
 using ChatbotBuilderApi.Domain.Entities;
+using ChatbotBuilderApi.WebApplicationExtensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,8 @@ if (!app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+await app.MigrateAsync();
 
 app.UseHttpsRedirection();
 app.UseSerilogRequestLogging();
