@@ -16,8 +16,10 @@ public static class PersistenceServicesExtension
                                  throw new ArgumentException("AppDbContextConnection not found"));
         });
 
-        services.AddIdentity<User, Role>()
+        services.AddIdentityCore<User>()
+            .AddRoles<Role>()
             .AddEntityFrameworkStores<AppDbContext>()
+            .AddApiEndpoints()
             .AddDefaultTokenProviders();
     }
 }

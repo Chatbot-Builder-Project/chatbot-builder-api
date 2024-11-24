@@ -1,4 +1,5 @@
 using ChatbotBuilderApi.DependencyInjection;
+using ChatbotBuilderApi.Domain.Entities;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,7 @@ builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddInfrastructureServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddPresentationServices();
 
@@ -28,5 +29,8 @@ app.UseHttpsRedirection();
 app.UseSerilogRequestLogging();
 app.UseAuthorization();
 app.MapControllers();
+app.MapGroup("api/v1/users")
+    .WithTags("Users")
+    .MapIdentityApi<User>();
 
 await app.RunAsync();
