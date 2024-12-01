@@ -60,6 +60,9 @@ public static class PresentationServicesExtension
                 .BuildServiceProvider()
                 .GetRequiredService<IApiVersionDescriptionProvider>();
 
+            // Enable polymorphism for swagger
+            options.UseOneOfForPolymorphism();
+
             foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
             {
                 options.SwaggerDoc(description.GroupName, new OpenApiInfo
