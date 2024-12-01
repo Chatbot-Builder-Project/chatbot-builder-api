@@ -1,0 +1,9 @@
+﻿using ChatbotBuilderApi.Presentation.Features.Shared.Dtos.Workflows.Abstract;
+
+namespace ChatbotBuilderApi.Presentation.Features.Shared.Dtos.Workflows.Components.Links;
+
+public class DataLinkDto : LinkDto
+{
+    public int InputPortId { get; set; }
+    public int OutputPortId { get; set; }
+}
