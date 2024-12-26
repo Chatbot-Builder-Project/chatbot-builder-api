@@ -1,4 +1,6 @@
-﻿namespace ChatbotBuilderApi.Domain.Shared;
+﻿using ChatbotBuilderApi.Domain.Core.Primitives;
+
+namespace ChatbotBuilderApi.Application.Shared;
 
 public class Result
 {
@@ -30,14 +32,14 @@ public class Result
     public static Result<TValue> Failure<TValue>(Error error) => new(default, false, error);
 
     public static Result<TValue> Create<TValue>(TValue? value) =>
-        value is not null ? Success(value) : Failure<TValue>(Error.NullValue);
+        value is not null ? Success(value) : Failure<TValue>(Error.None);
 }
 
-public class Result<TValue> : Result
+public sealed class Result<TValue> : Result
 {
     private readonly TValue? _value;
 
-    protected internal Result(TValue? value, bool isSuccess, Error error)
+    internal Result(TValue? value, bool isSuccess, Error error)
         : base(isSuccess, error) =>
         _value = value;
 

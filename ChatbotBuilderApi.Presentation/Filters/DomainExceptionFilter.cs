@@ -1,26 +1,21 @@
 ﻿using ChatbotBuilderApi.Application.Shared;
-using ChatbotBuilderApi.Domain.Core.Primitives;
+using ChatbotBuilderApi.Domain.Core;
 using ChatbotBuilderApi.Presentation.Shared.ResultExtensions;
-using Microsoft.AspNetCore.JsonPatch.Exceptions;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ChatbotBuilderApi.Presentation.Filters;
 
-public class JsonPatchExceptionFilter : IExceptionFilter
+public class DomainExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is not JsonPatchException jsonPatchException)
+        if (context.Exception is not DomainException domainException)
         {
             return;
         }
 
-        var error = Error.BadRequest(
-            "JSON Patch Error",
-            jsonPatchException.Message);
-
         context.Result = Result
-            .Failure(error)
+            .Failure(domainException.Error)
             .ToProblemDetails();
 
         context.ExceptionHandled = true;

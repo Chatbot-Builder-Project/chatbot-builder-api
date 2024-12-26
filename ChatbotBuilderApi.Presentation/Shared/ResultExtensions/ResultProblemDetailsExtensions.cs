@@ -1,4 +1,5 @@
-﻿using ChatbotBuilderApi.Domain.Shared;
+﻿using ChatbotBuilderApi.Application.Shared;
+using ChatbotBuilderApi.Domain.Core.Primitives;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,8 @@ public static class ResultProblemDetailsExtensions
     {
         return result.Error.Type switch
         {
+            ErrorType.DomainInvariant => result.ToBadRequestProblemDetails(),
+            ErrorType.ApplicationValidation => result.ToBadRequestProblemDetails(),
             ErrorType.BadRequest => result.ToBadRequestProblemDetails(),
             ErrorType.NotFound => result.ToNotFoundProblemDetails(),
             ErrorType.NotAuthorized => result.ToUnauthorizedProblemDetails(),

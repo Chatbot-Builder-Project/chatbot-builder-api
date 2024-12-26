@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Domain.Shared;
+﻿using ChatbotBuilderApi.Application.Shared;
 using FluentValidation;
 using MediatR;
 

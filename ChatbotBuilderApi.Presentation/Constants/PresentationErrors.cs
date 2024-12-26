@@ -1,11 +1,9 @@
-﻿using ChatbotBuilderApi.Domain.Shared;
+﻿using ChatbotBuilderApi.Domain.Core.Primitives;
 
 namespace ChatbotBuilderApi.Presentation.Constants;
 
 public static class PresentationErrors
 {
-    public static Error AuthenticationFailed(string message) => new(
-        ErrorType.NotAuthorized,
-        "Authorization Failed",
-        message);
+    public static Error AuthenticationFailed(string message) =>
+        Error.NotAuthorized("Authorization Failed", message);
 }

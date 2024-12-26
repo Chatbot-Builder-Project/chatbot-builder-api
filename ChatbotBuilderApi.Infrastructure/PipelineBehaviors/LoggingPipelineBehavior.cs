@@ -1,4 +1,5 @@
-﻿using ChatbotBuilderApi.Domain.Shared;
+﻿using ChatbotBuilderApi.Application.Shared;
+using ChatbotBuilderApi.Domain.Core;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -47,6 +48,26 @@ public class LoggingPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TR
                 "Request validation failure {@RequestName}, {@ValidationErrors}, {@DateTimeUtc}",
                 typeof(TRequest).Name,
                 ex.Errors,
+                DateTime.UtcNow);
+
+            throw;
+        }
+        catch (DomainException ex)
+        {
+            _logger.LogError(
+                "Request domain failure {@RequestName}, {@Error}, {@DateTimeUtc}",
+                typeof(TRequest).Name,
+                ex.Error,
+                DateTime.UtcNow);
+
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex,
+                "Request exception {@RequestName}, {@DateTimeUtc}",
+                typeof(TRequest).Name,
                 DateTime.UtcNow);
 
             throw;
