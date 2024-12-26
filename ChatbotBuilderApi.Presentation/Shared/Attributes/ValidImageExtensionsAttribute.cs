@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Application.Constants;
+﻿using ChatbotBuilderApi.Application.Core.Constants;
 
 namespace ChatbotBuilderApi.Presentation.Shared.Attributes;
 

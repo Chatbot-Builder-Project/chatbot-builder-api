@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Application.Shared;
+﻿using ChatbotBuilderApi.Application.Core.Shared;
 using ChatbotBuilderApi.Domain.Core.Primitives;
 using ChatbotBuilderApi.Presentation.Shared.ResultExtensions;
 using Microsoft.AspNetCore.JsonPatch.Exceptions;

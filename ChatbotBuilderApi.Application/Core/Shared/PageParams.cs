@@ -1,4 +1,4 @@
-﻿namespace ChatbotBuilderApi.Application.Shared;
+﻿namespace ChatbotBuilderApi.Application.Core.Shared;
 
 /// <summary>
 /// The parameters for paginating a list of items.

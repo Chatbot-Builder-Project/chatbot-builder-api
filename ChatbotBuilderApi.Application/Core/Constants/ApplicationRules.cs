@@ -1,4 +1,4 @@
-﻿namespace ChatbotBuilderApi.Application.Constants;
+﻿namespace ChatbotBuilderApi.Application.Core.Constants;
 
 public static class ApplicationRules
 {

@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Application.Shared;
+﻿using ChatbotBuilderApi.Application.Core.Shared;
 
 namespace ChatbotBuilderApi.Presentation.Features.Workflows.QueryParams;
 

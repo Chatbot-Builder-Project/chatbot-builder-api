@@ -1,6 +1,6 @@
 ﻿using ChatbotBuilderApi.Domain.Core.Primitives;
 
-namespace ChatbotBuilderApi.Application.Shared;
+namespace ChatbotBuilderApi.Application.Core.Shared;
 
 public class Result
 {

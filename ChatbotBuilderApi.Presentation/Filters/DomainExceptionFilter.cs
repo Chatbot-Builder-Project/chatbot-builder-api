@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Application.Shared;
+﻿using ChatbotBuilderApi.Application.Core.Shared;
 using ChatbotBuilderApi.Domain.Core;
 using ChatbotBuilderApi.Presentation.Shared.ResultExtensions;
 using Microsoft.AspNetCore.Mvc.Filters;
