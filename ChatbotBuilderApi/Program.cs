@@ -1,5 +1,5 @@
 using ChatbotBuilderApi.DependencyInjection;
-using ChatbotBuilderApi.Domain.Entities;
+using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.WebApplicationExtensions;
 using Serilog;
 

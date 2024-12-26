@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Domain.Entities;
+﻿using ChatbotBuilderApi.Domain.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
