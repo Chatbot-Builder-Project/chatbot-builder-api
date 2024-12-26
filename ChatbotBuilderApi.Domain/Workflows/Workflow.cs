@@ -8,7 +8,7 @@ public sealed class Workflow : AggregateRoot<WorkflowId>
 {
     public string Name { get; private set; } = null!;
     public string Description { get; private set; } = null!;
-    public UserId OwnerId { get; } = null!;
+    public Guid OwnerId { get; } // UserId is incompatible with IdentityUser<Guid>
     public Graph Graph { get; private set; } = null!;
 
     private Workflow(
