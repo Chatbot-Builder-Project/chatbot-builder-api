@@ -38,7 +38,7 @@ public static class PresentationServicesExtension
             });
 
         var allowedOrigins = configuration.GetSection("AllowedOrigins").Get<string[]>()
-                             ?? throw new ArgumentException("AllowedHosts configuration is missing");
+                             ?? throw new ArgumentException("AllowedOrigins configuration is missing");
 
         services.AddCors(options =>
         {
