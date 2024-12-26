@@ -37,7 +37,7 @@ public static class PresentationServicesExtension
                 options.SubstituteApiVersionInUrl = true;
             });
 
-        var allowedOrigins = configuration.GetSection("AllowedHosts").Get<string[]>()
+        var allowedOrigins = configuration.GetSection("AllowedOrigins").Get<string[]>()
                              ?? throw new ArgumentException("AllowedHosts configuration is missing");
 
         services.AddCors(options =>
