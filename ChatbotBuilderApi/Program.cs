@@ -11,7 +11,7 @@ builder.Host.UseSerilog((context, configuration) =>
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddPresentationServices();
+builder.Services.AddPresentationServices(builder.Configuration);
 
 if (!builder.Environment.IsProduction())
 {
@@ -29,6 +29,7 @@ if (!app.Environment.IsProduction())
 await app.MigrateAsync();
 
 app.UseHttpsRedirection();
+app.UseCors("AllowedOriginsPolicy");
 app.UseSerilogRequestLogging();
 app.UseAuthorization();
 app.MapControllers();

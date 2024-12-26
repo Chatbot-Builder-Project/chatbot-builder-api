@@ -10,7 +10,7 @@ namespace ChatbotBuilderApi.DependencyInjection;
 
 public static class PresentationServicesExtension
 {
-    public static void AddPresentationServices(this IServiceCollection services)
+    public static void AddPresentationServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddProblemDetails();
 
@@ -36,6 +36,19 @@ public static class PresentationServicesExtension
                 options.GroupNameFormat = "'v'VVV";
                 options.SubstituteApiVersionInUrl = true;
             });
+
+        var allowedOrigins = configuration.GetSection("AllowedHosts").Get<string[]>()
+                             ?? throw new ArgumentException("AllowedHosts configuration is missing");
+
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowedOriginsPolicy", builder =>
+            {
+                builder.WithOrigins(allowedOrigins)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        });
     }
 
     public static void AddSwaggerDocumentation(this IServiceCollection services)
