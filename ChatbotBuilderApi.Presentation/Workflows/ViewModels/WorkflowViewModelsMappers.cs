@@ -17,7 +17,5 @@ public static partial class WorkflowViewModelsMappers
         workflow.Description,
         workflow.Graph.ToModel());
 
-    public static partial WorkflowListViewModelItem ToViewModel(this ListWorkflowsResponseItem workflow);
-
     public static partial WorkflowListViewModel ToViewModel(this ListWorkflowsResponse workflows);
 }
