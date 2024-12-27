@@ -3,7 +3,7 @@
 namespace ChatbotBuilderApi.Presentation.Features.Shared.Dtos.Workflows.Components.Nodes;
 
 /// <summary>
-/// A container that encapsulates a resusable sub-flow that can be used many times as a single component
+/// A container that encapsulates a reusable sub-flow that can be used many times as a single component
 /// </summary>
 public class GroupNodeDto : NodeDto
 {

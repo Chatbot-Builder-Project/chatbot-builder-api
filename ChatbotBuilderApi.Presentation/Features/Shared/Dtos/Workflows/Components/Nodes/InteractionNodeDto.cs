@@ -13,6 +13,5 @@ public class InteractionNodeDto
     public PortDto? OptionOutputPort { get; set; }
     public PortDto? TextInputPort { get; set; }
     public PortDto? OptionInputPort { get; set; }
-    public Dictionary<string, string>? OutputOptionDescriptions { get; set; }
     public Dictionary<string, string>? InputOptionDescriptions { get; set; }
 }
