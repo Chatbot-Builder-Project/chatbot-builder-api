@@ -87,11 +87,13 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
         var inputMessages = await Context.Set<Conversation>()
             .Where(c => c.Id == conversationId)
             .SelectMany(c => c.InputMessages)
+            .OrderByDescending(c => c.CreatedAt)
             .PageResponseAsync(pageParams, cancellationToken);
 
         var outputMessages = await Context.Set<Conversation>()
             .Where(c => c.Id == conversationId)
             .SelectMany(c => c.OutputMessages)
+            .OrderByDescending(c => c.CreatedAt)
             .PageResponseAsync(pageParams, cancellationToken);
 
         return new ListMessagesResponse(inputMessages, outputMessages);
@@ -112,6 +114,7 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
     {
         return await Context.Set<Conversation>()
             .Where(c => c.ChatbotId == chatbotId)
+            .OrderByDescending(c => c.CreatedAt)
             .Select(c => c.Id)
             .ToListAsync(cancellationToken);
     }

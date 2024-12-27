@@ -54,6 +54,7 @@ public sealed class WorkflowRepository : CudRepository<Workflow>, IWorkflowRepos
             .Where(w => query.Search == null
                         || w.Name.Contains(query.Search)
                         || w.Description.Contains(query.Search))
+            .OrderByDescending(w => w.CreatedAt)
             .Select(w => new ListWorkflowsResponseItem(
                 w.Id,
                 new UserId(w.OwnerId),

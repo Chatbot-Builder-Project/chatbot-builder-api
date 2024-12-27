@@ -96,6 +96,7 @@ public sealed class ChatbotRepository : CudRepository<Chatbot>, IChatbotReposito
     {
         return await Context.Set<Chatbot>()
             .Where(c => c.WorkflowId == workflowId)
+            .OrderByDescending(c => c.CreatedAt)
             .Select(c => c.Id)
             .ToListAsync(cancellationToken);
     }
