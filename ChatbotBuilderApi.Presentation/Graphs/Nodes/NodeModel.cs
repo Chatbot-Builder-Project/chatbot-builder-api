@@ -1,5 +1,9 @@
 ﻿using ChatbotBuilderApi.Application.Graphs.Nodes;
 using ChatbotBuilderApi.Presentation.Graphs.Metas;
+using ChatbotBuilderApi.Presentation.Graphs.Nodes.Interaction;
+using ChatbotBuilderApi.Presentation.Graphs.Nodes.Prompt;
+using ChatbotBuilderApi.Presentation.Graphs.Nodes.Static;
+using ChatbotBuilderApi.Presentation.Graphs.Nodes.Switch;
 using JsonSubTypes;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;

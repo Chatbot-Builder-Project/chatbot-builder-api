@@ -2,12 +2,12 @@
 using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using ChatbotBuilderApi.Presentation.Graphs.Ports;
 
-namespace ChatbotBuilderApi.Presentation.Graphs.Nodes;
+namespace ChatbotBuilderApi.Presentation.Graphs.Nodes.Prompt;
 
 public sealed record PromptNodeModel(
     InfoMetaModel Info,
     VisualMetaModel Visual,
     string Template,
-    InputPortModel InputPort,
-    IReadOnlyList<OutputPortModel> OutputPorts)
+    OutputPortModel OutputPort,
+    IReadOnlyList<InputPortModel> InputPorts)
     : NodeModel(Info, Visual, NodeType.Prompt);

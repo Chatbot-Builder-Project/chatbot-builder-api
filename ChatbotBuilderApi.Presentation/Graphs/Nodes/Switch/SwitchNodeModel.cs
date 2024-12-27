@@ -3,11 +3,12 @@ using ChatbotBuilderApi.Presentation.Graphs.Data;
 using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using ChatbotBuilderApi.Presentation.Graphs.Ports;
 
-namespace ChatbotBuilderApi.Presentation.Graphs.Nodes;
+namespace ChatbotBuilderApi.Presentation.Graphs.Nodes.Switch;
 
-public sealed record StaticNodeModel(
+public sealed record SwitchNodeModel(
     InfoMetaModel Info,
     VisualMetaModel Visual,
-    DataModel Data,
-    OutputPortModel OutputPort)
-    : NodeModel(Info, Visual, NodeType.Static);
+    InputPortModel InputPort,
+    int EnumId,
+    IReadOnlyDictionary<OptionDataModel, int> FlowLinkIds)
+    : NodeModel(Info, Visual, NodeType.Switch);

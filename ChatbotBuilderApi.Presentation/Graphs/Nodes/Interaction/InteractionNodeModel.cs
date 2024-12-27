@@ -4,7 +4,7 @@ using ChatbotBuilderApi.Presentation.Graphs.Data;
 using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using ChatbotBuilderApi.Presentation.Graphs.Ports;
 
-namespace ChatbotBuilderApi.Presentation.Graphs.Nodes;
+namespace ChatbotBuilderApi.Presentation.Graphs.Nodes.Interaction;
 
 public sealed record InteractionNodeModel(
     InfoMetaModel Info,
