@@ -19,6 +19,7 @@ public static class PresentationServicesExtension
             {
                 options.Filters.Add(new ValidationExceptionFilter());
                 options.Filters.Add(new JsonPatchExceptionFilter());
+                options.Filters.Add(new DomainExceptionFilter());
             })
             .AddApplicationPart(Presentation.AssemblyReference.Assembly)
             .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter()));

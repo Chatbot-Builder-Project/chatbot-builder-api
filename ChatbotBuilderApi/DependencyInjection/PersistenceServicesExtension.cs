@@ -1,5 +1,10 @@
-﻿using ChatbotBuilderApi.Domain.Users;
+﻿using ChatbotBuilderApi.Application.Chatbots;
+using ChatbotBuilderApi.Application.Conversations;
+using ChatbotBuilderApi.Application.Core.Abstract;
+using ChatbotBuilderApi.Application.Workflows;
+using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Persistence;
+using ChatbotBuilderApi.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,5 +26,10 @@ public static class PersistenceServicesExtension
             .AddEntityFrameworkStores<AppDbContext>()
             .AddApiEndpoints()
             .AddDefaultTokenProviders();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IChatbotRepository, ChatbotRepository>();
+        services.AddScoped<IConversationRepository, ConversationRepository>();
+        services.AddScoped<IWorkflowRepository, WorkflowRepository>();
     }
 }
