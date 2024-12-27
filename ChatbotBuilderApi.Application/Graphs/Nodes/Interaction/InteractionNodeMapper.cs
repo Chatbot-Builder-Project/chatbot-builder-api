@@ -81,7 +81,6 @@ public static partial class InteractionNodeMapper
         return new InteractionNodeDto(
             domain.Info,
             domain.Visual,
-            NodeType.Interaction,
             textInputPort,
             textOutputPort,
             domain.OutputEnum?.Info.Identifier,

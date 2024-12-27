@@ -8,11 +8,10 @@ namespace ChatbotBuilderApi.Application.Graphs.Nodes.Prompt;
 public sealed record PromptNodeDto(
     InfoMeta Info,
     VisualMeta Visual,
-    NodeType Type,
     PromptTemplateDto Template,
     OutputPortDto OutputPort,
     IReadOnlyList<InputPortDto> InputPorts
-) : NodeDto(Info, Visual, Type),
+) : NodeDto(Info, Visual, NodeType.Prompt),
     IInputNodeDto, IOutputNodeDto
 {
     public IEnumerable<int> GetInputPortIds()

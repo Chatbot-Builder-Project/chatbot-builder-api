@@ -9,11 +9,10 @@ namespace ChatbotBuilderApi.Application.Graphs.Nodes.Static;
 public sealed record StaticNodeDto(
     InfoMeta Info,
     VisualMeta Visual,
-    NodeType Type,
     DataType DataType,
     Data Data,
     OutputPortDto OutputPort
-) : NodeDto(Info, Visual, Type),
+) : NodeDto(Info, Visual, NodeType.Static),
     IOutputNodeDto
 {
     public IEnumerable<int> GetOutputPortIds()

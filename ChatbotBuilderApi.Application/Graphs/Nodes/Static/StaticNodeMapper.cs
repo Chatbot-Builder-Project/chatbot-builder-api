@@ -33,7 +33,6 @@ public static partial class StaticNodeMapper
         return new StaticNodeDto(
             domain.Info,
             domain.Visual,
-            NodeType.Static,
             domain.Data.ToDataType(),
             domain.Data,
             new OutputPortDto(

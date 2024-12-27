@@ -10,13 +10,12 @@ namespace ChatbotBuilderApi.Application.Graphs.Nodes.Interaction;
 public sealed record InteractionNodeDto(
     InfoMeta Info,
     VisualMeta Visual,
-    NodeType Type,
     InputPortDto? TextInputPort,
     OutputPortDto? TextOutputPort,
     int? OutputEnumIdentifier,
     OutputPortDto? OptionOutputPort,
     IReadOnlyDictionary<OptionData, InteractionOptionMeta>? OutputOptionMetas
-) : NodeDto(Info, Visual, Type),
+) : NodeDto(Info, Visual, NodeType.Interaction),
     IInputNodeDto, IEnumNodeDto, IOutputNodeDto
 {
     public IEnumerable<int> GetInputPortIds()

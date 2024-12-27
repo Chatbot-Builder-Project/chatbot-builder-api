@@ -8,11 +8,10 @@ namespace ChatbotBuilderApi.Application.Graphs.Nodes.Switch;
 public sealed record SwitchNodeDto(
     InfoMeta Info,
     VisualMeta Visual,
-    NodeType Type,
     InputPortDto InputPort,
     int EnumIdentifier,
     IReadOnlyDictionary<OptionData, int> Bindings
-) : NodeDto(Info, Visual, Type),
+) : NodeDto(Info, Visual, NodeType.Switch),
     IInputNodeDto, IEnumNodeDto, ISwitchNodeDto
 {
     public IEnumerable<int> GetInputPortIds()

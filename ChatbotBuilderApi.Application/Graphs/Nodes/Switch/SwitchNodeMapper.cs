@@ -38,7 +38,6 @@ public static partial class SwitchNodeMapper
         return new SwitchNodeDto(
             domain.Info,
             domain.Visual,
-            NodeType.Switch,
             new InputPortDto(
                 domain.InputPort.Info,
                 domain.InputPort.Visual,

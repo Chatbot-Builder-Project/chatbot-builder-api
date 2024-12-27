@@ -39,7 +39,6 @@ public static partial class PromptNodeMapper
         return new PromptNodeDto(
             domain.Info,
             domain.Visual,
-            NodeType.Prompt,
             domain.Template.ToDto(),
             new OutputPortDto(
                 domain.OutputPort.Info,
