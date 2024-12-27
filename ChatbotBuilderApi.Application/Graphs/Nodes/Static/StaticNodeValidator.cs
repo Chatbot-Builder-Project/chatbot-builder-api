@@ -12,8 +12,7 @@ public sealed class StaticNodeValidator : AbstractValidator<StaticNodeDto>
             .Must(t => t == NodeType.Static);
 
         RuleFor(x => x)
-            .Must(x => x.DataType == x.Data.ToDataType())
-            .Must(x => x.DataType == x.OutputPort.DataType);
+            .Must(x => x.Data.ToDataType() == x.OutputPort.DataType);
 
         RuleFor(x => x.OutputPort)
             .SetValidator(new OutputPortValidator());
