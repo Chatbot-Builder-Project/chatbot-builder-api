@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
-using ChatbotBuilderApi.Presentation.Filters;
+using ChatbotBuilderApi.Presentation.Core.Filters;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
