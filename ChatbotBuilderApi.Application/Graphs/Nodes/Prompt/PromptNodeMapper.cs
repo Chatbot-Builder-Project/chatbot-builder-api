@@ -1,5 +1,4 @@
-﻿using ChatbotBuilderApi.Application.Graphs.Ports;
-using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
+﻿using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
 using ChatbotBuilderApi.Application.Graphs.Ports.OutputPorts;
 using ChatbotBuilderApi.Application.Graphs.Shared.Data;
 using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes.Prompt;
@@ -45,14 +44,12 @@ public static partial class PromptNodeMapper
             new OutputPortDto(
                 domain.OutputPort.Info,
                 domain.OutputPort.Visual,
-                PortDirection.Output,
                 domain.Info.Identifier,
                 DataType.Text),
             domain.InputPorts
                 .Select(i => new InputPortDto(
                     i.Info,
                     i.Visual,
-                    PortDirection.Input,
                     domain.Info.Identifier,
                     DataType.Text))
                 .ToList());

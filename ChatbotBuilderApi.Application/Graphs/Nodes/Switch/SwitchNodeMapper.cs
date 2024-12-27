@@ -1,5 +1,4 @@
-﻿using ChatbotBuilderApi.Application.Graphs.Ports;
-using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
+﻿using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
 using ChatbotBuilderApi.Application.Graphs.Shared.Data;
 using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
 using ChatbotBuilderApi.Domain.Graphs.Entities.Ports;
@@ -43,7 +42,6 @@ public static partial class SwitchNodeMapper
             new InputPortDto(
                 domain.InputPort.Info,
                 domain.InputPort.Visual,
-                PortDirection.Input,
                 domain.Info.Identifier,
                 DataType.Option),
             domain.Enum.Info.Identifier,

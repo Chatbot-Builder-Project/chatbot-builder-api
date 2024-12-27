@@ -1,5 +1,4 @@
-﻿using ChatbotBuilderApi.Application.Graphs.Ports;
-using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
+﻿using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
 using ChatbotBuilderApi.Application.Graphs.Ports.OutputPorts;
 using ChatbotBuilderApi.Application.Graphs.Shared.Data;
 using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
@@ -60,7 +59,6 @@ public static partial class InteractionNodeMapper
             : new InputPortDto(
                 domain.TextInputPort.Info,
                 domain.TextInputPort.Visual,
-                PortDirection.Input,
                 domain.Info.Identifier,
                 DataType.Text);
 
@@ -69,7 +67,6 @@ public static partial class InteractionNodeMapper
             : new OutputPortDto(
                 domain.TextOutputPort.Info,
                 domain.TextOutputPort.Visual,
-                PortDirection.Output,
                 domain.Info.Identifier,
                 DataType.Text);
 
@@ -78,7 +75,6 @@ public static partial class InteractionNodeMapper
             : new OutputPortDto(
                 domain.OptionOutputPort.Info,
                 domain.OptionOutputPort.Visual,
-                PortDirection.Output,
                 domain.Info.Identifier,
                 DataType.Option);
 

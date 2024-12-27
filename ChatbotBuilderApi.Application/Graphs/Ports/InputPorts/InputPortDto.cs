@@ -6,7 +6,5 @@ namespace ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
 public sealed record InputPortDto(
     InfoMeta Info,
     VisualMeta Visual,
-    PortDirection Direction,
     int NodeIdentifier,
-    DataType DataType
-) : PortDto(Info, Visual, Direction, NodeIdentifier);
+    DataType DataType);

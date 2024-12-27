@@ -8,9 +8,6 @@ public sealed class InputPortValidator : AbstractValidator<InputPortDto>
 {
     public InputPortValidator()
     {
-        RuleFor(x => x.Direction)
-            .Must(d => d == PortDirection.Input);
-
         RuleFor(x => x.Info)
             .SetValidator(new InfoMetaValidator());
 

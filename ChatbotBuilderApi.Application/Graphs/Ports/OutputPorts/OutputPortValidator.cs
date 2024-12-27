@@ -8,9 +8,6 @@ public sealed class OutputPortValidator : AbstractValidator<OutputPortDto>
 {
     public OutputPortValidator()
     {
-        RuleFor(x => x.Direction)
-            .Must(d => d == PortDirection.Output);
-
         RuleFor(x => x.Info)
             .SetValidator(new InfoMetaValidator());
 

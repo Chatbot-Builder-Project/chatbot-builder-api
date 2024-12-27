@@ -1,5 +1,4 @@
-﻿using ChatbotBuilderApi.Application.Graphs.Ports;
-using ChatbotBuilderApi.Application.Graphs.Ports.OutputPorts;
+﻿using ChatbotBuilderApi.Application.Graphs.Ports.OutputPorts;
 using ChatbotBuilderApi.Application.Graphs.Shared.Data.Extensions;
 using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
 using ChatbotBuilderApi.Domain.Graphs.Entities.Ports;
@@ -40,7 +39,6 @@ public static partial class StaticNodeMapper
             new OutputPortDto(
                 domain.OutputPort.Info,
                 domain.OutputPort.Visual,
-                PortDirection.Output,
                 domain.Info.Identifier,
                 domain.Data.ToDataType()));
     }
