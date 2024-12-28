@@ -8,12 +8,12 @@ namespace ChatbotBuilderApi.Persistence.Repositories;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly AppDbContext _context;
-    private readonly IMediator _mediator;
+    private readonly IPublisher _publisher;
 
-    public UnitOfWork(AppDbContext context, IMediator mediator)
+    public UnitOfWork(AppDbContext context, IMediator publisher)
     {
         _context = context;
-        _mediator = mediator;
+        _publisher = publisher;
     }
 
     public async Task CommitAsync(CancellationToken cancellationToken)
@@ -21,24 +21,24 @@ public class UnitOfWork : IUnitOfWork
         await using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
         try
         {
-            await _mediator.Publish(new TransactionStartNotification(), cancellationToken);
+            await _publisher.Publish(new TransactionStartNotification(), cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
             await transaction.CommitAsync(cancellationToken);
 
-            await _mediator.Publish(new TransactionSuccessNotification(), cancellationToken);
+            await _publisher.Publish(new TransactionSuccessNotification(), cancellationToken);
             await PublishDomainEventsAsync(cancellationToken);
         }
         catch (Exception)
         {
             await transaction.RollbackAsync(cancellationToken);
-            await _mediator.Publish(new TransactionFailureNotification(), cancellationToken);
+            await _publisher.Publish(new TransactionFailureNotification(), cancellationToken);
 
             throw;
         }
         finally
         {
-            await _mediator.Publish(new TransactionCleanupNotification(), cancellationToken);
+            await _publisher.Publish(new TransactionCleanupNotification(), cancellationToken);
         }
     }
 
@@ -59,7 +59,7 @@ public class UnitOfWork : IUnitOfWork
         aggregateRoots.ForEach(ee => ee.Entity.ClearDomainEvents());
 
         var tasks = domainEvents
-            .Select(domainEvent => _mediator.Publish(domainEvent, cancellationToken));
+            .Select(domainEvent => _publisher.Publish(domainEvent, cancellationToken));
 
         await Task.WhenAll(tasks);
     }
