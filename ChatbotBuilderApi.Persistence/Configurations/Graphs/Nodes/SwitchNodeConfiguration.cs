@@ -26,6 +26,9 @@ internal sealed class SwitchNodeConfiguration : IEntityTypeConfiguration<SwitchN
             .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
 
+        builder.Navigation(n => n.InputPort).AutoInclude();
+        builder.Navigation(n => n.Enum).AutoInclude();
+
         builder.Property(n => n.Bindings)
             .HasConversion(new DictionaryJsonConverter<OptionData, FlowLinkId>())
             .HasColumnType("NVARCHAR(MAX)");

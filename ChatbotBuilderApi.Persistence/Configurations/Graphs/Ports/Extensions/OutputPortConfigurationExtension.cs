@@ -34,6 +34,8 @@ internal static class OutputPortConfigurationExtension
                     j.Property(jj => jj.InputPortId).ApplyEntityIdConversion();
                     j.Property(jj => jj.OutputPortId).ApplyEntityIdConversion();
                 });
+
+        builder.Navigation(o => o.InputPorts).AutoInclude();
     }
 }
 

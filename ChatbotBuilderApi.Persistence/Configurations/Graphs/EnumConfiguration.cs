@@ -17,5 +17,7 @@ internal sealed class EnumConfiguration : IEntityTypeConfiguration<Enum>
         builder.OwnsMany(e => e.Options)
             .WithOwner()
             .HasForeignKey("EnumId");
+
+        builder.Navigation(e => e.Options).AutoInclude();
     }
 }

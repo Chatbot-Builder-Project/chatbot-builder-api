@@ -47,5 +47,11 @@ internal sealed class InteractionNodeConfiguration : IEntityTypeConfiguration<In
             .HasForeignKey<InteractionInput>("InteractionNodeId")
             .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction); // Issue
+
+        builder.Navigation(n => n.TextInputPort).AutoInclude();
+        builder.Navigation(n => n.TextOutputPort).AutoInclude();
+        builder.Navigation(n => n.OutputEnum).AutoInclude();
+        builder.Navigation(n => n.OptionOutputPort).AutoInclude();
+        builder.Navigation(n => n.InteractionInput).AutoInclude();
     }
 }

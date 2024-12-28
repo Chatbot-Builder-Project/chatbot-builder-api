@@ -24,6 +24,9 @@ internal sealed class PromptNodeConfiguration : IEntityTypeConfiguration<PromptN
             .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
 
+        builder.Navigation(n => n.OutputPort).AutoInclude();
+        builder.Navigation(n => n.InputPorts).AutoInclude();
+
         builder.Property(n => n.InjectedTemplate);
     }
 }

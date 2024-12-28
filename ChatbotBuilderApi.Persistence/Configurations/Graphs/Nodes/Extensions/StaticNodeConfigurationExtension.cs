@@ -21,5 +21,7 @@ internal static class StaticNodeConfigurationExtension
             .WithOne()
             .HasForeignKey<StaticNode<TData>>()
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.Navigation(n => n.OutputPort).AutoInclude();
     }
 }
