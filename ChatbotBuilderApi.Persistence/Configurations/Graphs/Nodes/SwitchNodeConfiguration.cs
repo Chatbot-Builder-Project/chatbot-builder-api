@@ -1,5 +1,4 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
-using ChatbotBuilderApi.Domain.Graphs.Entities.Ports;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using ChatbotBuilderApi.Persistence.Configurations.Converters;
@@ -18,13 +17,13 @@ internal sealed class SwitchNodeConfiguration : IEntityTypeConfiguration<SwitchN
 
         builder.HasOne(n => n.InputPort)
             .WithOne()
-            .HasForeignKey<InputPort<OptionData>>(i => i.NodeId)
+            .HasForeignKey<SwitchNode>()
             .IsRequired()
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(n => n.Enum)
             .WithMany()
-            .IsRequired()
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.Property(n => n.Bindings)

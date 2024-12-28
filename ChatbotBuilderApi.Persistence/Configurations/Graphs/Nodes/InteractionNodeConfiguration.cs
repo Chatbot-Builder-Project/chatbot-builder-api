@@ -1,5 +1,4 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
-using ChatbotBuilderApi.Domain.Graphs.Entities.Ports;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Interactions;
 using ChatbotBuilderApi.Persistence.Configurations.Converters;
@@ -17,21 +16,22 @@ internal sealed class InteractionNodeConfiguration : IEntityTypeConfiguration<In
 
         builder.HasOne(n => n.TextInputPort)
             .WithOne()
-            .HasForeignKey<InputPort<TextData>>(p => p.NodeId)
+            .HasForeignKey<InteractionNode>()
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(n => n.TextOutputPort)
             .WithOne()
-            .HasForeignKey<OutputPort<TextData>>(p => p.NodeId)
+            .HasForeignKey<InteractionNode>()
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(n => n.OutputEnum)
             .WithMany()
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(n => n.OptionOutputPort)
             .WithOne()
-            .HasForeignKey<OutputPort<OptionData>>(p => p.NodeId)
+            .HasForeignKey<InteractionNode>()
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.Property(n => n.OutputOptionMetas)

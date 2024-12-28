@@ -1,6 +1,4 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes.Prompt;
-using ChatbotBuilderApi.Domain.Graphs.Entities.Ports;
-using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -17,14 +15,13 @@ internal sealed class PromptNodeConfiguration : IEntityTypeConfiguration<PromptN
 
         builder.HasOne(n => n.OutputPort)
             .WithOne()
-            .HasForeignKey<OutputPort<TextData>>(p => p.NodeId)
+            .HasForeignKey<PromptNode>()
             .IsRequired()
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(n => n.InputPorts)
             .WithOne()
-            .HasForeignKey(p => p.NodeId)
-            .IsRequired()
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.Property(n => n.InjectedTemplate);
