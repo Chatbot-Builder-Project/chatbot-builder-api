@@ -31,5 +31,8 @@ public static class PersistenceServicesExtension
         services.AddScoped<IChatbotRepository, ChatbotRepository>();
         services.AddScoped<IConversationRepository, ConversationRepository>();
         services.AddScoped<IWorkflowRepository, WorkflowRepository>();
+
+        services.AddMediatR(config =>
+            config.RegisterServicesFromAssembly(AssemblyReference.Assembly));
     }
 }

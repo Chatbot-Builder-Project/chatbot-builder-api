@@ -26,9 +26,8 @@ internal sealed class WorkflowConfiguration : IEntityTypeConfiguration<Workflow>
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(w => w.Graph)
-            .WithOne()
-            .HasForeignKey<Graph>("WorkflowId")
+            .WithMany()
             .IsRequired(false)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

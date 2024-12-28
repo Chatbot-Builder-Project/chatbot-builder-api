@@ -32,10 +32,9 @@ internal sealed class ChatbotConfiguration : IEntityTypeConfiguration<Chatbot>
         });
 
         builder.HasOne(c => c.Graph)
-            .WithOne()
-            .HasForeignKey<Graph>("ChatbotId")
+            .WithMany()
             .IsRequired(false)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.Property(c => c.IsPublic).IsRequired();
     }

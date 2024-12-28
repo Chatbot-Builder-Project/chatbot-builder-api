@@ -17,12 +17,7 @@ public sealed class WorkflowRepository : CudRepository<Workflow>, IWorkflowRepos
 
     public new void Update(Workflow workflow)
     {
-        var existingWorkflow = Context.Set<Workflow>()
-            .Include(w => w.Graph)
-            .First(w => w.Id == workflow.Id);
-
-        Context.Set<Graph>().Remove(existingWorkflow.Graph);
-
+        Context.Set<Graph>().Add(workflow.Graph);
         base.Update(workflow);
     }
 

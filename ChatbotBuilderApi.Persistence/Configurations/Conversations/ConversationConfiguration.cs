@@ -26,10 +26,10 @@ internal sealed class ConversationConfiguration : IEntityTypeConfiguration<Conve
         builder.Property(c => c.ChatbotId).ApplyEntityIdConversion();
 
         builder.HasOne<Graph>()
-            .WithOne()
-            .HasForeignKey<Graph>("ConversationId")
+            .WithMany()
+            .HasForeignKey(c => c.GraphId)
             .IsRequired(false)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         // Owned entities cannot have navigation properties
         // So we are using HasMany instead of OwnsMany
