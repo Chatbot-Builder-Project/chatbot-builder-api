@@ -3,7 +3,6 @@ using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using ChatbotBuilderApi.Persistence.Configurations.Converters;
 using ChatbotBuilderApi.Persistence.Configurations.Graphs.Extensions;
-using ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,8 +12,6 @@ internal sealed class SwitchNodeConfiguration : IEntityTypeConfiguration<SwitchN
 {
     public void Configure(EntityTypeBuilder<SwitchNode> builder)
     {
-        builder.ConfigureNodeBase();
-
         builder.HasOne(n => n.InputPort)
             .WithOne()
             .HasForeignKey<SwitchNode>()

@@ -4,6 +4,7 @@ using ChatbotBuilderApi.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChatbotBuilderApi.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241228160045_RemoveStartAndCurrentNodeGraphRelations")]
+    partial class RemoveStartAndCurrentNodeGraphRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,26 +149,16 @@ namespace ChatbotBuilderApi.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("DataType")
-                        .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("nvarchar(21)");
-
                     b.Property<Guid?>("GraphId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("NodeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GraphId");
 
-                    b.ToTable("Port<InputPortId>");
+                    b.ToTable((string)null);
 
-                    b.HasDiscriminator<string>("DataType").HasValue("Port<InputPortId>");
-
-                    b.UseTphMappingStrategy();
+                    b.UseTpcMappingStrategy();
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Abstract.Port<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids.OutputPortId>", b =>
@@ -173,26 +166,16 @@ namespace ChatbotBuilderApi.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("DataType")
-                        .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("nvarchar(21)");
-
                     b.Property<Guid?>("GraphId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("NodeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GraphId");
 
-                    b.ToTable("Port<OutputPortId>");
+                    b.ToTable((string)null);
 
-                    b.HasDiscriminator<string>("DataType").HasValue("Port<OutputPortId>");
-
-                    b.UseTphMappingStrategy();
+                    b.UseTpcMappingStrategy();
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Enum", b =>
@@ -752,47 +735,65 @@ namespace ChatbotBuilderApi.Persistence.Migrations
                 {
                     b.HasBaseType("ChatbotBuilderApi.Domain.Graphs.Abstract.Port<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids.InputPortId>");
 
-                    b.HasDiscriminator().HasValue("ImageData");
+                    b.Property<Guid>("NodeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.ToTable("InputPort<ImageData>");
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Ports.InputPort<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data.OptionData>", b =>
                 {
                     b.HasBaseType("ChatbotBuilderApi.Domain.Graphs.Abstract.Port<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids.InputPortId>");
 
-                    b.HasDiscriminator().HasValue("OptionData");
+                    b.Property<Guid>("NodeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.ToTable("InputPort<OptionData>");
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Ports.InputPort<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data.TextData>", b =>
                 {
                     b.HasBaseType("ChatbotBuilderApi.Domain.Graphs.Abstract.Port<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids.InputPortId>");
 
+                    b.Property<Guid>("NodeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("PromptNodeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("PromptNodeId");
 
-                    b.HasDiscriminator().HasValue("TextData");
+                    b.ToTable("InputPort<TextData>");
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Ports.OutputPort<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data.ImageData>", b =>
                 {
                     b.HasBaseType("ChatbotBuilderApi.Domain.Graphs.Abstract.Port<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids.OutputPortId>");
 
-                    b.HasDiscriminator().HasValue("ImageData");
+                    b.Property<Guid>("NodeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.ToTable("OutputPort<ImageData>");
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Ports.OutputPort<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data.OptionData>", b =>
                 {
                     b.HasBaseType("ChatbotBuilderApi.Domain.Graphs.Abstract.Port<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids.OutputPortId>");
 
-                    b.HasDiscriminator().HasValue("OptionData");
+                    b.Property<Guid>("NodeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.ToTable("OutputPort<OptionData>");
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Ports.OutputPort<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data.TextData>", b =>
                 {
                     b.HasBaseType("ChatbotBuilderApi.Domain.Graphs.Abstract.Port<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids.OutputPortId>");
 
-                    b.HasDiscriminator().HasValue("TextData");
+                    b.Property<Guid>("NodeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.ToTable("OutputPort<TextData>");
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Chatbots.Chatbot", b =>
@@ -912,51 +913,6 @@ namespace ChatbotBuilderApi.Persistence.Migrations
                         .WithMany("InputPorts")
                         .HasForeignKey("GraphId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.InfoMeta", "Info", b1 =>
-                        {
-                            b1.Property<Guid>("PortId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Identifier")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("PortId");
-
-                            b1.ToTable("Port<InputPortId>");
-
-                            b1.WithOwner()
-                                .HasForeignKey("PortId");
-                        });
-
-                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.VisualMeta", "Visual", b1 =>
-                        {
-                            b1.Property<Guid>("PortId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<float>("X")
-                                .HasColumnType("real");
-
-                            b1.Property<float>("Y")
-                                .HasColumnType("real");
-
-                            b1.HasKey("PortId");
-
-                            b1.ToTable("Port<InputPortId>");
-
-                            b1.WithOwner()
-                                .HasForeignKey("PortId");
-                        });
-
-                    b.Navigation("Info")
-                        .IsRequired();
-
-                    b.Navigation("Visual")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Abstract.Port<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids.OutputPortId>", b =>
@@ -965,51 +921,6 @@ namespace ChatbotBuilderApi.Persistence.Migrations
                         .WithMany("OutputPorts")
                         .HasForeignKey("GraphId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.InfoMeta", "Info", b1 =>
-                        {
-                            b1.Property<Guid>("PortId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Identifier")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("PortId");
-
-                            b1.ToTable("Port<OutputPortId>");
-
-                            b1.WithOwner()
-                                .HasForeignKey("PortId");
-                        });
-
-                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.VisualMeta", "Visual", b1 =>
-                        {
-                            b1.Property<Guid>("PortId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<float>("X")
-                                .HasColumnType("real");
-
-                            b1.Property<float>("Y")
-                                .HasColumnType("real");
-
-                            b1.HasKey("PortId");
-
-                            b1.ToTable("Port<OutputPortId>");
-
-                            b1.WithOwner()
-                                .HasForeignKey("PortId");
-                        });
-
-                    b.Navigation("Info")
-                        .IsRequired();
-
-                    b.Navigation("Visual")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Enum", b =>
@@ -1570,13 +1481,58 @@ namespace ChatbotBuilderApi.Persistence.Migrations
 
                             b1.HasKey("InputPortId");
 
-                            b1.ToTable("Port<InputPortId>");
+                            b1.ToTable("InputPort<ImageData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("InputPortId");
+                        });
+
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.InfoMeta", "Info", b1 =>
+                        {
+                            b1.Property<Guid>("InputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Identifier")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("InputPortId");
+
+                            b1.ToTable("InputPort<ImageData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("InputPortId");
+                        });
+
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.VisualMeta", "Visual", b1 =>
+                        {
+                            b1.Property<Guid>("InputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<float>("X")
+                                .HasColumnType("real");
+
+                            b1.Property<float>("Y")
+                                .HasColumnType("real");
+
+                            b1.HasKey("InputPortId");
+
+                            b1.ToTable("InputPort<ImageData>");
 
                             b1.WithOwner()
                                 .HasForeignKey("InputPortId");
                         });
 
                     b.Navigation("Data");
+
+                    b.Navigation("Info")
+                        .IsRequired();
+
+                    b.Navigation("Visual")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Ports.InputPort<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data.OptionData>", b =>
@@ -1592,13 +1548,58 @@ namespace ChatbotBuilderApi.Persistence.Migrations
 
                             b1.HasKey("InputPortId");
 
-                            b1.ToTable("Port<InputPortId>");
+                            b1.ToTable("InputPort<OptionData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("InputPortId");
+                        });
+
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.InfoMeta", "Info", b1 =>
+                        {
+                            b1.Property<Guid>("InputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Identifier")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("InputPortId");
+
+                            b1.ToTable("InputPort<OptionData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("InputPortId");
+                        });
+
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.VisualMeta", "Visual", b1 =>
+                        {
+                            b1.Property<Guid>("InputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<float>("X")
+                                .HasColumnType("real");
+
+                            b1.Property<float>("Y")
+                                .HasColumnType("real");
+
+                            b1.HasKey("InputPortId");
+
+                            b1.ToTable("InputPort<OptionData>");
 
                             b1.WithOwner()
                                 .HasForeignKey("InputPortId");
                         });
 
                     b.Navigation("Data");
+
+                    b.Navigation("Info")
+                        .IsRequired();
+
+                    b.Navigation("Visual")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Ports.InputPort<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data.TextData>", b =>
@@ -1619,13 +1620,202 @@ namespace ChatbotBuilderApi.Persistence.Migrations
 
                             b1.HasKey("InputPortId");
 
-                            b1.ToTable("Port<InputPortId>");
+                            b1.ToTable("InputPort<TextData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("InputPortId");
+                        });
+
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.InfoMeta", "Info", b1 =>
+                        {
+                            b1.Property<Guid>("InputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Identifier")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("InputPortId");
+
+                            b1.ToTable("InputPort<TextData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("InputPortId");
+                        });
+
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.VisualMeta", "Visual", b1 =>
+                        {
+                            b1.Property<Guid>("InputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<float>("X")
+                                .HasColumnType("real");
+
+                            b1.Property<float>("Y")
+                                .HasColumnType("real");
+
+                            b1.HasKey("InputPortId");
+
+                            b1.ToTable("InputPort<TextData>");
 
                             b1.WithOwner()
                                 .HasForeignKey("InputPortId");
                         });
 
                     b.Navigation("Data");
+
+                    b.Navigation("Info")
+                        .IsRequired();
+
+                    b.Navigation("Visual")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Ports.OutputPort<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data.ImageData>", b =>
+                {
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.InfoMeta", "Info", b1 =>
+                        {
+                            b1.Property<Guid>("OutputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Identifier")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("OutputPortId");
+
+                            b1.ToTable("OutputPort<ImageData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OutputPortId");
+                        });
+
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.VisualMeta", "Visual", b1 =>
+                        {
+                            b1.Property<Guid>("OutputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<float>("X")
+                                .HasColumnType("real");
+
+                            b1.Property<float>("Y")
+                                .HasColumnType("real");
+
+                            b1.HasKey("OutputPortId");
+
+                            b1.ToTable("OutputPort<ImageData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OutputPortId");
+                        });
+
+                    b.Navigation("Info")
+                        .IsRequired();
+
+                    b.Navigation("Visual")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Ports.OutputPort<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data.OptionData>", b =>
+                {
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.InfoMeta", "Info", b1 =>
+                        {
+                            b1.Property<Guid>("OutputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Identifier")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("OutputPortId");
+
+                            b1.ToTable("OutputPort<OptionData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OutputPortId");
+                        });
+
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.VisualMeta", "Visual", b1 =>
+                        {
+                            b1.Property<Guid>("OutputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<float>("X")
+                                .HasColumnType("real");
+
+                            b1.Property<float>("Y")
+                                .HasColumnType("real");
+
+                            b1.HasKey("OutputPortId");
+
+                            b1.ToTable("OutputPort<OptionData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OutputPortId");
+                        });
+
+                    b.Navigation("Info")
+                        .IsRequired();
+
+                    b.Navigation("Visual")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ChatbotBuilderApi.Domain.Graphs.Entities.Ports.OutputPort<ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data.TextData>", b =>
+                {
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.InfoMeta", "Info", b1 =>
+                        {
+                            b1.Property<Guid>("OutputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Identifier")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("OutputPortId");
+
+                            b1.ToTable("OutputPort<TextData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OutputPortId");
+                        });
+
+                    b.OwnsOne("ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta.VisualMeta", "Visual", b1 =>
+                        {
+                            b1.Property<Guid>("OutputPortId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<float>("X")
+                                .HasColumnType("real");
+
+                            b1.Property<float>("Y")
+                                .HasColumnType("real");
+
+                            b1.HasKey("OutputPortId");
+
+                            b1.ToTable("OutputPort<TextData>");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OutputPortId");
+                        });
+
+                    b.Navigation("Info")
+                        .IsRequired();
+
+                    b.Navigation("Visual")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ChatbotBuilderApi.Domain.Chatbots.Chatbot", b =>

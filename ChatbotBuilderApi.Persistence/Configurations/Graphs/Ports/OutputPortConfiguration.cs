@@ -13,7 +13,12 @@ internal sealed class OutputPortConfiguration : IEntityTypeConfiguration<Port<Ou
 {
     public void Configure(EntityTypeBuilder<Port<OutputPortId>> builder)
     {
-        builder.UseTpcMappingStrategy();
+        builder.ConfigurePortBase<Port<OutputPortId>, OutputPortId>();
+
+        builder.HasDiscriminator<string>("DataType")
+            .HasValue<OutputPort<TextData>>(nameof(TextData))
+            .HasValue<OutputPort<OptionData>>(nameof(OptionData))
+            .HasValue<OutputPort<ImageData>>(nameof(ImageData));
 
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id).ApplyEntityIdConversion();

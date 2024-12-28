@@ -1,5 +1,4 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
-using ChatbotBuilderApi.Domain.Graphs.Entities.Ports;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,8 +12,6 @@ internal static class StaticNodeConfigurationExtension
         Action<OwnedNavigationBuilder<StaticNode<TData>, TData>> configureData)
         where TData : Data
     {
-        builder.ConfigureNodeBase();
-
         builder.OwnsOne(n => n.Data, configureData);
 
         builder.HasOne(n => n.OutputPort)

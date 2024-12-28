@@ -14,16 +14,7 @@ internal sealed class GraphConfiguration : IEntityTypeConfiguration<Graph>
         builder.Property(g => g.Id).ApplyEntityIdConversion();
 
         builder.Property(g => g.StartNodeId).ApplyEntityIdConversion();
-        builder.HasOne<Node>()
-            .WithOne()
-            .HasForeignKey<Graph>(g => g.StartNodeId)
-            .OnDelete(DeleteBehavior.NoAction);
-
         builder.Property(g => g.CurrentNodeId).ApplyEntityIdConversion();
-        builder.HasOne<Node>()
-            .WithOne()
-            .HasForeignKey<Graph>(g => g.CurrentNodeId)
-            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(g => g.Enums)
             .WithOne()

@@ -2,7 +2,6 @@
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Interactions;
 using ChatbotBuilderApi.Persistence.Configurations.Converters;
-using ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,8 +11,6 @@ internal sealed class InteractionNodeConfiguration : IEntityTypeConfiguration<In
 {
     public void Configure(EntityTypeBuilder<InteractionNode> builder)
     {
-        builder.ConfigureNodeBase();
-
         builder.HasOne(n => n.TextInputPort)
             .WithOne()
             .HasForeignKey<InteractionNode>()

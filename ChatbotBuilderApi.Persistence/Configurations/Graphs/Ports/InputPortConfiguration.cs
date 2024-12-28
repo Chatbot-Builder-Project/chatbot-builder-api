@@ -14,7 +14,12 @@ internal sealed class InputPortConfiguration : IEntityTypeConfiguration<Port<Inp
 {
     public void Configure(EntityTypeBuilder<Port<InputPortId>> builder)
     {
-        builder.UseTpcMappingStrategy();
+        builder.ConfigurePortBase<Port<InputPortId>, InputPortId>();
+
+        builder.HasDiscriminator<string>("DataType")
+            .HasValue<InputPort<TextData>>(nameof(TextData))
+            .HasValue<InputPort<OptionData>>(nameof(OptionData))
+            .HasValue<InputPort<ImageData>>(nameof(ImageData));
 
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id).ApplyEntityIdConversion();
@@ -25,7 +30,6 @@ internal sealed class TextInputPortConfiguration : IEntityTypeConfiguration<Inpu
 {
     public void Configure(EntityTypeBuilder<InputPort<TextData>> builder)
     {
-        builder.ConfigurePortBase<InputPort<TextData>, InputPortId>();
         builder.OwnsOne(p => p.Data, d => d.ConfigureTextData());
     }
 }
@@ -34,7 +38,6 @@ internal sealed class OptionInputPortConfiguration : IEntityTypeConfiguration<In
 {
     public void Configure(EntityTypeBuilder<InputPort<OptionData>> builder)
     {
-        builder.ConfigurePortBase<InputPort<OptionData>, InputPortId>();
         builder.OwnsOne(p => p.Data, d => d.ConfigureOptionData());
     }
 }
@@ -43,7 +46,6 @@ internal sealed class ImageInputPortConfiguration : IEntityTypeConfiguration<Inp
 {
     public void Configure(EntityTypeBuilder<InputPort<ImageData>> builder)
     {
-        builder.ConfigurePortBase<InputPort<ImageData>, InputPortId>();
         builder.OwnsOne(p => p.Data, d => d.ConfigureImageData());
     }
 }

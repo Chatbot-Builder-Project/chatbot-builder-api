@@ -11,7 +11,7 @@ internal sealed class TextStaticNodeConfiguration : IEntityTypeConfiguration<Sta
 {
     public void Configure(EntityTypeBuilder<StaticNode<TextData>> builder)
     {
-        builder.ConfigureStaticNode(d => DataConfigurationExtensions.ConfigureTextData<StaticNode<TextData>>(d));
+        builder.ConfigureStaticNode(d => d.ConfigureTextData());
     }
 }
 

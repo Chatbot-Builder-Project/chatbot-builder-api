@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Domain.Graphs.Entities.Ports;
+using ChatbotBuilderApi.Domain.Graphs.Entities.Ports;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using ChatbotBuilderApi.Persistence.Configurations.Extensions;
@@ -14,8 +14,6 @@ internal static class OutputPortConfigurationExtension
         string joinTableName)
         where TData : Data
     {
-        builder.ConfigurePortBase<OutputPort<TData>, OutputPortId>();
-
         builder.HasMany(o => o.InputPorts)
             .WithMany()
             .UsingEntity<OutputInputPortJoin>(
