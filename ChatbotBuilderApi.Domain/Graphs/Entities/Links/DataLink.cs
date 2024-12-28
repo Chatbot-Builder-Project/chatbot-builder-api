@@ -6,19 +6,19 @@ namespace ChatbotBuilderApi.Domain.Graphs.Entities.Links;
 
 public sealed class DataLink : Link<DataLinkId>
 {
-    public InputPortId InputPortId { get; } = null!;
-    public OutputPortId OutputPortId { get; } = null!;
+    public InputPortId TargetPortId { get; } = null!;
+    public OutputPortId SourcePortId { get; } = null!;
 
     private DataLink(
         DataLinkId id,
         InfoMeta info,
         VisualMeta visual,
-        InputPortId inputPortId,
-        OutputPortId outputPortId)
+        InputPortId targetPortId,
+        OutputPortId sourcePortId)
         : base(id, info, visual)
     {
-        InputPortId = inputPortId;
-        OutputPortId = outputPortId;
+        TargetPortId = targetPortId;
+        SourcePortId = sourcePortId;
     }
 
     /// <inheritdoc/>
@@ -30,9 +30,9 @@ public sealed class DataLink : Link<DataLinkId>
         DataLinkId id,
         InfoMeta info,
         VisualMeta visual,
-        InputPortId inputPortId,
-        OutputPortId outputPortId)
+        InputPortId targetPortId,
+        OutputPortId sourcePortId)
     {
-        return new DataLink(id, info, visual, inputPortId, outputPortId);
+        return new DataLink(id, info, visual, targetPortId, sourcePortId);
     }
 }

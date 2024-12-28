@@ -6,19 +6,19 @@ namespace ChatbotBuilderApi.Domain.Graphs.Entities.Links;
 
 public sealed class FlowLink : Link<FlowLinkId>
 {
-    public NodeId InputNodeId { get; } = null!;
-    public NodeId OutputNodeId { get; } = null!;
+    public NodeId SourceNodeId { get; } = null!;
+    public NodeId TargetNodeId { get; } = null!;
 
     private FlowLink(
         FlowLinkId id,
         InfoMeta info,
         VisualMeta visual,
-        NodeId inputNodeId,
-        NodeId outputNodeId)
+        NodeId sourceNodeId,
+        NodeId targetNodeId)
         : base(id, info, visual)
     {
-        InputNodeId = inputNodeId;
-        OutputNodeId = outputNodeId;
+        SourceNodeId = sourceNodeId;
+        TargetNodeId = targetNodeId;
     }
 
     /// <inheritdoc/>
@@ -30,9 +30,9 @@ public sealed class FlowLink : Link<FlowLinkId>
         FlowLinkId id,
         InfoMeta info,
         VisualMeta visual,
-        NodeId inputNodeId,
-        NodeId outputNodeId)
+        NodeId sourceNodeId,
+        NodeId targetNodeId)
     {
-        return new FlowLink(id, info, visual, inputNodeId, outputNodeId);
+        return new FlowLink(id, info, visual, sourceNodeId, targetNodeId);
     }
 }

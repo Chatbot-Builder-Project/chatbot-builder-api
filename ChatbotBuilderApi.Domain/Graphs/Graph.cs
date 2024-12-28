@@ -4,7 +4,6 @@ using ChatbotBuilderApi.Domain.Graphs.Abstract;
 using ChatbotBuilderApi.Domain.Graphs.Abstract.Behaviors;
 using ChatbotBuilderApi.Domain.Graphs.Entities.Links;
 using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
-using ChatbotBuilderApi.Domain.Graphs.Entities.Ports;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using Enum = ChatbotBuilderApi.Domain.Graphs.Entities.Enum;
 
@@ -267,12 +266,12 @@ public sealed class Graph : Entity<GraphId>
     /// </remarks>
     private void AddDataLink(DataLink link)
     {
-        if (!InputPortsMap.TryGetValue(link.InputPortId, out var inputPort))
+        if (!InputPortsMap.TryGetValue(link.TargetPortId, out var inputPort))
         {
             throw new DomainException(GraphsDomainErrors.Graph.InputPortDoesNotExist);
         }
 
-        if (!OutputPortsMap.TryGetValue(link.OutputPortId, out var outputPort))
+        if (!OutputPortsMap.TryGetValue(link.SourcePortId, out var outputPort))
         {
             throw new DomainException(GraphsDomainErrors.Graph.OutputPortDoesNotExist);
         }
@@ -300,7 +299,7 @@ public sealed class Graph : Entity<GraphId>
     private void EnsureNoUnconnectedInputPorts()
     {
         var connectedInputPortIds = DataLinks
-            .Select(link => link.InputPortId)
+            .Select(link => link.TargetPortId)
             .ToHashSet();
 
         if (InputPorts.Any(port => !connectedInputPortIds.Contains(port.Id)))
@@ -314,12 +313,12 @@ public sealed class Graph : Entity<GraphId>
     /// </remarks>
     private void AddFlowLink(FlowLink link, IReadOnlyDictionary<Node, HashSet<FlowLinkId>> switchNodeFlowLinks)
     {
-        if (!NodesMap.TryGetValue(link.InputNodeId, out var inputNode))
+        if (!NodesMap.TryGetValue(link.SourceNodeId, out var inputNode))
         {
             throw new DomainException(GraphsDomainErrors.Graph.NodeDoesNotExist);
         }
 
-        if (!NodesMap.TryGetValue(link.OutputNodeId, out var outputNode))
+        if (!NodesMap.TryGetValue(link.TargetNodeId, out var outputNode))
         {
             throw new DomainException(GraphsDomainErrors.Graph.NodeDoesNotExist);
         }

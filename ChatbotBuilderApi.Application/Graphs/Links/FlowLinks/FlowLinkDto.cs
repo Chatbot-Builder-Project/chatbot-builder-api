@@ -5,6 +5,6 @@ namespace ChatbotBuilderApi.Application.Graphs.Links.FlowLinks;
 public sealed record FlowLinkDto(
     InfoMeta Info,
     VisualMeta Visual,
-    int InputNodeIdentifier,
-    int OutputNodeIdentifier
+    int SourceNodeIdentifier,
+    int TargetNodeIdentifier
 ) : LinkDto(Info, Visual);

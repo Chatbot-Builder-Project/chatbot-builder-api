@@ -5,6 +5,6 @@ namespace ChatbotBuilderApi.Application.Graphs.Links.DataLinks;
 public sealed record DataLinkDto(
     InfoMeta Info,
     VisualMeta Visual,
-    int InputPortIdentifier,
-    int OutputPortIdentifier
-) : LinkDto(Info, Visual);
+    int SourcePortIdentifier,
+    int TargetPortIdentifier)
+    : LinkDto(Info, Visual);

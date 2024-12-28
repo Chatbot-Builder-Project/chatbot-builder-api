@@ -100,8 +100,8 @@ public static partial class GraphMapper
                 new DataLinkId(Guid.NewGuid()),
                 dl.Info,
                 dl.Visual,
-                inputPortIdentifierById[dl.InputPortIdentifier],
-                outputPortIdentifierById[dl.OutputPortIdentifier]))
+                inputPortIdentifierById[dl.TargetPortIdentifier],
+                outputPortIdentifierById[dl.SourcePortIdentifier]))
             .ToList();
 
         var nodeIdByIdentifier = nodes.ToDictionary(
@@ -113,8 +113,8 @@ public static partial class GraphMapper
                 flowLinkIdByIdentifier[fl.Info.Identifier],
                 fl.Info,
                 fl.Visual,
-                nodeIdByIdentifier[fl.InputNodeIdentifier],
-                nodeIdByIdentifier[fl.OutputNodeIdentifier]))
+                nodeIdByIdentifier[fl.SourceNodeIdentifier],
+                nodeIdByIdentifier[fl.TargetNodeIdentifier]))
             .ToList();
 
         return Graph.Create(
@@ -172,16 +172,16 @@ public static partial class GraphMapper
             .Select(dl => new DataLinkDto(
                 dl.Info,
                 dl.Visual,
-                inputPortIdentifierById[dl.InputPortId],
-                outputPortIdentifierById[dl.OutputPortId]))
+                outputPortIdentifierById[dl.SourcePortId],
+                inputPortIdentifierById[dl.TargetPortId]))
             .ToList();
 
         var flowLinks = domain.FlowLinks
             .Select(fl => new FlowLinkDto(
                 fl.Info,
                 fl.Visual,
-                nodeIdentifierById[fl.InputNodeId],
-                nodeIdentifierById[fl.OutputNodeId]))
+                nodeIdentifierById[fl.SourceNodeId],
+                nodeIdentifierById[fl.TargetNodeId]))
             .ToList();
 
         return new GraphDto(

@@ -16,7 +16,7 @@ internal sealed class DataLinkConfiguration : IEntityTypeConfiguration<DataLink>
         builder.HasKey(l => l.Id);
         builder.Property(l => l.Id).ApplyEntityIdConversion();
 
-        builder.Property(l => l.InputPortId).ApplyEntityIdConversion();
-        builder.Property(l => l.OutputPortId).ApplyEntityIdConversion();
+        builder.Property(l => l.TargetPortId).ApplyEntityIdConversion();
+        builder.Property(l => l.SourcePortId).ApplyEntityIdConversion();
     }
 }

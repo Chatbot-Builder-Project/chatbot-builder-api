@@ -18,8 +18,8 @@ public sealed class GraphTraversalService : IGraphTraversalService
             _graph = value;
             foreach (var flowLink in _graph.FlowLinks)
             {
-                _nodeOutputFlowLinks.TryAdd(flowLink.InputNodeId, []);
-                _nodeOutputFlowLinks[flowLink.InputNodeId].Add(flowLink.Id);
+                _sourceNodeFlowLinks.TryAdd(flowLink.SourceNodeId, []);
+                _sourceNodeFlowLinks[flowLink.SourceNodeId].Add(flowLink.Id);
             }
         }
     }
@@ -27,7 +27,7 @@ public sealed class GraphTraversalService : IGraphTraversalService
     /// <remarks>
     /// For O(1) successor lookup
     /// </remarks>
-    private readonly Dictionary<NodeId, HashSet<FlowLinkId>> _nodeOutputFlowLinks = [];
+    private readonly Dictionary<NodeId, HashSet<FlowLinkId>> _sourceNodeFlowLinks = [];
 
     /// <summary>
     /// Runs the lifecycle steps of the node, which includes:
@@ -65,10 +65,10 @@ public sealed class GraphTraversalService : IGraphTraversalService
         if (node is ISwitchNode switchNode)
         {
             var flowLinkId = switchNode.GetSelectedFlowLinkId();
-            return Graph.FlowLinksMap[flowLinkId].OutputNodeId;
+            return Graph.FlowLinksMap[flowLinkId].TargetNodeId;
         }
 
-        if (!_nodeOutputFlowLinks.TryGetValue(nodeId, out var flowLinkIds))
+        if (!_sourceNodeFlowLinks.TryGetValue(nodeId, out var flowLinkIds))
         {
             throw new DomainException(GraphsDomainErrors.Graph.NodeDoesNotExist);
         }
@@ -78,7 +78,7 @@ public sealed class GraphTraversalService : IGraphTraversalService
             throw new DomainException(GraphsDomainErrors.Graph.NonSwitchNodeHasMultipleOutputFlowLinks);
         }
 
-        return Graph.FlowLinksMap[flowLinkIds.First()].OutputNodeId;
+        return Graph.FlowLinksMap[flowLinkIds.First()].TargetNodeId;
     }
 
     /// <summary>

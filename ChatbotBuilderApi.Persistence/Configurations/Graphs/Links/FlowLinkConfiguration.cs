@@ -16,7 +16,7 @@ internal sealed class FlowLinkConfiguration : IEntityTypeConfiguration<FlowLink>
         builder.HasKey(l => l.Id);
         builder.Property(l => l.Id).ApplyEntityIdConversion();
 
-        builder.Property(l => l.InputNodeId).ApplyEntityIdConversion();
-        builder.Property(l => l.OutputNodeId).ApplyEntityIdConversion();
+        builder.Property(l => l.SourceNodeId).ApplyEntityIdConversion();
+        builder.Property(l => l.TargetNodeId).ApplyEntityIdConversion();
     }
 }

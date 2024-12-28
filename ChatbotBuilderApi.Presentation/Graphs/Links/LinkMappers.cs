@@ -13,8 +13,8 @@ public static partial class LinkMappers
         return new DataLinkModel(
             dto.Info.ToModel(),
             dto.Visual.ToModel(),
-            dto.InputPortIdentifier,
-            dto.OutputPortIdentifier);
+            dto.SourcePortIdentifier,
+            dto.TargetPortIdentifier);
     }
 
     public static DataLinkDto ToDto(this DataLinkModel model)
@@ -22,8 +22,8 @@ public static partial class LinkMappers
         return new DataLinkDto(
             model.Info.ToDomain(),
             model.Visual.ToDomain(),
-            model.InputPortId,
-            model.OutputPortId);
+            model.SourcePortId,
+            model.TargetPortId);
     }
 
     public static FlowLinkModel ToModel(this FlowLinkDto dto)
@@ -31,8 +31,8 @@ public static partial class LinkMappers
         return new FlowLinkModel(
             dto.Info.ToModel(),
             dto.Visual.ToModel(),
-            dto.InputNodeIdentifier,
-            dto.OutputNodeIdentifier);
+            dto.SourceNodeIdentifier,
+            dto.TargetNodeIdentifier);
     }
 
     public static FlowLinkDto ToDto(this FlowLinkModel model)
@@ -40,7 +40,7 @@ public static partial class LinkMappers
         return new FlowLinkDto(
             model.Info.ToDomain(),
             model.Visual.ToDomain(),
-            model.InputNodeId,
-            model.OutputNodeId);
+            model.SourceNodeId,
+            model.TargetNodeId);
     }
 }
