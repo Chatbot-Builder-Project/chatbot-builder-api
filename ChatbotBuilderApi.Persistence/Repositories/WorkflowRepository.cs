@@ -39,7 +39,9 @@ public sealed class WorkflowRepository : CudRepository<Workflow>, IWorkflowRepos
 
         if (includeGraph)
         {
-            queryable = queryable.Include(w => w.Graph);
+            queryable = queryable
+                .AsSplitQuery()
+                .Include(w => w.Graph);
         }
 
         return await queryable.FirstOrDefaultAsync(cancellationToken);

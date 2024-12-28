@@ -38,6 +38,7 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
         CancellationToken cancellationToken)
     {
         return await Context.Set<Chatbot>()
+            .AsSplitQuery()
             .Include(c => c.Graph)
             .Where(c =>
                 c.Id == chatbotId &&
@@ -114,6 +115,7 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
         CancellationToken cancellationToken)
     {
         return await Context.Set<Graph>()
+            .AsSplitQuery()
             .Where(g =>
                 g.Id == Context.Set<Conversation>()
                     .First(c => c.Id == conversationId)
