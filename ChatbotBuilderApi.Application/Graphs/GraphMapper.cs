@@ -6,6 +6,8 @@ using ChatbotBuilderApi.Application.Graphs.Nodes.Interaction;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Prompt;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Static;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Switch;
+using ChatbotBuilderApi.Application.Graphs.Shared.Data;
+using ChatbotBuilderApi.Application.Graphs.Shared.Data.Extensions;
 using ChatbotBuilderApi.Domain.Graphs;
 using ChatbotBuilderApi.Domain.Graphs.Abstract;
 using ChatbotBuilderApi.Domain.Graphs.Abstract.Behaviors;
@@ -39,15 +41,18 @@ public static partial class GraphMapper
                 switch (node)
                 {
                     case InteractionNodeDto interactionNode:
-                        return interactionNode.ToDomain(enumByIdentifier[node.Info.Identifier]);
+                        return interactionNode.ToDomain(enumByIdentifier.GetValueOrDefault(node.Info.Identifier));
 
                     case StaticNodeDto staticNode:
                     {
-                        var dataType = staticNode.Data.GetType();
-                        var toDomainMethod = typeof(StaticNodeMapper).GetMethod(nameof(ToDomain))
-                                             ?? throw new InvalidOperationException("ToDomain method not found.");
-                        var genericMethod = toDomainMethod.MakeGenericMethod(dataType);
-                        return (Node)genericMethod.Invoke(null, [dto])!;
+                        var dataType = staticNode.Data.ToDataType();
+                        return dataType switch
+                        {
+                            DataType.Text => staticNode.ToDomain<TextData>() as Node,
+                            DataType.Option => staticNode.ToDomain<OptionData>(),
+                            DataType.Image => staticNode.ToDomain<ImageData>(),
+                            _ => throw new ArgumentOutOfRangeException(nameof(dataType))
+                        };
                     }
 
                     case PromptNodeDto promptNode:
