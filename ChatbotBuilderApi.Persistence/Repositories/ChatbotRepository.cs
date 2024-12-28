@@ -32,7 +32,9 @@ public sealed class ChatbotRepository : CudRepository<Chatbot>, IChatbotReposito
         return await Context.Set<Chatbot>()
             .Where(c =>
                 c.Id == id &&
-                EF.Property<Workflow>(c, "Workflow").OwnerId == ownerId)
+                Context.Set<Workflow>()
+                    .First(w => w.Id == c.WorkflowId)
+                    .OwnerId == ownerId)
             .FirstOrDefaultAsync(cancellationToken);
     }
 
@@ -40,7 +42,9 @@ public sealed class ChatbotRepository : CudRepository<Chatbot>, IChatbotReposito
     {
         return await Context.Set<Chatbot>()
             .Where(c => c.Id == id)
-            .Select(c => EF.Property<Workflow>(c, "Workflow").OwnerId)
+            .Select(c => Context.Set<Workflow>()
+                .First(w => w.Id == c.WorkflowId)
+                .OwnerId)
             .Select(oid => new UserId(oid))
             .FirstOrDefaultAsync(cancellationToken);
     }
@@ -65,7 +69,9 @@ public sealed class ChatbotRepository : CudRepository<Chatbot>, IChatbotReposito
                 c.Description.Contains(query.Search))
             .Where(c =>
                 !query.IncludeOnlyPersonal ||
-                EF.Property<Workflow>(c, "Workflow").OwnerId == query.UserId)
+                Context.Set<Workflow>()
+                    .First(w => w.Id == c.WorkflowId)
+                    .OwnerId == query.UserId)
             .Where(c =>
                 !query.IncludeOnlyLatest ||
                 c.Version == Context.Set<Chatbot>()
@@ -79,7 +85,9 @@ public sealed class ChatbotRepository : CudRepository<Chatbot>, IChatbotReposito
             .OrderByDescending(c => c.CreatedAt)
             .Select(c => new ListChatbotsResponseItem(
                 c.Id,
-                new UserId(EF.Property<Workflow>(c, "Workflow").OwnerId),
+                new UserId(Context.Set<Workflow>()
+                    .First(w => w.Id == c.WorkflowId)
+                    .OwnerId),
                 c.CreatedAt,
                 c.UpdatedAt,
                 c.Name,

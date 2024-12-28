@@ -42,7 +42,9 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
             .Where(c =>
                 c.Id == chatbotId &&
                 (c.IsPublic ||
-                 EF.Property<Workflow>(c, "Workflow").OwnerId == userId))
+                 Context.Set<Workflow>()
+                     .First(w => w.Id == c.WorkflowId)
+                     .OwnerId == userId))
             .FirstOrDefaultAsync(cancellationToken);
     }
 
@@ -54,7 +56,11 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
         return await Context.Set<Conversation>()
             .Where(c =>
                 c.Id == conversationId &&
-                EF.Property<Workflow>(EF.Property<Chatbot>(c, "Chatbot"), "Workflow").OwnerId == userId)
+                Context.Set<Workflow>()
+                    .First(w => w.Id == Context.Set<Chatbot>()
+                        .First(cb => cb.Id == c.ChatbotId)
+                        .WorkflowId)
+                    .OwnerId == userId)
             .FirstOrDefaultAsync(cancellationToken);
     }
 
@@ -64,7 +70,11 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
     {
         return await Context.Set<Conversation>()
             .Where(c =>
-                EF.Property<Workflow>(EF.Property<Chatbot>(c, "Chatbot"), "Workflow").OwnerId == query.UserId &&
+                Context.Set<Workflow>()
+                    .First(w => w.Id == Context.Set<Chatbot>()
+                        .First(cb => cb.Id == c.ChatbotId)
+                        .WorkflowId)
+                    .OwnerId == query.UserId &&
                 (query.Search == null || c.Name.Contains(query.Search)) &&
                 (query.ChatbotId == null || c.ChatbotId == query.ChatbotId))
             .OrderByDescending(c => c.CreatedAt)
@@ -104,7 +114,10 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
         CancellationToken cancellationToken)
     {
         return await Context.Set<Graph>()
-            .Where(g => EF.Property<ConversationId>(g, "ConversationId") == conversationId)
+            .Where(g =>
+                g.Id == Context.Set<Conversation>()
+                    .First(c => c.Id == conversationId)
+                    .GraphId)
             .FirstOrDefaultAsync(cancellationToken);
     }
 
