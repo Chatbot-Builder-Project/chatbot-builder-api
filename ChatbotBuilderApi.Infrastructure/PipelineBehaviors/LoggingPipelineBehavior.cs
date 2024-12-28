@@ -34,10 +34,12 @@ public class LoggingPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TR
             if (result.IsFailure)
             {
                 _logger.LogError(
-                    "Request failure {@RequestName}, {@Error}, {@DateTimeUtc}",
+                    "Request failure {@RequestName}, {@Error}, {@DateTimeUtc}\n" +
+                    "Request details: {@Request}",
                     typeof(TRequest).Name,
                     result.Error,
-                    DateTime.UtcNow);
+                    DateTime.UtcNow,
+                    request);
             }
 
             return result;
@@ -45,20 +47,24 @@ public class LoggingPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TR
         catch (ValidationException ex)
         {
             _logger.LogError(
-                "Request validation failure {@RequestName}, {@ValidationErrors}, {@DateTimeUtc}",
+                "Request validation failure {@RequestName}, {@ValidationErrors}, {@DateTimeUtc}\n" +
+                "Request details: {@Request}",
                 typeof(TRequest).Name,
                 ex.Errors,
-                DateTime.UtcNow);
+                DateTime.UtcNow,
+                request);
 
             throw;
         }
         catch (DomainException ex)
         {
             _logger.LogError(
-                "Request domain failure {@RequestName}, {@Error}, {@DateTimeUtc}",
+                "Request domain failure {@RequestName}, {@Error}, {@DateTimeUtc}\n" +
+                "Request details: {@Request}",
                 typeof(TRequest).Name,
                 ex.Error,
-                DateTime.UtcNow);
+                DateTime.UtcNow,
+                request);
 
             throw;
         }
@@ -66,9 +72,11 @@ public class LoggingPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TR
         {
             _logger.LogError(
                 ex,
-                "Request exception {@RequestName}, {@DateTimeUtc}",
+                "Request exception {@RequestName}, {@DateTimeUtc}\n" +
+                "Request details: {@Request}",
                 typeof(TRequest).Name,
-                DateTime.UtcNow);
+                DateTime.UtcNow,
+                request);
 
             throw;
         }
