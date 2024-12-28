@@ -10,7 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ChatbotBuilderApi.Presentation.Graphs.Nodes;
 
-[JsonConverter(typeof(JsonSubtypes), nameof(NodeType))]
+[JsonConverter(typeof(JsonSubtypes), nameof(NodeModel.Type))]
 [JsonSubtypes.KnownSubType(typeof(StaticNodeModel), NodeType.Static)]
 [JsonSubtypes.KnownSubType(typeof(PromptNodeModel), NodeType.Prompt)]
 [JsonSubtypes.KnownSubType(typeof(InteractionNodeModel), NodeType.Interaction)]

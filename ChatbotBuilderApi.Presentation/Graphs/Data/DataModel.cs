@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ChatbotBuilderApi.Presentation.Graphs.Data;
 
-[JsonConverter(typeof(JsonSubtypes), nameof(DataType))]
+[JsonConverter(typeof(JsonSubtypes), nameof(DataModel.Type))]
 [JsonSubtypes.KnownSubType(typeof(TextDataModel), DataType.Text)]
 [JsonSubtypes.KnownSubType(typeof(OptionDataModel), DataType.Option)]
 [JsonSubtypes.KnownSubType(typeof(ImageDataModel), DataType.Image)]
