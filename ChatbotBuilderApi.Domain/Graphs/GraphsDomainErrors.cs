@@ -23,18 +23,10 @@ public static class GraphsDomainErrors
         public static readonly Error HasNoData = Error.DomainInvariant(
             "InputPort.HasNoData",
             "Input port has not received any data yet");
-
-        public static readonly Error IsNotInputPort = Error.DomainInvariant(
-            "InputPort.IsNotInputPort",
-            "The port type is not a valid input port");
     }
 
     public static class OutputPort
     {
-        public static readonly Error IsNotOutputPort = Error.DomainInvariant(
-            "OutputPort.IsNotInputPort",
-            "The port type is not a valid output port");
-
         public static readonly Error InputPortAlreadySubscribed = Error.DomainInvariant(
             "OutputPort.InputPortAlreadySubscribed",
             "This input port is already subscribed to this output port");

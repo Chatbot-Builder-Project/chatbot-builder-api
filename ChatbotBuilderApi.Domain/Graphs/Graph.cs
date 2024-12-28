@@ -161,11 +161,6 @@ public sealed class Graph : Entity<GraphId>
 
     private void AddInputPort(Port<InputPortId> port)
     {
-        if (!port.GetType().IsAssignableTo(typeof(InputPort<>)))
-        {
-            throw new DomainException(GraphsDomainErrors.InputPort.IsNotInputPort);
-        }
-
         if (!_inputPorts.Add(port))
         {
             throw new DomainException(GraphsDomainErrors.Graph.InputPortAlreadyExists);
@@ -174,11 +169,6 @@ public sealed class Graph : Entity<GraphId>
 
     private void AddOutputPort(Port<OutputPortId> port)
     {
-        if (!port.GetType().IsAssignableTo(typeof(OutputPort<>)))
-        {
-            throw new DomainException(GraphsDomainErrors.OutputPort.IsNotOutputPort);
-        }
-
         if (!_outputPorts.Add(port))
         {
             throw new DomainException(GraphsDomainErrors.Graph.OutputPortAlreadyExists);
