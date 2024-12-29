@@ -38,7 +38,8 @@ namespace ChatbotBuilderApi.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsPublic")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasColumnName("IsPublic");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -46,6 +47,11 @@ namespace ChatbotBuilderApi.Persistence.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("VersionMajor")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("int")
+                        .HasColumnName("VersionMajor");
 
                     b.Property<Guid>("WorkflowId")
                         .HasColumnType("uniqueidentifier");
@@ -55,6 +61,9 @@ namespace ChatbotBuilderApi.Persistence.Migrations
                     b.HasIndex("GraphId");
 
                     b.HasIndex("WorkflowId");
+
+                    b.HasIndex("IsPublic", "VersionMajor")
+                        .IsUnique();
 
                     b.ToTable("Chatbot");
                 });
@@ -808,12 +817,11 @@ namespace ChatbotBuilderApi.Persistence.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<int>("Major")
-                                .HasColumnType("int");
+                                .ValueGeneratedOnUpdateSometimes()
+                                .HasColumnType("int")
+                                .HasColumnName("VersionMajor");
 
                             b1.HasKey("ChatbotId");
-
-                            b1.HasIndex("Major")
-                                .IsUnique();
 
                             b1.ToTable("Chatbot");
 

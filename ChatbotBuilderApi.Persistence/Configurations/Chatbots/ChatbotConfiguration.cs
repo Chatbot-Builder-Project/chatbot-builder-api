@@ -1,5 +1,4 @@
 ﻿using ChatbotBuilderApi.Domain.Chatbots;
-using ChatbotBuilderApi.Domain.Graphs;
 using ChatbotBuilderApi.Domain.Workflows;
 using ChatbotBuilderApi.Persistence.Configurations.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -25,17 +24,27 @@ internal sealed class ChatbotConfiguration : IEntityTypeConfiguration<Chatbot>
             .IsRequired()
             .OnDelete(DeleteBehavior.NoAction);
 
-        builder.OwnsOne(c => c.Version, config =>
-        {
-            config.Property(v => v.Major).IsRequired();
-            config.HasIndex(v => v.Major).IsUnique();
-        });
-
         builder.HasOne(c => c.Graph)
             .WithMany()
             .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
 
-        builder.Property(c => c.IsPublic).IsRequired();
+        builder.OwnsOne(c => c.Version, versionBuilder =>
+        {
+            versionBuilder.Property(v => v.Major)
+                .HasColumnName("VersionMajor")
+                .IsRequired();
+
+            // Add shadow property to use in index
+            builder.Property<int>("VersionMajor")
+                .HasColumnName("VersionMajor");
+        });
+
+        builder.Property(c => c.IsPublic)
+            .HasColumnName("IsPublic")
+            .IsRequired();
+
+        builder.HasIndex("IsPublic", "VersionMajor")
+            .IsUnique();
     }
 }

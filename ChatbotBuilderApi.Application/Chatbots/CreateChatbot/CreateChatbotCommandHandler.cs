@@ -45,7 +45,7 @@ public sealed class CreateChatbotCommandHandler : ICommandHandler<CreateChatbotC
             return Result.Failure<CreateResponse<ChatbotId>>(ChatbotsApplicationErrors.WorkflowNotFound);
         }
 
-        var version = await _chatbotRepository.GetLatestVersionAsync(
+        var latestVersion = await _chatbotRepository.GetLatestVersionAsync(
             request.WorkflowId,
             request.IsPublic,
             cancellationToken);
@@ -55,7 +55,7 @@ public sealed class CreateChatbotCommandHandler : ICommandHandler<CreateChatbotC
             workflow.Name,
             workflow.Description,
             workflow.Id,
-            version ?? Version.Create(1),
+            Version.Create(major: latestVersion?.Major + 1 ?? 1),
             workflow.Graph.ToDto().ToDomain(), // To create a new graph
             request.IsPublic);
 
