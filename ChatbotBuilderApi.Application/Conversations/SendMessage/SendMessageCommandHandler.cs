@@ -25,7 +25,7 @@ public sealed class SendMessageCommandHandler : ICommandHandler<SendMessageComma
         SendMessageCommand request,
         CancellationToken cancellationToken)
     {
-        var conversation = await _repository.GetByIdAndUserAsync(
+        var conversation = await _repository.LoadByIdAndUserAsync(
             request.ConversationId,
             request.UserId,
             cancellationToken);
@@ -35,7 +35,7 @@ public sealed class SendMessageCommandHandler : ICommandHandler<SendMessageComma
             return Result.Failure<SendMessageResponse>(ConversationsApplicationErrors.ConversationNotFound);
         }
 
-        var graph = (await _repository.GetGraphAsync(conversation.Id, cancellationToken))!;
+        var graph = (await _repository.LoadGraphAsync(conversation.Id, cancellationToken))!;
 
         _conversationFlowService.GraphTraversalService.Graph = graph;
         _conversationFlowService.Conversation = conversation;

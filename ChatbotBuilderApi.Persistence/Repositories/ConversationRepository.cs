@@ -49,19 +49,51 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<Conversation?> GetByIdAndUserAsync(
+    private IQueryable<Conversation> GetByIdAndUser(
         ConversationId conversationId,
-        UserId userId,
-        CancellationToken cancellationToken)
+        UserId userId)
     {
-        return await Context.Set<Conversation>()
+        return Context.Set<Conversation>()
+            .AsTracking()
             .Where(c =>
                 c.Id == conversationId &&
                 Context.Set<Workflow>()
                     .First(w => w.Id == Context.Set<Chatbot>()
                         .First(cb => cb.Id == c.ChatbotId)
                         .WorkflowId)
-                    .OwnerId == userId)
+                    .OwnerId == userId);
+    }
+
+    public async Task<Conversation?> GetByIdAndUserAsync(
+        ConversationId conversationId,
+        UserId userId,
+        CancellationToken cancellationToken)
+    {
+        return await GetByIdAndUser(conversationId, userId)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<Conversation?> LoadByIdAndUserAsync(
+        ConversationId conversationId,
+        UserId userId,
+        CancellationToken cancellationToken)
+    {
+        return await GetByIdAndUser(conversationId, userId)
+            .AsTracking()
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<Graph?> LoadGraphAsync(
+        ConversationId conversationId,
+        CancellationToken cancellationToken)
+    {
+        return await Context.Set<Graph>()
+            .AsTracking()
+            .AsSplitQuery()
+            .Where(g =>
+                g.Id == Context.Set<Conversation>()
+                    .First(c => c.Id == conversationId)
+                    .GraphId)
             .FirstOrDefaultAsync(cancellationToken);
     }
 
@@ -108,19 +140,6 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
             .PageResponseAsync(pageParams, cancellationToken);
 
         return new ListMessagesResponse(inputMessages, outputMessages);
-    }
-
-    public async Task<Graph?> GetGraphAsync(
-        ConversationId conversationId,
-        CancellationToken cancellationToken)
-    {
-        return await Context.Set<Graph>()
-            .AsSplitQuery()
-            .Where(g =>
-                g.Id == Context.Set<Conversation>()
-                    .First(c => c.Id == conversationId)
-                    .GraphId)
-            .FirstOrDefaultAsync(cancellationToken);
     }
 
     public async Task<List<ConversationId>> ListByChatbotIdAsync(

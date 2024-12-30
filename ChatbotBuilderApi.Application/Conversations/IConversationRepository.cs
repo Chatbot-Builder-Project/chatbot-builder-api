@@ -17,14 +17,36 @@ public interface IConversationRepository
     void Update(Conversation conversation);
     void Delete(Conversation conversation);
 
+    /// <remarks>
+    /// Includes the chatbot graph.
+    /// </remarks>
     Task<Chatbot?> GetChatbotByIdIfAuthorizedAsync(
         ChatbotId chatbotId,
         UserId userId,
         CancellationToken cancellationToken);
 
+    /// <remarks>
+    /// Does not include messages.
+    /// </remarks>
     Task<Conversation?> GetByIdAndUserAsync(
         ConversationId conversationId,
         UserId userId,
+        CancellationToken cancellationToken);
+
+    /// <remarks>
+    /// Use when you want to include and track all changes and new messages.
+    /// </remarks>
+    Task<Conversation?> LoadByIdAndUserAsync(
+        ConversationId conversationId,
+        UserId userId,
+        CancellationToken cancellationToken);
+
+    /// <remarks>
+    /// Loads and tracks the graph for the conversation.
+    /// Use only when you want to update the conversation with new messages.
+    /// </remarks>
+    Task<Graph?> LoadGraphAsync(
+        ConversationId conversationId,
         CancellationToken cancellationToken);
 
     Task<PageResponse<ListConversationResponseItem>> ListByQueryAsync(
@@ -34,10 +56,6 @@ public interface IConversationRepository
     Task<ListMessagesResponse> ListMessagesAsync(
         ConversationId conversationId,
         PageParams pageParams,
-        CancellationToken cancellationToken);
-
-    Task<Graph?> GetGraphAsync(
-        ConversationId conversationId,
         CancellationToken cancellationToken);
 
     Task<List<ConversationId>> ListByChatbotIdAsync(
