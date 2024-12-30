@@ -19,6 +19,8 @@ internal sealed class InputMessageConfiguration : IEntityTypeConfiguration<Input
             .HasForeignKey<InteractionInput>("InputMessageId")
             .IsRequired(false)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Navigation(i => i.Input).AutoInclude();
     }
 }
 
@@ -36,5 +38,7 @@ internal sealed class OutputMessageConfiguration : IEntityTypeConfiguration<Outp
             .HasForeignKey<InteractionOutput>("OutputMessageId")
             .IsRequired(false)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Navigation(o => o.Output).AutoInclude();
     }
 }
