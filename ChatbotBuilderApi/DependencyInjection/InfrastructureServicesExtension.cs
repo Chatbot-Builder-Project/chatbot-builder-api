@@ -16,10 +16,19 @@ public static class InfrastructureServicesExtension
         services.AddAuthentication()
             .AddBearerToken(IdentityConstants.BearerScheme);
 
-        services.AddScoped<IFileService>(_ =>
+        if (env.IsDevelopment())
         {
-            var storageRoot = Path.Combine(env.ContentRootPath, "files");
-            return new LocalFileService(storageRoot);
-        });
+            services.AddScoped<IFileService>(_ =>
+            {
+                var storageRoot = Path.Combine(env.ContentRootPath, "files");
+                return new LocalFileService(storageRoot);
+            });
+        }
+        else
+        {
+            services.AddOptions<AzureBlobStorageSettings>()
+                .BindConfiguration("AzureBlobStorageSettings");
+            services.AddScoped<IFileService, AzureFileService>();
+        }
     }
 }
