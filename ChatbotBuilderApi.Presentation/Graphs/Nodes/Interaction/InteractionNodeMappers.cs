@@ -1,4 +1,5 @@
 ﻿using ChatbotBuilderApi.Application.Graphs.Nodes.Interaction;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Interactions;
 using ChatbotBuilderApi.Presentation.Graphs.Data;
 using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using ChatbotBuilderApi.Presentation.Graphs.Ports;
@@ -19,8 +20,8 @@ public static partial class InteractionNodeMappers
             dto.OutputEnumIdentifier,
             dto.OptionOutputPort?.ToModel(),
             dto.OutputOptionMetas?.ToDictionary(
-                kvp => kvp.Key.ToModel(),
-                kvp => kvp.Value));
+                kvp => kvp.Key.Value,
+                kvp => new InteractionOptionMetaModel(kvp.Value.Description)));
     }
 
     public static InteractionNodeDto ToDto(this InteractionNodeModel model)
@@ -33,7 +34,7 @@ public static partial class InteractionNodeMappers
             model.OutputEnumId,
             model.OptionOutputPort?.ToDto(),
             model.OutputOptionMetas?.ToDictionary(
-                kvp => kvp.Key.ToDomain(),
-                kvp => kvp.Value));
+                kvp => new OptionDataModel(kvp.Key).ToDomain(),
+                kvp => InteractionOptionMeta.Create(kvp.Value.Description)));
     }
 }

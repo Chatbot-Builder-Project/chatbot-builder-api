@@ -17,7 +17,7 @@ public static partial class SwitchNodeMappers
             dto.InputPort.ToModel(),
             dto.EnumIdentifier,
             dto.Bindings.ToDictionary(
-                kvp => kvp.Key.ToModel(),
+                kvp => kvp.Key.Value,
                 kvp => kvp.Value));
     }
 
@@ -28,8 +28,8 @@ public static partial class SwitchNodeMappers
             model.Visual.ToDomain(),
             model.InputPort.ToDto(),
             model.EnumId,
-            model.FlowLinkIds.ToDictionary(
-                kvp => kvp.Key.ToDomain(),
+            model.OptionFlowLinkIds.ToDictionary(
+                kvp => new OptionDataModel(kvp.Key).ToDomain(),
                 kvp => kvp.Value));
     }
 }

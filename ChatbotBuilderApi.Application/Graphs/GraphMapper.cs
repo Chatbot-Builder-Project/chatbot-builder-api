@@ -41,7 +41,9 @@ public static partial class GraphMapper
                 switch (node)
                 {
                     case InteractionNodeDto interactionNode:
-                        return interactionNode.ToDomain(enumByIdentifier.GetValueOrDefault(node.Info.Identifier));
+                        var enumId = interactionNode.OutputEnumIdentifier;
+                        var @enum = enumId is null ? null : enumByIdentifier[enumId.Value];
+                        return interactionNode.ToDomain(@enum);
 
                     case StaticNodeDto staticNode:
                     {
@@ -60,7 +62,7 @@ public static partial class GraphMapper
 
                     case SwitchNodeDto switchNode:
                         return switchNode.ToDomain(
-                            enumByIdentifier[node.Info.Identifier],
+                            enumByIdentifier[switchNode.EnumIdentifier],
                             switchNode.Bindings.ToDictionary(
                                 b => b.Key,
                                 b => flowLinkIdByIdentifier[b.Value]));
