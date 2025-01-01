@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using ChatbotBuilderApi.Application.Core.Shared;
+using ChatbotBuilderApi.Application.Images.DeleteImage;
 using ChatbotBuilderApi.Application.Images.GetImage;
 using ChatbotBuilderApi.Application.Images.ListImages;
 using ChatbotBuilderApi.Application.Images.UpdateImage;
@@ -153,6 +154,36 @@ public sealed class ImagesController : AbstractController
             ImageId = new ImageId(id),
             OwnerId = new UserId(userId.Value),
             ImageMeta = ImageMeta.Create(request.IsProfilePicture)
+        };
+
+        var result = await Sender.Send(command, cancellationToken);
+        return result.IsSuccess
+            ? NoContent()
+            : result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// Deletes an image for the user.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> DeleteImage(
+        [FromRoute] Guid id,
+        CancellationToken cancellationToken)
+    {
+        var userId = GetUserIdOrFailure();
+        if (userId.IsFailure)
+        {
+            return userId.ToProblemDetails();
+        }
+
+        var command = new DeleteImageCommand
+        {
+            ImageId = new ImageId(id),
+            OwnerId = new UserId(userId.Value)
         };
 
         var result = await Sender.Send(command, cancellationToken);
