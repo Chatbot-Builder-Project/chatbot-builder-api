@@ -1,10 +1,12 @@
 ﻿using ChatbotBuilderApi.Application.Chatbots;
 using ChatbotBuilderApi.Application.Conversations;
 using ChatbotBuilderApi.Application.Core.Abstract;
+using ChatbotBuilderApi.Application.Images;
 using ChatbotBuilderApi.Application.Workflows;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Persistence;
 using ChatbotBuilderApi.Persistence.Repositories;
+using ChatbotBuilderApi.Persistence.Repositories.Images;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,12 +29,17 @@ public static class PersistenceServicesExtension
             .AddApiEndpoints()
             .AddDefaultTokenProviders();
 
+        services.AddMediatR(config =>
+            config.RegisterServicesFromAssembly(AssemblyReference.Assembly));
+
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IChatbotRepository, ChatbotRepository>();
         services.AddScoped<IConversationRepository, ConversationRepository>();
         services.AddScoped<IWorkflowRepository, WorkflowRepository>();
+        services.AddScoped<IImageRepository, ImageRepository>();
 
-        services.AddMediatR(config =>
-            config.RegisterServicesFromAssembly(AssemblyReference.Assembly));
+        services.AddScoped<ImageCudRepository>();
+        services.AddScoped<IImageCudRepository>(p => p.GetRequiredService<ImageCudRepository>());
+        services.AddScopedTransactionHandler(p => p.GetRequiredService<ImageCudRepository>());
     }
 }
