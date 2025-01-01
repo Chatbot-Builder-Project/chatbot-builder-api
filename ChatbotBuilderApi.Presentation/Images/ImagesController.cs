@@ -2,6 +2,7 @@
 using ChatbotBuilderApi.Application.Core.Shared;
 using ChatbotBuilderApi.Application.Images.GetImage;
 using ChatbotBuilderApi.Application.Images.ListImages;
+using ChatbotBuilderApi.Application.Images.UpdateImage;
 using ChatbotBuilderApi.Application.Images.UploadImage;
 using ChatbotBuilderApi.Domain.Images;
 using ChatbotBuilderApi.Domain.Users;
@@ -124,6 +125,39 @@ public sealed class ImagesController : AbstractController
                 nameof(GetImage),
                 new { id = result.Value.Id.Value },
                 result.Value.ToResponse())
+            : result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// Updates an image for the user.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> UpdateImage(
+        [FromRoute] Guid id,
+        [FromBody] UpdateImageRequest request,
+        CancellationToken cancellationToken)
+    {
+        var userId = GetUserIdOrFailure();
+        if (userId.IsFailure)
+        {
+            return userId.ToProblemDetails();
+        }
+
+        var command = new UpdateImageCommand
+        {
+            ImageId = new ImageId(id),
+            OwnerId = new UserId(userId.Value),
+            ImageMeta = ImageMeta.Create(request.IsProfilePicture)
+        };
+
+        var result = await Sender.Send(command, cancellationToken);
+        return result.IsSuccess
+            ? NoContent()
             : result.ToProblemDetails();
     }
 }
