@@ -10,7 +10,7 @@ builder.Host.UseSerilog((context, configuration) =>
 
 builder.Services.AddDomainServices();
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices();
+builder.Services.AddInfrastructureServices(builder.Environment);
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddPresentationServices(builder.Configuration);
 
