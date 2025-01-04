@@ -24,7 +24,7 @@ public static class PersistenceServicesExtension
                                  throw new ArgumentException("AppDbContextConnection not found"));
         });
 
-        services.AddIdentityCore<User>()
+        services.AddIdentityCore<User>(options => options.User.RequireUniqueEmail = true)
             .AddRoles<Role>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddApiEndpoints()
