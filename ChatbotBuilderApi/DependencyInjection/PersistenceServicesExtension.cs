@@ -2,6 +2,7 @@
 using ChatbotBuilderApi.Application.Conversations;
 using ChatbotBuilderApi.Application.Core.Abstract;
 using ChatbotBuilderApi.Application.Images;
+using ChatbotBuilderApi.Application.Users;
 using ChatbotBuilderApi.Application.Workflows;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Persistence;
@@ -27,7 +28,8 @@ public static class PersistenceServicesExtension
             .AddRoles<Role>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddApiEndpoints()
-            .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders()
+            .AddUserValidator<UserFieldsValidator>();
 
         services.AddMediatR(config =>
             config.RegisterServicesFromAssembly(AssemblyReference.Assembly));
