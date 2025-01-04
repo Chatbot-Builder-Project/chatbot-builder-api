@@ -1,5 +1,5 @@
 using ChatbotBuilderApi.DependencyInjection;
-using ChatbotBuilderApi.Domain.Users;
+using ChatbotBuilderApi.Presentation.Users.Extensions;
 using ChatbotBuilderApi.WebApplicationExtensions;
 using Serilog;
 
@@ -34,8 +34,6 @@ app.UseCors("AllowedOriginsPolicy");
 app.UseSerilogRequestLogging();
 app.UseAuthorization();
 app.MapControllers();
-app.MapGroup("api/v1/users")
-    .WithTags("Users")
-    .MapIdentityApi<User>();
+app.MapIdentityEndpoints();
 
 await app.RunAsync();
