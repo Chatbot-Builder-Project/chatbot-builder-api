@@ -26,7 +26,7 @@ public sealed class DeleteChatbotCommandHandler : ICommandHandler<DeleteChatbotC
         var chatbot = await _repository.GetByIdAndOwnerAsync(request.Id, request.OwnerId, cancellationToken);
         if (chatbot is null)
         {
-            return Result.Failure(ChatbotsApplicationErrors.ChatbotNotFound);
+            return Result.Failure(ChatbotApplicationErrors.ChatbotNotFound);
         }
 
         _repository.Delete(chatbot);

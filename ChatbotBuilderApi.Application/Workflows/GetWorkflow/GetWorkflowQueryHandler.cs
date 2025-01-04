@@ -24,7 +24,7 @@ public sealed class GetWorkflowQueryHandler : IQueryHandler<GetWorkflowQuery, Ge
 
         if (workflow is null)
         {
-            return Result.Failure<GetWorkflowResponse>(WorkflowsApplicationErrors.WorkflowNotFound);
+            return Result.Failure<GetWorkflowResponse>(WorkflowApplicationErrors.WorkflowNotFound);
         }
 
         var response = new GetWorkflowResponse(

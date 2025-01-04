@@ -7,7 +7,7 @@ using Riok.Mapperly.Abstractions;
 namespace ChatbotBuilderApi.Presentation.Graphs.Nodes.Static;
 
 [Mapper]
-public static partial class StaticNodeMappers
+public static partial class StaticNodeMapper
 {
     public static StaticNodeModel ToModel(this StaticNodeDto dto)
     {

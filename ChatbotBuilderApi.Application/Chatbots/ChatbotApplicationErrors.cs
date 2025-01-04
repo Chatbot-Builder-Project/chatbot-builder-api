@@ -2,7 +2,7 @@ using ChatbotBuilderApi.Domain.Core.Primitives;
 
 namespace ChatbotBuilderApi.Application.Chatbots;
 
-public static class ChatbotsApplicationErrors
+public static class ChatbotApplicationErrors
 {
     public static readonly Error WorkflowNotFound = Error.NotFound(
         "Chatbots.WorkflowNotFound",

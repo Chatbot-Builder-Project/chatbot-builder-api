@@ -39,7 +39,7 @@ public sealed class Enum : Entity<EnumId>
         if (mapping.Count != Options.Count
             || Options.Any(option => !mapping.ContainsKey(option)))
         {
-            throw new DomainException(GraphsDomainErrors.Enum.InvalidMapping);
+            throw new DomainException(GraphDomainErrors.Enum.InvalidMapping);
         }
     }
 }

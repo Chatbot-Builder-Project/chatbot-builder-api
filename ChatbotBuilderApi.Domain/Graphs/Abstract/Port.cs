@@ -33,7 +33,7 @@ public abstract class Port<TId> : Entity<TId>
     {
         if (NodeId != nodeId)
         {
-            throw new DomainException(GraphsDomainErrors.Port.NodeIdMismatch);
+            throw new DomainException(GraphDomainErrors.Port.NodeIdMismatch);
         }
     }
 }

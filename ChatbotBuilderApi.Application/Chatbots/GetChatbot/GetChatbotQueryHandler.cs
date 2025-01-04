@@ -17,7 +17,7 @@ public sealed class GetChatbotQueryHandler : IQueryHandler<GetChatbotQuery, GetC
         var chatbot = await _repository.GetByIdAsync(request.Id, cancellationToken);
         if (chatbot is null)
         {
-            return Result.Failure<GetChatbotResponse>(ChatbotsApplicationErrors.ChatbotNotFound);
+            return Result.Failure<GetChatbotResponse>(ChatbotApplicationErrors.ChatbotNotFound);
         }
 
         var ownerId = (await _repository.GetOwnerIdAsync(request.Id, cancellationToken))!;

@@ -45,7 +45,7 @@ public sealed class UsersController : AbstractController
         if (user == null)
         {
             return Result
-                .Failure(UsersApplicationErrors.UserNotFound)
+                .Failure(UserApplicationErrors.UserNotFound)
                 .ToProblemDetails();
         }
 
@@ -100,7 +100,7 @@ public sealed class UsersController : AbstractController
         if (user == null)
         {
             return Result
-                .Failure(UsersApplicationErrors.UserNotFound)
+                .Failure(UserApplicationErrors.UserNotFound)
                 .ToProblemDetails();
         }
 
@@ -129,7 +129,7 @@ public sealed class UsersController : AbstractController
         if (user == null)
         {
             return Result
-                .Failure(UsersApplicationErrors.UserNotFound)
+                .Failure(UserApplicationErrors.UserNotFound)
                 .ToProblemDetails();
         }
 
@@ -157,7 +157,7 @@ public sealed class UsersController : AbstractController
             if (string.IsNullOrEmpty(request.OldPassword))
             {
                 return Result
-                    .Failure(UsersApplicationErrors.OldPasswordRequired)
+                    .Failure(UserApplicationErrors.OldPasswordRequired)
                     .ToProblemDetails();
             }
 

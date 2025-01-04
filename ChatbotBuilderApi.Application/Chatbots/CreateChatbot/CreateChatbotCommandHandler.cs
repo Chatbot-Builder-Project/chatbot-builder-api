@@ -42,7 +42,7 @@ public sealed class CreateChatbotCommandHandler : ICommandHandler<CreateChatbotC
 
         if (workflow is null)
         {
-            return Result.Failure<CreateResponse<ChatbotId>>(ChatbotsApplicationErrors.WorkflowNotFound);
+            return Result.Failure<CreateResponse<ChatbotId>>(ChatbotApplicationErrors.WorkflowNotFound);
         }
 
         var latestVersion = await _chatbotRepository.GetLatestVersionAsync(

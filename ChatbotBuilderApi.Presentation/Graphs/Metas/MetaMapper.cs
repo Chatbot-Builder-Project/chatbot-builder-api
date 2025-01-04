@@ -4,7 +4,7 @@ using Riok.Mapperly.Abstractions;
 namespace ChatbotBuilderApi.Presentation.Graphs.Metas;
 
 [Mapper]
-public static partial class MetaMappers
+public static partial class MetaMapper
 {
     public static InfoMetaModel ToModel(this InfoMeta domain) => new(domain.Identifier, domain.Name);
 

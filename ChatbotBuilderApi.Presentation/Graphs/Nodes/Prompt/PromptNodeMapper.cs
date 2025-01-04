@@ -6,7 +6,7 @@ using Riok.Mapperly.Abstractions;
 namespace ChatbotBuilderApi.Presentation.Graphs.Nodes.Prompt;
 
 [Mapper]
-public static partial class PromptNodeMappers
+public static partial class PromptNodeMapper
 {
     public static PromptNodeModel ToModel(this PromptNodeDto dto)
     {

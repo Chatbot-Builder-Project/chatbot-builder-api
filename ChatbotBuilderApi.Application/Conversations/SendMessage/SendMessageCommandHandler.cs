@@ -32,7 +32,7 @@ public sealed class SendMessageCommandHandler : ICommandHandler<SendMessageComma
 
         if (conversation is null)
         {
-            return Result.Failure<SendMessageResponse>(ConversationsApplicationErrors.ConversationNotFound);
+            return Result.Failure<SendMessageResponse>(ConversationApplicationErrors.ConversationNotFound);
         }
 
         var graph = (await _repository.LoadGraphAsync(conversation.Id, cancellationToken))!;

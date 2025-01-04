@@ -68,13 +68,13 @@ public sealed partial class PromptTemplate : ValueObject
         // Ensure all placeholders are provided in the dictionary
         if (distinctPlaceholders.Except(values.Keys).Any())
         {
-            throw new DomainException(GraphsDomainErrors.PromptNode.MissingPlaceholderKeys);
+            throw new DomainException(GraphDomainErrors.PromptNode.MissingPlaceholderKeys);
         }
 
         // Ensure no unused keys in the dictionary
         if (values.Keys.Except(distinctPlaceholders).Any())
         {
-            throw new DomainException(GraphsDomainErrors.PromptNode.UnusedKeysInDictionary);
+            throw new DomainException(GraphDomainErrors.PromptNode.UnusedKeysInDictionary);
         }
 
         return PlaceholderRegex().Replace(Text, match =>

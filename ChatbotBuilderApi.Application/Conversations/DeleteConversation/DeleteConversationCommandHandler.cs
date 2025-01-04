@@ -30,7 +30,7 @@ public sealed class DeleteConversationCommandHandler : ICommandHandler<DeleteCon
 
         if (conversation is null)
         {
-            return Result.Failure(ConversationsApplicationErrors.ConversationNotFound);
+            return Result.Failure(ConversationApplicationErrors.ConversationNotFound);
         }
 
         _repository.Delete(conversation);

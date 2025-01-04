@@ -56,36 +56,36 @@ public sealed class InteractionNode : Node,
     {
         if (textInputPort is null)
         {
-            throw new DomainException(GraphsDomainErrors.InteractionNode.InputPortsIsMissing);
+            throw new DomainException(GraphDomainErrors.InteractionNode.InputPortsIsMissing);
         }
 
         if (textOutputPort is null && optionOutputPort is null)
         {
-            throw new DomainException(GraphsDomainErrors.InteractionNode.OutputPortsIsMissing);
+            throw new DomainException(GraphDomainErrors.InteractionNode.OutputPortsIsMissing);
         }
 
         if (optionOutputPort is null)
         {
             if (outputEnum is not null)
             {
-                throw new DomainException(GraphsDomainErrors.InteractionNode.OutputEnumIsUnnecessary);
+                throw new DomainException(GraphDomainErrors.InteractionNode.OutputEnumIsUnnecessary);
             }
 
             if (outputOptionMetas is not null)
             {
-                throw new DomainException(GraphsDomainErrors.InteractionNode.OptionDataMetasIsUnnecessary);
+                throw new DomainException(GraphDomainErrors.InteractionNode.OptionDataMetasIsUnnecessary);
             }
         }
         else
         {
             if (outputEnum is null)
             {
-                throw new DomainException(GraphsDomainErrors.InteractionNode.OutputEnumIsMissing);
+                throw new DomainException(GraphDomainErrors.InteractionNode.OutputEnumIsMissing);
             }
 
             if (outputOptionMetas is null)
             {
-                throw new DomainException(GraphsDomainErrors.InteractionNode.OptionDataMetasIsMissing);
+                throw new DomainException(GraphDomainErrors.InteractionNode.OptionDataMetasIsMissing);
             }
         }
 
@@ -118,22 +118,22 @@ public sealed class InteractionNode : Node,
     {
         if (TextOutputPort is not null && input.Text is null)
         {
-            throw new DomainException(GraphsDomainErrors.InteractionNode.InputTextIsMissing);
+            throw new DomainException(GraphDomainErrors.InteractionNode.InputTextIsMissing);
         }
 
         if (TextOutputPort is null && input.Text is not null)
         {
-            throw new DomainException(GraphsDomainErrors.InteractionNode.InputTextIsUnnecessary);
+            throw new DomainException(GraphDomainErrors.InteractionNode.InputTextIsUnnecessary);
         }
 
         if (OptionOutputPort is not null && input.Option is null)
         {
-            throw new DomainException(GraphsDomainErrors.InteractionNode.InputOptionIsMissing);
+            throw new DomainException(GraphDomainErrors.InteractionNode.InputOptionIsMissing);
         }
 
         if (OptionOutputPort is null && input.Option is not null)
         {
-            throw new DomainException(GraphsDomainErrors.InteractionNode.InputOptionIsUnnecessary);
+            throw new DomainException(GraphDomainErrors.InteractionNode.InputOptionIsUnnecessary);
         }
 
         InteractionInput = input;
@@ -164,7 +164,7 @@ public sealed class InteractionNode : Node,
     {
         if (InteractionInput is null)
         {
-            throw new DomainException(GraphsDomainErrors.InteractionNode.InteractionInputHasNotBeenSet);
+            throw new DomainException(GraphDomainErrors.InteractionNode.InteractionInputHasNotBeenSet);
         }
 
         // if XOutputPort is not null, then InteractionInput.X will never be null

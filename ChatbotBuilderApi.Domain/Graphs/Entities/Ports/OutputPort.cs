@@ -40,7 +40,7 @@ public sealed class OutputPort<TData> : Port<OutputPortId>
     {
         if (!_inputPorts.Add(inputPort))
         {
-            throw new DomainException(GraphsDomainErrors.OutputPort.InputPortAlreadySubscribed);
+            throw new DomainException(GraphDomainErrors.OutputPort.InputPortAlreadySubscribed);
         }
     }
 

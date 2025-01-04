@@ -2,7 +2,7 @@
 
 namespace ChatbotBuilderApi.Application.Users;
 
-public static class UsersApplicationErrors
+public static class UserApplicationErrors
 {
     public static readonly Error UserNotFound = Error.NotFound(
         "Users.UserNotFound",

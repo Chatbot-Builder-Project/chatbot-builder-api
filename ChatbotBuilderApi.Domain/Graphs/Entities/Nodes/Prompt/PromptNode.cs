@@ -60,7 +60,7 @@ public sealed class PromptNode : Node,
         {
             if (!inputPortsSet.Add(inputPort))
             {
-                throw new DomainException(GraphsDomainErrors.PromptNode.DuplicateInputPorts);
+                throw new DomainException(GraphDomainErrors.PromptNode.DuplicateInputPorts);
             }
         }
 
@@ -91,7 +91,7 @@ public sealed class PromptNode : Node,
     {
         if (InjectedTemplate is null)
         {
-            throw new DomainException(GraphsDomainErrors.PromptNode.NodeHasNotBeenActivated);
+            throw new DomainException(GraphDomainErrors.PromptNode.NodeHasNotBeenActivated);
         }
 
         OutputPort.Publish(TextData.Create(InjectedTemplate));

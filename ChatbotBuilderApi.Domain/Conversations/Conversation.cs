@@ -52,7 +52,7 @@ public sealed class Conversation : AggregateRoot<ConversationId>
     {
         if (inputMessage.CreatedAt < _outputMessages.LastOrDefault()?.CreatedAt)
         {
-            throw new DomainException(ConversationsDomainErrors.Conversation.InputMessageIsOutOfOrder);
+            throw new DomainException(ConversationDomainErrors.Conversation.InputMessageIsOutOfOrder);
         }
 
         _inputMessages.Add(inputMessage);
@@ -62,7 +62,7 @@ public sealed class Conversation : AggregateRoot<ConversationId>
     {
         if (outputMessage.CreatedAt < _inputMessages.LastOrDefault()?.CreatedAt)
         {
-            throw new DomainException(ConversationsDomainErrors.Conversation.OutputMessageIsOutOfOrder);
+            throw new DomainException(ConversationDomainErrors.Conversation.OutputMessageIsOutOfOrder);
         }
 
         _outputMessages.Add(outputMessage);

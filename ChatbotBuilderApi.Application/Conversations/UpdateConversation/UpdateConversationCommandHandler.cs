@@ -26,7 +26,7 @@ public sealed class UpdateConversationCommandHandler : ICommandHandler<UpdateCon
 
         if (conversation is null)
         {
-            return Result.Failure(ConversationsApplicationErrors.ConversationNotFound);
+            return Result.Failure(ConversationApplicationErrors.ConversationNotFound);
         }
 
         conversation.Update(request.Name);

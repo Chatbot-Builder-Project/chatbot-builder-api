@@ -35,7 +35,7 @@ public sealed class StartConversationCommandHandler
 
         if (chatbot is null)
         {
-            return Result.Failure<StartConversationResponse>(ConversationsApplicationErrors.ChatbotNotFound);
+            return Result.Failure<StartConversationResponse>(ConversationApplicationErrors.ChatbotNotFound);
         }
 
         var graph = chatbot.Graph.ToDto().ToDomain();

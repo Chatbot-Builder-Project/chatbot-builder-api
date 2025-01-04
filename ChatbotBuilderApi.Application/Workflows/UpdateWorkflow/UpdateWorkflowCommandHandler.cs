@@ -32,7 +32,7 @@ public sealed class UpdateWorkflowCommandHandler : ICommandHandler<UpdateWorkflo
 
         if (workflow is null)
         {
-            return Result.Failure(WorkflowsApplicationErrors.WorkflowNotFound);
+            return Result.Failure(WorkflowApplicationErrors.WorkflowNotFound);
         }
 
         workflow.Update(

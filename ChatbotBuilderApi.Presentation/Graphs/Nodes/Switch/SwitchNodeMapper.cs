@@ -7,7 +7,7 @@ using Riok.Mapperly.Abstractions;
 namespace ChatbotBuilderApi.Presentation.Graphs.Nodes.Switch;
 
 [Mapper]
-public static partial class SwitchNodeMappers
+public static partial class SwitchNodeMapper
 {
     public static SwitchNodeModel ToModel(this SwitchNodeDto dto)
     {

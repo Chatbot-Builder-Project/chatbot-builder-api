@@ -6,7 +6,7 @@ using Riok.Mapperly.Abstractions;
 namespace ChatbotBuilderApi.Presentation.Graphs.Links;
 
 [Mapper]
-public static partial class LinkMappers
+public static partial class LinkMapper
 {
     public static DataLinkModel ToModel(this DataLinkDto dto)
     {

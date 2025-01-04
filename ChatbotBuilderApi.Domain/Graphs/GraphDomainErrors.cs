@@ -2,7 +2,7 @@
 
 namespace ChatbotBuilderApi.Domain.Graphs;
 
-public static class GraphsDomainErrors
+public static class GraphDomainErrors
 {
     public static class Enum
     {

@@ -6,7 +6,7 @@ using Riok.Mapperly.Abstractions;
 namespace ChatbotBuilderApi.Presentation.Graphs.Ports;
 
 [Mapper]
-public static partial class PortMappers
+public static partial class PortMapper
 {
     public static InputPortModel ToModel(this InputPortDto dto)
     {

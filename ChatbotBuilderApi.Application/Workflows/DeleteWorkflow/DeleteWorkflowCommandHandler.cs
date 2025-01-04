@@ -31,7 +31,7 @@ public sealed class DeleteWorkflowCommandHandler : ICommandHandler<DeleteWorkflo
 
         if (workflow is null)
         {
-            return Result.Failure(WorkflowsApplicationErrors.WorkflowNotFound);
+            return Result.Failure(WorkflowApplicationErrors.WorkflowNotFound);
         }
 
         _repository.Delete(workflow);

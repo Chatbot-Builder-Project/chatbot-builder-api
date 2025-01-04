@@ -22,7 +22,7 @@ public sealed class UpdateChatbotCommandHandler : ICommandHandler<UpdateChatbotC
         var chatbot = await _chatbotRepository.GetByIdAndOwnerAsync(request.Id, request.OwnerId, cancellationToken);
         if (chatbot is null)
         {
-            return Result.Failure(ChatbotsApplicationErrors.ChatbotNotFound);
+            return Result.Failure(ChatbotApplicationErrors.ChatbotNotFound);
         }
 
         chatbot.Update(request.Name, request.Description, request.IsPublic);

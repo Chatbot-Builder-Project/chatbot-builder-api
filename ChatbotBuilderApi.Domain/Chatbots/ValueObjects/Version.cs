@@ -16,7 +16,7 @@ public sealed class Version : ValueObject
     {
         if (major < 1)
         {
-            throw new DomainException(ChatbotsDomainErrors.Version.MajorMustBePositive);
+            throw new DomainException(ChatbotDomainErrors.Version.MajorMustBePositive);
         }
 
         return new Version(major);

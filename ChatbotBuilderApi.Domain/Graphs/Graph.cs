@@ -82,7 +82,7 @@ public sealed class Graph : Entity<GraphId>
     {
         if (!NodesMap.ContainsKey(nodeId))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.NodeDoesNotExist);
+            throw new DomainException(GraphDomainErrors.Graph.NodeDoesNotExist);
         }
 
         CurrentNodeId = nodeId;
@@ -155,7 +155,7 @@ public sealed class Graph : Entity<GraphId>
     {
         if (!_enums.Add(@enum))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.EnumAlreadyExists);
+            throw new DomainException(GraphDomainErrors.Graph.EnumAlreadyExists);
         }
     }
 
@@ -163,7 +163,7 @@ public sealed class Graph : Entity<GraphId>
     {
         if (!_inputPorts.Add(port))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.InputPortAlreadyExists);
+            throw new DomainException(GraphDomainErrors.Graph.InputPortAlreadyExists);
         }
     }
 
@@ -171,7 +171,7 @@ public sealed class Graph : Entity<GraphId>
     {
         if (!_outputPorts.Add(port))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.OutputPortAlreadyExists);
+            throw new DomainException(GraphDomainErrors.Graph.OutputPortAlreadyExists);
         }
     }
 
@@ -186,23 +186,23 @@ public sealed class Graph : Entity<GraphId>
                 inputNode.GetInputPorts()
                     .Select(p => p.Id)
                     .Any(inputPortId => !InputPortsMap.ContainsKey(inputPortId)):
-                throw new DomainException(GraphsDomainErrors.Graph.InputPortDoesNotExist);
+                throw new DomainException(GraphDomainErrors.Graph.InputPortDoesNotExist);
 
             case IOutputNode outputNode when
                 outputNode.GetOutputPorts()
                     .Select(p => p.Id)
                     .Any(outputPortId => !OutputPortsMap.ContainsKey(outputPortId)):
-                throw new DomainException(GraphsDomainErrors.Graph.OutputPortDoesNotExist);
+                throw new DomainException(GraphDomainErrors.Graph.OutputPortDoesNotExist);
 
             case IEnumNode enumNode when
                 enumNode.GetEnumIds()
                     .Any(enumId => !EnumsMap.ContainsKey(enumId)):
-                throw new DomainException(GraphsDomainErrors.Graph.EnumDoesNotExist);
+                throw new DomainException(GraphDomainErrors.Graph.EnumDoesNotExist);
         }
 
         if (!_nodes.Add(node))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.NodeAlreadyExists);
+            throw new DomainException(GraphDomainErrors.Graph.NodeAlreadyExists);
         }
     }
 
@@ -224,12 +224,12 @@ public sealed class Graph : Entity<GraphId>
 
         if (InputPorts.Any(port => !nodeInputPortIds.Contains(port.Id)))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.ExtraInputPorts);
+            throw new DomainException(GraphDomainErrors.Graph.ExtraInputPorts);
         }
 
         if (OutputPorts.Any(port => !nodeOutputPortIds.Contains(port.Id)))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.ExtraOutputPorts);
+            throw new DomainException(GraphDomainErrors.Graph.ExtraOutputPorts);
         }
     }
 
@@ -240,12 +240,12 @@ public sealed class Graph : Entity<GraphId>
     {
         if (!NodesMap.TryGetValue(startNodeId, out var node))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.NodeDoesNotExist);
+            throw new DomainException(GraphDomainErrors.Graph.NodeDoesNotExist);
         }
 
         if (node is not InteractionNode)
         {
-            throw new DomainException(GraphsDomainErrors.Graph.StartNodeIsNotInteractionNode);
+            throw new DomainException(GraphDomainErrors.Graph.StartNodeIsNotInteractionNode);
         }
 
         StartNodeId = startNodeId;
@@ -258,24 +258,24 @@ public sealed class Graph : Entity<GraphId>
     {
         if (!InputPortsMap.TryGetValue(link.TargetPortId, out var inputPort))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.InputPortDoesNotExist);
+            throw new DomainException(GraphDomainErrors.Graph.InputPortDoesNotExist);
         }
 
         if (!OutputPortsMap.TryGetValue(link.SourcePortId, out var outputPort))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.OutputPortDoesNotExist);
+            throw new DomainException(GraphDomainErrors.Graph.OutputPortDoesNotExist);
         }
 
         var inputDataType = inputPort.GetType().GetGenericArguments()[0];
         var outputDataType = outputPort.GetType().GetGenericArguments()[0];
         if (inputDataType != outputDataType)
         {
-            throw new DomainException(GraphsDomainErrors.Graph.DataLinkTypeMismatch);
+            throw new DomainException(GraphDomainErrors.Graph.DataLinkTypeMismatch);
         }
 
         if (!_dataLinks.Add(link))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.DataLinkAlreadyExists);
+            throw new DomainException(GraphDomainErrors.Graph.DataLinkAlreadyExists);
         }
 
         var outputPortType = outputPort.GetType();
@@ -294,7 +294,7 @@ public sealed class Graph : Entity<GraphId>
 
         if (InputPorts.Any(port => !connectedInputPortIds.Contains(port.Id)))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.UnconnectedInputPorts);
+            throw new DomainException(GraphDomainErrors.Graph.UnconnectedInputPorts);
         }
     }
 
@@ -305,28 +305,28 @@ public sealed class Graph : Entity<GraphId>
     {
         if (!NodesMap.TryGetValue(link.SourceNodeId, out var inputNode))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.NodeDoesNotExist);
+            throw new DomainException(GraphDomainErrors.Graph.NodeDoesNotExist);
         }
 
         if (!NodesMap.TryGetValue(link.TargetNodeId, out var outputNode))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.NodeDoesNotExist);
+            throw new DomainException(GraphDomainErrors.Graph.NodeDoesNotExist);
         }
 
         if (inputNode is ISetupNode || outputNode is ISetupNode)
         {
-            throw new DomainException(GraphsDomainErrors.Graph.FlowLinkCannotBeUsedForSetupNode);
+            throw new DomainException(GraphDomainErrors.Graph.FlowLinkCannotBeUsedForSetupNode);
         }
 
         if (inputNode is ISwitchNode &&
             !switchNodeFlowLinks[inputNode].Contains(link.Id))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.SwitchNodeDoesNotContainFlowLink);
+            throw new DomainException(GraphDomainErrors.Graph.SwitchNodeDoesNotContainFlowLink);
         }
 
         if (!_flowLinks.Add(link))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.FlowLinkAlreadyExists);
+            throw new DomainException(GraphDomainErrors.Graph.FlowLinkAlreadyExists);
         }
     }
 
@@ -337,7 +337,7 @@ public sealed class Graph : Entity<GraphId>
 
         if (switchNodeFlowLinks.Values.Any(set => set.Any(id => !flowLinkIds.Contains(id))))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.SwitchNodeContainsExtraFlowLinkIds);
+            throw new DomainException(GraphDomainErrors.Graph.SwitchNodeContainsExtraFlowLinkIds);
         }
     }
 }

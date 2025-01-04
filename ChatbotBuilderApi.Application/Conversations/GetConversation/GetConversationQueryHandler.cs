@@ -23,7 +23,7 @@ public sealed class GetConversationQueryHandler : IQueryHandler<GetConversationQ
 
         if (conversation is null)
         {
-            return Result.Failure<GetConversationResponse>(ConversationsApplicationErrors.ConversationNotFound);
+            return Result.Failure<GetConversationResponse>(ConversationApplicationErrors.ConversationNotFound);
         }
 
         var response = new GetConversationResponse(

@@ -4,10 +4,6 @@ namespace ChatbotBuilderApi.Presentation.Core;
 
 public static class PresentationErrors
 {
-    public static Error AuthenticationFailed(string message) => Error.NotAuthorized(
-        "Presentation.AuthorizationFailed",
-        message);
-
     public static class User
     {
         public static readonly Error CredentialsNotProvided = Error.NotAuthorized(

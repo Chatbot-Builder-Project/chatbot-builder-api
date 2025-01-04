@@ -12,7 +12,7 @@ public sealed class GraphTraversalService : IGraphTraversalService
 
     public Graph Graph
     {
-        get => _graph ?? throw new DomainException(GraphsDomainErrors.GraphTraversal.GraphNotSet);
+        get => _graph ?? throw new DomainException(GraphDomainErrors.GraphTraversal.GraphNotSet);
         set
         {
             _graph = value;
@@ -59,7 +59,7 @@ public sealed class GraphTraversalService : IGraphTraversalService
     {
         if (!Graph.NodesMap.TryGetValue(nodeId, out var node))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.NodeDoesNotExist);
+            throw new DomainException(GraphDomainErrors.Graph.NodeDoesNotExist);
         }
 
         if (node is ISwitchNode switchNode)
@@ -70,12 +70,12 @@ public sealed class GraphTraversalService : IGraphTraversalService
 
         if (!_sourceNodeFlowLinks.TryGetValue(nodeId, out var flowLinkIds))
         {
-            throw new DomainException(GraphsDomainErrors.Graph.NodeDoesNotExist);
+            throw new DomainException(GraphDomainErrors.Graph.NodeDoesNotExist);
         }
 
         if (flowLinkIds.Count > 1)
         {
-            throw new DomainException(GraphsDomainErrors.Graph.NonSwitchNodeHasMultipleOutputFlowLinks);
+            throw new DomainException(GraphDomainErrors.Graph.NonSwitchNodeHasMultipleOutputFlowLinks);
         }
 
         return Graph.FlowLinksMap[flowLinkIds.First()].TargetNodeId;
@@ -91,7 +91,7 @@ public sealed class GraphTraversalService : IGraphTraversalService
         if (!Graph.NodesMap.TryGetValue(interactionNodeId, out var interactionNode)
             || interactionNode is not InteractionNode)
         {
-            throw new DomainException(GraphsDomainErrors.Graph.InteractionNodeNotFound);
+            throw new DomainException(GraphDomainErrors.Graph.InteractionNodeNotFound);
         }
 
         var currentNodeId = GetSuccessor(interactionNodeId);

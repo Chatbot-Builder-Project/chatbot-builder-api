@@ -2,7 +2,7 @@
 
 namespace ChatbotBuilderApi.Domain.Conversations;
 
-public static class ConversationsDomainErrors
+public static class ConversationDomainErrors
 {
     public static class Conversation
     {

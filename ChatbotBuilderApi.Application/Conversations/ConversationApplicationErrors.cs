@@ -2,7 +2,7 @@ using ChatbotBuilderApi.Domain.Core.Primitives;
 
 namespace ChatbotBuilderApi.Application.Conversations;
 
-public static class ConversationsApplicationErrors
+public static class ConversationApplicationErrors
 {
     public static readonly Error ChatbotNotFound = Error.NotFound(
         "Conversations.ChatbotNotFound",

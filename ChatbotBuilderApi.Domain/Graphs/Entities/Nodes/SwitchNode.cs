@@ -74,12 +74,12 @@ public sealed class SwitchNode : Node,
     {
         if (SelectedOption is null)
         {
-            throw new DomainException(GraphsDomainErrors.SwitchNode.HasNotBeenActivated);
+            throw new DomainException(GraphDomainErrors.SwitchNode.HasNotBeenActivated);
         }
 
         if (!Bindings.TryGetValue(SelectedOption, out var flowLinkId))
         {
-            throw new DomainException(GraphsDomainErrors.SwitchNode.OptionNotBound);
+            throw new DomainException(GraphDomainErrors.SwitchNode.OptionNotBound);
         }
 
         return flowLinkId;

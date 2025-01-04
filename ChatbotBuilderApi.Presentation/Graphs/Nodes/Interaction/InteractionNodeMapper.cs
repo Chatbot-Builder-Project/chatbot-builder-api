@@ -8,7 +8,7 @@ using Riok.Mapperly.Abstractions;
 namespace ChatbotBuilderApi.Presentation.Graphs.Nodes.Interaction;
 
 [Mapper]
-public static partial class InteractionNodeMappers
+public static partial class InteractionNodeMapper
 {
     public static InteractionNodeModel ToModel(this InteractionNodeDto dto)
     {

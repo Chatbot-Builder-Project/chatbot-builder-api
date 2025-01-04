@@ -23,7 +23,7 @@ public sealed class ConversationFlowService : IConversationFlowService
     public Conversation Conversation
     {
         get => _conversation ??
-               throw new DomainException(ConversationsDomainErrors.ConversationFlow.ConversationNotSet);
+               throw new DomainException(ConversationDomainErrors.ConversationFlow.ConversationNotSet);
         set
         {
             _conversation = value;
@@ -35,7 +35,7 @@ public sealed class ConversationFlowService : IConversationFlowService
     {
         if (Conversation.GraphId != Graph.Id)
         {
-            throw new DomainException(ConversationsDomainErrors.ConversationFlow.GraphMismatch);
+            throw new DomainException(ConversationDomainErrors.ConversationFlow.GraphMismatch);
         }
     }
 
@@ -71,7 +71,7 @@ public sealed class ConversationFlowService : IConversationFlowService
     {
         if (Graph.GetCurrentNode() is not InteractionNode interactionNode)
         {
-            throw new DomainException(ConversationsDomainErrors.ConversationFlow.NodeIsNotAnInteractionNode);
+            throw new DomainException(ConversationDomainErrors.ConversationFlow.NodeIsNotAnInteractionNode);
         }
 
         return interactionNode;

@@ -46,7 +46,7 @@ public sealed class InputPort<TData> : Port<InputPortId>
     {
         if (Data is null)
         {
-            throw new DomainException(GraphsDomainErrors.InputPort.HasNoData);
+            throw new DomainException(GraphDomainErrors.InputPort.HasNoData);
         }
 
         return Data;

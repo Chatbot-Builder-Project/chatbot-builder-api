@@ -23,7 +23,7 @@ public sealed class ListMessagesQueryHandler : IQueryHandler<ListMessagesQuery, 
 
         if (conversation is null)
         {
-            return Result.Failure<ListMessagesResponse>(ConversationsApplicationErrors.ConversationNotFound);
+            return Result.Failure<ListMessagesResponse>(ConversationApplicationErrors.ConversationNotFound);
         }
 
         var response = await _repository.ListMessagesAsync(
