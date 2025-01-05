@@ -4,7 +4,7 @@ using ChatbotBuilderApi.Persistence.Configurations.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ChatbotBuilderApi.Persistence.Configurations.Images;
+namespace ChatbotBuilderApi.Persistence.Configurations;
 
 internal sealed class ImageConfiguration : IEntityTypeConfiguration<Image>
 {

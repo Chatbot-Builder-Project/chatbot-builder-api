@@ -2,7 +2,7 @@ using ChatbotBuilderApi.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ChatbotBuilderApi.Persistence.Configurations.Users;
+namespace ChatbotBuilderApi.Persistence.Configurations;
 
 internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {

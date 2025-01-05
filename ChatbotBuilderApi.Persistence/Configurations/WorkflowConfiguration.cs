@@ -1,11 +1,10 @@
-using ChatbotBuilderApi.Domain.Graphs;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Domain.Workflows;
 using ChatbotBuilderApi.Persistence.Configurations.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ChatbotBuilderApi.Persistence.Configurations.Workflows;
+namespace ChatbotBuilderApi.Persistence.Configurations;
 
 internal sealed class WorkflowConfiguration : IEntityTypeConfiguration<Workflow>
 {
