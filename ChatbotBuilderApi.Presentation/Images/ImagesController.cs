@@ -135,9 +135,9 @@ public sealed class ImagesController : AbstractController
         {
             UserId = new UserId(userId.Value),
             FileUpload = new FileUpload(
-                request.FileUpload.FileName,
-                request.FileUpload.ContentType,
-                request.FileUpload.OpenReadStream()),
+                request.ImageFile.FileName,
+                request.ImageFile.ContentType,
+                request.ImageFile.OpenReadStream()),
             ImageMeta = ImageMeta.Create(request.IsProfilePicture ?? false)
         };
 

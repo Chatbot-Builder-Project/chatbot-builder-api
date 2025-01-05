@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Application.Core.Constants;
+﻿using ChatbotBuilderApi.Application.Images;
 
 namespace ChatbotBuilderApi.Presentation.Core.Attributes;
 
@@ -10,7 +10,7 @@ public class ValidImageExtensionsAttribute : ValidFileExtensionsAttribute
 
     private static string[] GetAllowedExtensions()
     {
-        return Enum.GetNames(typeof(ApplicationRules.File.ImageExtensions))
+        return Enum.GetNames(typeof(ImageApplicationRules.AllowedExtensions))
             .Select(x => x.ToLower())
             .ToArray();
     }
