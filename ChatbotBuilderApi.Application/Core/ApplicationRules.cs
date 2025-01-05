@@ -13,4 +13,9 @@ public static class ApplicationRules
     {
         public const int MaxFileSizeInBytes = 10 * 1024 * 1024; // 10 MB
     }
+
+    public static class Pages
+    {
+        public const int MaxPageSize = 100;
+    }
 }

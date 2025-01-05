@@ -5,7 +5,7 @@ namespace ChatbotBuilderApi.Application.Core.Validators;
 
 public sealed class PageParamsValidator : AbstractValidator<PageParams>
 {
-    public PageParamsValidator()
+    public PageParamsValidator(int maxPageSize = ApplicationRules.Pages.MaxPageSize)
     {
         RuleFor(x => x.PageNumber)
             .GreaterThanOrEqualTo(1)
@@ -13,6 +13,8 @@ public sealed class PageParamsValidator : AbstractValidator<PageParams>
 
         RuleFor(x => x.PageSize)
             .GreaterThanOrEqualTo(1)
-            .WithMessage("Page size must be greater than or equal to 1.");
+            .WithMessage("Page size must be greater than or equal to 1.")
+            .LessThanOrEqualTo(maxPageSize)
+            .WithMessage($"Page size must not exceed {maxPageSize}.");
     }
 }
