@@ -11,6 +11,7 @@ using ChatbotBuilderApi.Presentation.Chatbots.QueryParams;
 using ChatbotBuilderApi.Presentation.Chatbots.Requests;
 using ChatbotBuilderApi.Presentation.Chatbots.ViewModels;
 using ChatbotBuilderApi.Presentation.Core.Abstract;
+using ChatbotBuilderApi.Presentation.Core.Attributes;
 using ChatbotBuilderApi.Presentation.Core.Extensions;
 using ChatbotBuilderApi.Presentation.Core.Responses;
 using MediatR;
@@ -35,11 +36,18 @@ public sealed class ChatbotsController : AbstractController
     /// For the user's chatbots, both public and private chatbots are returned.
     /// For other users' chatbots, only public chatbots are returned.
     /// </summary>
-    /// <param name="queryParams"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="queryParams">Query parameters for the list of chatbots.</param>
+    /// <param name="cancellationToken">Cancellation token for the request.</param>
+    /// <returns>A list of chatbots.</returns>
+    /// <response code="200">Returns the list of chatbots for the user.</response>
+    /// <response code="400">If the request is invalid.</response>
+    /// <response code="401">Unauthorized if the user is not authenticated.</response>
+    /// <response code="422">If the request is invalid (validation error).</response>
     [HttpGet]
     [ProducesResponseType(typeof(ChatbotListViewModel), StatusCodes.Status200OK)]
+    [ProducesError(StatusCodes.Status400BadRequest)]
+    [ProducesError(StatusCodes.Status401Unauthorized)]
+    [ProducesError(StatusCodes.Status422UnprocessableEntity)]
     public async Task<ActionResult<ChatbotListViewModel>> ListChatbots(
         [FromQuery] ChatbotListQueryParams queryParams,
         CancellationToken cancellationToken)
@@ -72,11 +80,16 @@ public sealed class ChatbotsController : AbstractController
     /// Returns a single chatbot by id.
     /// AdminDetails will be included in the response if and only if the chatbot is owned by the user.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="id">ID of the chatbot.</param>
+    /// <param name="cancellationToken">Cancellation token for the request.</param>
+    /// <returns>Details of the chatbot.</returns>
+    /// <response code="200">Returns the chatbot details.</response>
+    /// <response code="401">Unauthorized if the user is not authenticated.</response>
+    /// <response code="404">If the chatbot is not found in the user's chatbots.</response>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(ChatbotViewModel), StatusCodes.Status200OK)]
+    [ProducesError(StatusCodes.Status401Unauthorized)]
+    [ProducesError(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ChatbotViewModel>> GetChatbot(
         [FromRoute] Guid id,
         CancellationToken cancellationToken)
@@ -100,15 +113,23 @@ public sealed class ChatbotsController : AbstractController
     }
 
     /// <summary>
-    /// Creates a new chatbot from a given workflow.
-    /// A chatbot is a workflow with a fixed version that users can interact with.
-    /// When a workflow is published, a copy of the workflow is created as a chatbot with a new version.
+    /// Creates a new chatbot from a given workflow with the same name and description of the workflow.
+    /// A chatbot is a copy of the workflow with a new version and a fixed graph.
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">Request to create a chatbot.</param>
+    /// <param name="cancellationToken">Cancellation token for the request.</param>
+    /// <returns>ID of the created chatbot.</returns>
+    /// <response code="201">Returns the ID of the created chatbot.</response>
+    /// <response code="400">If the request is invalid.</response>
+    /// <response code="401">Unauthorized if the user is not authenticated.</response>
+    /// <response code="404">If the workflow is not found.</response>
+    /// <response code="422">If the request is invalid (validation error).</response>
     [HttpPost]
     [ProducesResponseType(typeof(CreateResponse), StatusCodes.Status201Created)]
+    [ProducesError(StatusCodes.Status400BadRequest)]
+    [ProducesError(StatusCodes.Status401Unauthorized)]
+    [ProducesError(StatusCodes.Status404NotFound)]
+    [ProducesError(StatusCodes.Status422UnprocessableEntity)]
     public async Task<ActionResult<CreateResponse>> CreateChatbot(
         [FromBody] CreateChatbotRequest request,
         CancellationToken cancellationToken)
@@ -138,12 +159,21 @@ public sealed class ChatbotsController : AbstractController
     /// <summary>
     /// Updates the information of a chatbot owned by the user.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="id">ID of the chatbot.</param>
+    /// <param name="request">Request to update the chatbot.</param>
+    /// <param name="cancellationToken">Cancellation token for the request.</param>
+    /// <returns>No content.</returns>
+    /// <response code="204">No content.</response>
+    /// <response code="400">If the request is invalid.</response>
+    /// <response code="401">Unauthorized if the user is not authenticated.</response>
+    /// <response code="404">If the chatbot is not found in the user's chatbots.</response>
+    /// <response code="422">If the request is invalid (validation error).</response>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesError(StatusCodes.Status400BadRequest)]
+    [ProducesError(StatusCodes.Status401Unauthorized)]
+    [ProducesError(StatusCodes.Status404NotFound)]
+    [ProducesError(StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> UpdateChatbot(
         [FromRoute] Guid id,
         [FromBody] UpdateChatbotRequest request,
@@ -171,13 +201,19 @@ public sealed class ChatbotsController : AbstractController
     }
 
     /// <summary>
-    /// Deletes a chatbot owned by the user.
+    /// Deletion of a chatbot will delete all of its conversations.
+    /// So be very cautious with calling this endpoint.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="id">ID of the chatbot.</param>
+    /// <param name="cancellationToken">Cancellation token for the request.</param>
+    /// <returns>No content.</returns>
+    /// <response code="204">No content.</response>
+    /// <response code="401">Unauthorized if the user is not authenticated.</response>
+    /// <response code="404">If the chatbot is not found in the user's chatbots.</response>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesError(StatusCodes.Status401Unauthorized)]
+    [ProducesError(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteChatbot(
         [FromRoute] Guid id,
         CancellationToken cancellationToken)

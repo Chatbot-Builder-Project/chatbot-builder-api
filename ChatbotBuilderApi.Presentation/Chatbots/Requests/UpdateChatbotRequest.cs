@@ -1,5 +1,11 @@
 ﻿namespace ChatbotBuilderApi.Presentation.Chatbots.Requests;
 
+/// <summary>
+/// Request to update a chatbot.
+/// </summary>
+/// <param name="Name">Name of the chatbot.</param>
+/// <param name="Description">Description of the chatbot.</param>
+/// <param name="IsPublic">Whether the chatbot is publicly available.</param>
 public sealed record UpdateChatbotRequest(
     string Name,
     string Description,

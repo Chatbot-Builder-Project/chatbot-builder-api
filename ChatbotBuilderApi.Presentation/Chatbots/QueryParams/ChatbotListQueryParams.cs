@@ -2,18 +2,19 @@
 
 namespace ChatbotBuilderApi.Presentation.Chatbots.QueryParams;
 
-/// <param name="PageParams"></param>
-/// <param name="Search"></param>
-/// <param name="IncludeOnlyPersonal">
-/// If true, only the chatbots created by the current user are included.
-/// AdminDetails will be included in the response if and only if this option is selected.
-/// </param>
+/// <summary>
+/// Query parameters for the list of chatbots.
+/// </summary>
+/// <param name="PageParams">Page parameters for the list of chatbots.</param>
+/// <param name="Search">Only chatbots with names or descriptions containing this string will be returned.</param>
+/// <param name="IncludeOnlyPersonal">If true, only chatbots created by the current user are included.</param>
 /// <param name="IncludeOnlyLatest">
-/// Default is true, so only the latest version of each chatbot is included.
-/// Typically false when listing all versions of a chatbot for the user while specifying the WorkflowId.
+/// True when you want to list only the latest version of each chatbot.
+/// Typically false for example when listing all versions of a chatbot for the user while specifying the WorkflowId.
 /// </param>
 /// <param name="WorkflowId">
-/// Limit the results to a specific workflow (e.g. to list all versions of a chatbot for one specific workflow).
+/// Only chatbots that are part of this workflow will be returned.
+/// (e.g. to list all versions of a chatbot for one specific workflow).
 /// </param>
 public sealed record ChatbotListQueryParams(
     PageParams PageParams,
