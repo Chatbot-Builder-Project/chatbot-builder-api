@@ -8,9 +8,10 @@ public sealed class UploadImageCommandValidator : AbstractValidator<UploadImageC
     public UploadImageCommandValidator()
     {
         RuleFor(x => x.UserId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("User ID must not be empty.");
 
         RuleFor(x => x.FileUpload)
-            .SetValidator(new FileUploadValidator());
+            .SetValidator(new FileUploadValidator(ImageApplicationRules.MaxImageSizeInBytes));
     }
 }
