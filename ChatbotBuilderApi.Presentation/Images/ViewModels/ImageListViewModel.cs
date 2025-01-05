@@ -2,8 +2,22 @@
 
 namespace ChatbotBuilderApi.Presentation.Images.ViewModels;
 
+/// <summary>
+/// View model for the image list.
+/// </summary>
+/// <param name="Page">Page of image list items.</param>
 public sealed record ImageListViewModel(PageResponse<ImageListViewModelItem> Page);
 
+/// <summary>
+/// Item in the image list view model.
+/// </summary>
+/// <param name="Id">ID of the image.</param>
+/// <param name="CreatedAt">Date and time the image was created.</param>
+/// <param name="UpdatedAt">Date and time the image was last updated.</param>
+/// <param name="Url">URL of the image.</param>
+/// <param name="Name">Name of the image.</param>
+/// <param name="ContentType">Content type of the image.</param>
+/// <param name="IsProfilePicture">Whether the image is a profile picture.</param>
 public sealed record ImageListViewModelItem(
     Guid Id,
     DateTime CreatedAt,
