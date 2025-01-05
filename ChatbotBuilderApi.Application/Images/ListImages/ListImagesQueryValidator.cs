@@ -1,4 +1,5 @@
-﻿using ChatbotBuilderApi.Application.Core.Validators;
+﻿using ChatbotBuilderApi.Application.Core;
+using ChatbotBuilderApi.Application.Core.Validators;
 using FluentValidation;
 
 namespace ChatbotBuilderApi.Application.Images.ListImages;
@@ -11,10 +12,11 @@ public sealed class ListImagesQueryValidator : AbstractValidator<ListImagesQuery
             .SetValidator(new PageParamsValidator());
 
         RuleFor(x => x.OwnerId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Owner Id must not be empty.");
 
         RuleFor(x => x.Search)
-            .MaximumLength(100)
-            .WithMessage("Search must be less than 100 characters");
+            .MaximumLength(ApplicationRules.Strings.MaxSmallStringLength)
+            .WithMessage($"Search must not exceed {ApplicationRules.Strings.MaxSmallStringLength} characters.");
     }
 }

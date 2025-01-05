@@ -1,3 +1,4 @@
+using ChatbotBuilderApi.Application.Core;
 using ChatbotBuilderApi.Application.Graphs;
 using FluentValidation;
 
@@ -8,15 +9,18 @@ public sealed class CreateWorkflowCommandValidator : AbstractValidator<CreateWor
     public CreateWorkflowCommandValidator()
     {
         RuleFor(x => x.OwnerId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Owner Id must not be empty.");
 
         RuleFor(x => x.Name)
             .NotEmpty()
-            .MaximumLength(100);
+            .MaximumLength(ApplicationRules.Strings.MaxSmallStringLength)
+            .WithMessage($"Name must not exceed {ApplicationRules.Strings.MaxSmallStringLength} characters.");
 
         RuleFor(x => x.Description)
             .NotEmpty()
-            .MaximumLength(1000);
+            .MaximumLength(ApplicationRules.Strings.MaxLargeStringLength)
+            .WithMessage($"Description must not exceed {ApplicationRules.Strings.MaxLargeStringLength} characters.");
 
         RuleFor(x => x.Graph)
             .SetValidator(new GraphValidator());

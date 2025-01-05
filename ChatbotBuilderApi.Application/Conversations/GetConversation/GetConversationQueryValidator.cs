@@ -7,9 +7,11 @@ public sealed class GetConversationQueryValidator : AbstractValidator<GetConvers
     public GetConversationQueryValidator()
     {
         RuleFor(x => x.Id)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Conversation Id is required.");
 
         RuleFor(x => x.UserId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("User Id is required.");
     }
 }

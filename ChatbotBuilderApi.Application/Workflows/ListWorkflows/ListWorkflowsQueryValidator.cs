@@ -1,3 +1,4 @@
+using ChatbotBuilderApi.Application.Core;
 using ChatbotBuilderApi.Application.Core.Validators;
 using FluentValidation;
 
@@ -8,10 +9,12 @@ public sealed class ListWorkflowsQueryValidator : AbstractValidator<ListWorkflow
     public ListWorkflowsQueryValidator()
     {
         RuleFor(x => x.OwnerId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Owner Id must not be empty.");
 
         RuleFor(x => x.Search)
-            .MaximumLength(100);
+            .MaximumLength(ApplicationRules.Strings.MaxSmallStringLength)
+            .WithMessage($"Search must not exceed {ApplicationRules.Strings.MaxSmallStringLength} characters.");
 
         RuleFor(x => x.PageParams)
             .SetValidator(new PageParamsValidator());

@@ -13,8 +13,10 @@ public sealed class EnumValidator : AbstractValidator<EnumDto>
             .SetValidator(new InfoMetaValidator());
 
         RuleFor(x => x.Options)
-            .IsNotEmpty()
-            .IsUnique();
+            .NotEmpty()
+            .WithMessage("Options are required.")
+            .MustBeUnique()
+            .WithMessage("Options must be unique.");
 
         RuleForEach(x => x.Options)
             .SetValidator(new OptionDataValidator());

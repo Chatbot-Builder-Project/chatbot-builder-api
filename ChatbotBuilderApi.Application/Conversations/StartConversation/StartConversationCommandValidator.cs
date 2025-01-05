@@ -1,3 +1,4 @@
+using ChatbotBuilderApi.Application.Core;
 using FluentValidation;
 
 namespace ChatbotBuilderApi.Application.Conversations.StartConversation;
@@ -7,12 +8,15 @@ public sealed class StartConversationCommandValidator : AbstractValidator<StartC
     public StartConversationCommandValidator()
     {
         RuleFor(x => x.ChatbotId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Chatbot Id is required.");
 
         RuleFor(x => x.UserId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("User Id is required.");
 
         RuleFor(x => x.Name)
-            .MaximumLength(100);
+            .MaximumLength(ApplicationRules.Strings.MaxSmallStringLength)
+            .WithMessage($"Name must be less than {ApplicationRules.Strings.MaxSmallStringLength} characters.");
     }
 }

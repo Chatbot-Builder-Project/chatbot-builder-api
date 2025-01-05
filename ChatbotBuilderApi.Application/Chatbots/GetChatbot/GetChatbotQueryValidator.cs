@@ -7,9 +7,11 @@ public sealed class GetChatbotQueryValidator : AbstractValidator<GetChatbotQuery
     public GetChatbotQueryValidator()
     {
         RuleFor(x => x.Id)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Chatbot Id is required.");
 
         RuleFor(x => x.UserId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("User Id is required.");
     }
 }

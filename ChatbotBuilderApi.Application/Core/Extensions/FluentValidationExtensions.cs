@@ -1,67 +1,50 @@
 ﻿using System.Text.RegularExpressions;
-using ChatbotBuilderApi.Application.Core.Shared;
-using ChatbotBuilderApi.Domain.Core.Primitives;
 using FluentValidation;
 
 namespace ChatbotBuilderApi.Application.Core.Extensions;
 
 public static partial class FluentValidationExtensions
 {
-    public static IRuleBuilderOptions<T, TProperty> WithError<T, TProperty>(
-        this IRuleBuilderOptions<T, TProperty> rule, Error error)
-    {
-        return rule
-            .WithErrorCode(error.Code)
-            .WithMessage(error.Message);
-    }
-
-    public static IRuleBuilderOptions<T, TProperty> IsNotEmpty<T, TProperty>(
-        this IRuleBuilder<T, TProperty> ruleBuilder)
-    {
-        return ruleBuilder
-            .NotEmpty()
-            .WithError(ApplicationErrors.Validation.FieldIsNullOrEmpty);
-    }
-
     /// <summary>
     /// Validates that all elements in a collection are unique based on the default or provided key selector.
+    /// No message is provided by default.
     /// </summary>
-    public static IRuleBuilderOptions<T, IEnumerable<TElement>> IsUnique<T, TElement>(
+    public static IRuleBuilderOptions<T, IEnumerable<TElement>> MustBeUnique<T, TElement>(
         this IRuleBuilder<T, IEnumerable<TElement>> ruleBuilder,
         Func<TElement, object>? keySelector = null)
         where TElement : notnull
     {
         return ruleBuilder.Must(collection =>
+        {
+            if (collection == null)
             {
-                if (collection == null)
-                {
-                    return true;
-                }
-
-                var seenKeys = new HashSet<object>();
-                foreach (var element in collection)
-                {
-                    var key = keySelector != null ? keySelector(element) : element;
-                    if (!seenKeys.Add(key))
-                    {
-                        return false;
-                    }
-                }
-
                 return true;
-            })
-            .WithError(ApplicationErrors.Validation.CollectionContainsDuplicates);
+            }
+
+            var seenKeys = new HashSet<object>();
+            foreach (var element in collection)
+            {
+                var key = keySelector != null ? keySelector(element) : element;
+                if (!seenKeys.Add(key))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        });
     }
 
     /// <summary>
     /// Validates that the property is a valid URL.
+    /// No message is provided by default.
     /// </summary>
-    public static IRuleBuilderOptions<T, string> IsUrl<T>(
+    public static IRuleBuilderOptions<T, string> MustBeUrl<T>(
         this IRuleBuilder<T, string> ruleBuilder)
     {
-        return ruleBuilder
-            .Must(url => !string.IsNullOrWhiteSpace(url) && UrlRegex().IsMatch(url))
-            .WithError(ApplicationErrors.Validation.InvalidUrl);
+        return ruleBuilder.Must(url =>
+            !string.IsNullOrWhiteSpace(url) &&
+            UrlRegex().IsMatch(url));
     }
 
     [GeneratedRegex(@"^https?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$", RegexOptions.IgnoreCase, "en-US")]

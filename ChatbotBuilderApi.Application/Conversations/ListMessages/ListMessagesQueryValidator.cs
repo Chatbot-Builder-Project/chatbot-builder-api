@@ -8,10 +8,12 @@ public sealed class ListMessagesQueryValidator : AbstractValidator<ListMessagesQ
     public ListMessagesQueryValidator()
     {
         RuleFor(x => x.ConversationId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Conversation Id is required.");
 
         RuleFor(x => x.UserId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("User Id is required.");
 
         RuleFor(x => x.PageParams)
             .SetValidator(new PageParamsValidator());

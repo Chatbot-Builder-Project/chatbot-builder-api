@@ -1,4 +1,5 @@
-﻿using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Interactions;
+﻿using ChatbotBuilderApi.Application.Core;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Interactions;
 using FluentValidation;
 
 namespace ChatbotBuilderApi.Application.Graphs.Shared.Interactions;
@@ -8,6 +9,8 @@ public sealed class InteractionOptionMetaValidator : AbstractValidator<Interacti
     public InteractionOptionMetaValidator()
     {
         RuleFor(x => x.Description)
-            .MaximumLength(1000);
+            .MaximumLength(ApplicationRules.Strings.MaxLargeStringLength)
+            .WithMessage("Option description must be less than " +
+                         ApplicationRules.Strings.MaxLargeStringLength + " characters.");
     }
 }

@@ -9,13 +9,15 @@ public sealed class SwitchNodeValidator : AbstractValidator<SwitchNodeDto>
     public SwitchNodeValidator()
     {
         RuleFor(x => x.Type)
-            .Must(t => t == NodeType.Switch);
+            .Must(t => t == NodeType.Switch)
+            .WithMessage("Node type must be Switch.");
 
         RuleFor(x => x.InputPort)
             .SetValidator(new InputPortValidator(DataType.Option));
 
         RuleFor(x => x)
-            .Must(x => x.InputPort.NodeIdentifier == x.Info.Identifier);
+            .Must(x => x.InputPort.NodeIdentifier == x.Info.Identifier)
+            .WithMessage("InputPort node identifier must match node identifier.");
 
         RuleFor(x => x.Bindings)
             .ChildRules(b => b

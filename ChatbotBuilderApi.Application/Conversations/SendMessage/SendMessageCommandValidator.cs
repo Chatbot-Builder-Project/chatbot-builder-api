@@ -1,3 +1,4 @@
+using ChatbotBuilderApi.Application.Core;
 using FluentValidation;
 
 namespace ChatbotBuilderApi.Application.Conversations.SendMessage;
@@ -7,15 +8,18 @@ public sealed class SendMessageCommandValidator : AbstractValidator<SendMessageC
     public SendMessageCommandValidator()
     {
         RuleFor(x => x.ConversationId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Conversation Id is required.");
 
         RuleFor(x => x.UserId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("User Id is required.");
 
         RuleFor(x => x.InputMessage.Input)
             .ChildRules(i => i
                 .RuleFor(x => x.Text)
-                .Must(t => t == null || t.Text.Length <= 1000)
-                .WithMessage("Text must be less than or equal to 1000 characters"));
+                .Must(t => t == null || t.Text.Length <= ApplicationRules.Strings.MaxLargeStringLength)
+                .WithMessage("InputMessage Text must be less than " +
+                             ApplicationRules.Strings.MaxSmallStringLength + " characters."));
     }
 }

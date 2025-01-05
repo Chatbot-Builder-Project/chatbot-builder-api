@@ -11,7 +11,8 @@ public sealed class InteractionNodeValidator : AbstractValidator<InteractionNode
     public InteractionNodeValidator()
     {
         RuleFor(x => x.Type)
-            .Must(t => t == NodeType.Interaction);
+            .Must(t => t == NodeType.Interaction)
+            .WithMessage("Node type must be Interaction.");
 
         When(x => x.TextInputPort is not null, () =>
         {
@@ -19,7 +20,8 @@ public sealed class InteractionNodeValidator : AbstractValidator<InteractionNode
                 .SetValidator(new InputPortValidator(DataType.Text)!);
 
             RuleFor(x => x)
-                .Must(x => x.TextInputPort!.NodeIdentifier == x.Info.Identifier);
+                .Must(x => x.TextInputPort!.NodeIdentifier == x.Info.Identifier)
+                .WithMessage("TextInputPort node identifier must match node identifier.");
         });
 
         When(x => x.TextOutputPort is not null, () =>
@@ -28,7 +30,8 @@ public sealed class InteractionNodeValidator : AbstractValidator<InteractionNode
                 .SetValidator(new OutputPortValidator(DataType.Text)!);
 
             RuleFor(x => x)
-                .Must(x => x.TextOutputPort!.NodeIdentifier == x.Info.Identifier);
+                .Must(x => x.TextOutputPort!.NodeIdentifier == x.Info.Identifier)
+                .WithMessage("TextOutputPort node identifier must match node identifier.");
         });
 
         When(x => x.OptionOutputPort is not null, () =>
@@ -37,7 +40,8 @@ public sealed class InteractionNodeValidator : AbstractValidator<InteractionNode
                 .SetValidator(new OutputPortValidator(DataType.Option)!);
 
             RuleFor(x => x)
-                .Must(x => x.OptionOutputPort!.NodeIdentifier == x.Info.Identifier);
+                .Must(x => x.OptionOutputPort!.NodeIdentifier == x.Info.Identifier)
+                .WithMessage("OptionOutputPort node identifier must match node identifier.");
         });
 
         RuleFor(x => x.OutputOptionMetas)

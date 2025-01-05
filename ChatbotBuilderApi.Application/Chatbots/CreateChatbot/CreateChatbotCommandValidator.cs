@@ -7,6 +7,7 @@ public sealed class CreateChatbotCommandValidator : AbstractValidator<CreateChat
     public CreateChatbotCommandValidator()
     {
         RuleFor(x => x.WorkflowId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("WorkflowId is required.");
     }
 }

@@ -15,12 +15,14 @@ public sealed class OutputPortValidator : AbstractValidator<OutputPortDto>
             .SetValidator(new VisualMetaValidator());
 
         RuleFor(x => x.DataType)
-            .IsInEnum();
+            .IsInEnum()
+            .WithMessage("Data type must be a valid enum value.");
     }
 
     public OutputPortValidator(DataType dataType) : this()
     {
         RuleFor(x => x.DataType)
-            .Must(dt => dt == dataType);
+            .Must(dt => dt == dataType)
+            .WithMessage($"Output port data type must be {dataType}.");
     }
 }

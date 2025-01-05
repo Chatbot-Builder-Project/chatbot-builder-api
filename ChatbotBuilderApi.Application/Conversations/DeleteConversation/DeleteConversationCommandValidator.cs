@@ -7,9 +7,11 @@ public sealed class DeleteConversationCommandValidator : AbstractValidator<Delet
     public DeleteConversationCommandValidator()
     {
         RuleFor(x => x.Id)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Conversation Id is required.");
 
         RuleFor(x => x.OwnerId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Owner Id is required.");
     }
 }

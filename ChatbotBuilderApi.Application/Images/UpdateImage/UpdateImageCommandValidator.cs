@@ -7,9 +7,11 @@ public sealed class UpdateImageCommandValidator : AbstractValidator<UpdateImageC
     public UpdateImageCommandValidator()
     {
         RuleFor(c => c.ImageId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Image Id must not be empty.");
 
         RuleFor(c => c.OwnerId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Owner Id must not be empty.");
     }
 }

@@ -39,14 +39,17 @@ public sealed class GraphValidator : AbstractValidator<GraphDto>
                 }
 
                 return true;
-            });
+            })
+            .WithMessage("All identifiers in the graph must be unique.");
 
         RuleFor(x => x.Nodes)
             .Must(nodes => nodes
-                .Any(node => node.Type == NodeType.Interaction));
+                .Any(node => node.Type == NodeType.Interaction))
+            .WithMessage("Graph must contain at least one interaction node.");
 
         RuleFor(x => x.Nodes)
-            .IsUnique();
+            .MustBeUnique()
+            .WithMessage("All nodes in the graph must be unique.");
 
         RuleForEach(x => x.Nodes)
             .ChildRules(node => node
@@ -54,7 +57,8 @@ public sealed class GraphValidator : AbstractValidator<GraphDto>
                 .SetValidator(x => x.GetValidator()));
 
         RuleFor(x => x.DataLinks)
-            .IsUnique();
+            .MustBeUnique()
+            .WithMessage("All data links in the graph must be unique.");
 
         RuleForEach(x => x.DataLinks)
             .ChildRules(link => link
@@ -62,7 +66,8 @@ public sealed class GraphValidator : AbstractValidator<GraphDto>
                 .SetValidator(new DataLinkValidator()));
 
         RuleFor(x => x.FlowLinks)
-            .IsUnique();
+            .MustBeUnique()
+            .WithMessage("All flow links in the graph must be unique.");
 
         RuleForEach(x => x.FlowLinks)
             .ChildRules(link => link
@@ -70,7 +75,8 @@ public sealed class GraphValidator : AbstractValidator<GraphDto>
                 .SetValidator(new FlowLinkValidator()));
 
         RuleFor(x => x.Enums)
-            .IsUnique();
+            .MustBeUnique()
+            .WithMessage("All enums in the graph must be unique.");
 
         RuleForEach(x => x.Enums)
             .ChildRules(@enum => @enum
@@ -91,7 +97,8 @@ public sealed class GraphValidator : AbstractValidator<GraphDto>
                 }
 
                 return true;
-            });
+            })
+            .WithMessage("Any node that references an enum identifier must have a corresponding enum in the graph.");
 
         RuleFor(x => x)
             .Must(x =>
@@ -107,6 +114,8 @@ public sealed class GraphValidator : AbstractValidator<GraphDto>
                 }
 
                 return true;
-            });
+            })
+            .WithMessage("Any switch node that references a flow link identifier" +
+                         " must have a corresponding flow link in the graph.");
     }
 }

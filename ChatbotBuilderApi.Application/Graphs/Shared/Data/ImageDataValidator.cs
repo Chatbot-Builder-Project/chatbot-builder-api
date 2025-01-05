@@ -8,6 +8,8 @@ public sealed class ImageDataValidator : AbstractValidator<ImageData>
 {
     public ImageDataValidator()
     {
-        RuleFor(x => x.Url).IsUrl();
+        RuleFor(x => x.Url)
+            .MustBeUrl()
+            .WithMessage("Image Url must be a valid url.");
     }
 }

@@ -7,6 +7,7 @@ public sealed class DeleteWorkflowCommandValidator : AbstractValidator<DeleteWor
     public DeleteWorkflowCommandValidator()
     {
         RuleFor(x => x.OwnerId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Owner Id must not be empty.");
     }
 }

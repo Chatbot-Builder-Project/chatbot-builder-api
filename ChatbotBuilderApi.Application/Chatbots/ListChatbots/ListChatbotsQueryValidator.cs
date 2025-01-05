@@ -1,3 +1,4 @@
+using ChatbotBuilderApi.Application.Core;
 using ChatbotBuilderApi.Application.Core.Validators;
 using FluentValidation;
 
@@ -11,9 +12,11 @@ public sealed class ListChatbotsQueryValidator : AbstractValidator<ListChatbotsQ
             .SetValidator(new PageParamsValidator());
 
         RuleFor(x => x.UserId)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("User Id is required.");
 
         RuleFor(x => x.Search)
-            .MaximumLength(100);
+            .MaximumLength(ApplicationRules.Strings.MaxSmallStringLength)
+            .WithMessage($"Search must be less than {ApplicationRules.Strings.MaxSmallStringLength} characters.");
     }
 }
