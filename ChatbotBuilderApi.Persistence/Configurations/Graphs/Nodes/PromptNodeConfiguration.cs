@@ -1,4 +1,6 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes.Prompt;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
+using ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,6 +11,8 @@ internal sealed class PromptNodeConfiguration : IEntityTypeConfiguration<PromptN
     public void Configure(EntityTypeBuilder<PromptNode> builder)
     {
         builder.OwnsOne(n => n.Template, b => b.Property(t => t.Text));
+
+        builder.Property(n => n.InjectedTemplate);
 
         builder.HasOne(n => n.OutputPort)
             .WithOne()
@@ -24,6 +28,6 @@ internal sealed class PromptNodeConfiguration : IEntityTypeConfiguration<PromptN
         builder.Navigation(n => n.OutputPort).AutoInclude();
         builder.Navigation(n => n.InputPorts).AutoInclude();
 
-        builder.Property(n => n.InjectedTemplate);
+        builder.FixNodePort<OutputPortId>(nameof(PromptNode.OutputPort));
     }
 }

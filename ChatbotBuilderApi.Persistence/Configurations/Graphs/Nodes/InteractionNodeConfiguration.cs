@@ -1,7 +1,9 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Interactions;
 using ChatbotBuilderApi.Persistence.Configurations.Converters;
+using ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -50,5 +52,10 @@ internal sealed class InteractionNodeConfiguration : IEntityTypeConfiguration<In
         builder.Navigation(n => n.OutputEnum).AutoInclude();
         builder.Navigation(n => n.OptionOutputPort).AutoInclude();
         builder.Navigation(n => n.InteractionInput).AutoInclude();
+
+        builder.FixNodePort<InputPortId>(nameof(InteractionNode.TextInputPort));
+        builder.FixNodePort<OutputPortId>(nameof(InteractionNode.TextOutputPort));
+        builder.FixNodePort<OutputPortId>(nameof(InteractionNode.OptionOutputPort));
+        builder.FixNodeEnum(nameof(InteractionNode.OutputEnum));
     }
 }

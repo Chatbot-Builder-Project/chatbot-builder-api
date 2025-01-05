@@ -1,5 +1,6 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -16,9 +17,11 @@ internal static class StaticNodeConfigurationExtension
 
         builder.HasOne(n => n.OutputPort)
             .WithOne()
-            .HasForeignKey<StaticNode<TData>>()
+            .HasForeignKey<StaticNode<TData>>("OutputPortId")
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.Navigation(n => n.OutputPort).AutoInclude();
+
+        builder.FixNodePort<OutputPortId>(nameof(StaticNode<TData>.OutputPort));
     }
 }
