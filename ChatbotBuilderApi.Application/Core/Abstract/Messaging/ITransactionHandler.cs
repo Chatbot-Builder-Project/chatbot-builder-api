@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Application.Core.Shared.Notifications;
+﻿using ChatbotBuilderApi.Application.Core.Notifications;
 using MediatR;
 
 namespace ChatbotBuilderApi.Application.Core.Abstract.Messaging;

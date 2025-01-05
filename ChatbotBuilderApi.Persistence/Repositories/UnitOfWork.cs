@@ -1,5 +1,5 @@
 ﻿using ChatbotBuilderApi.Application.Core.Abstract;
-using ChatbotBuilderApi.Application.Core.Shared.Notifications;
+using ChatbotBuilderApi.Application.Core.Notifications;
 using ChatbotBuilderApi.Domain.Core.Abstract;
 using MediatR;
 

@@ -1,4 +1,4 @@
-using ChatbotBuilderApi.Application.Core.Shared.Validators;
+using ChatbotBuilderApi.Application.Core.Validators;
 using FluentValidation;
 
 namespace ChatbotBuilderApi.Application.Conversations.ListConversations;

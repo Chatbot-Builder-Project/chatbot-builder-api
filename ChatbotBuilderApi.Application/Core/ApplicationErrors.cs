@@ -1,8 +1,8 @@
 ﻿using ChatbotBuilderApi.Domain.Core.Primitives;
 
-namespace ChatbotBuilderApi.Application.Core.Shared;
+namespace ChatbotBuilderApi.Application.Core;
 
-public static class CommonApplicationErrors
+public static class ApplicationErrors
 {
     public static class Validation
     {

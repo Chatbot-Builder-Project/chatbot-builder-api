@@ -20,7 +20,7 @@ public static partial class FluentValidationExtensions
     {
         return ruleBuilder
             .NotEmpty()
-            .WithError(CommonApplicationErrors.Validation.FieldIsNullOrEmpty);
+            .WithError(ApplicationErrors.Validation.FieldIsNullOrEmpty);
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public static partial class FluentValidationExtensions
 
                 return true;
             })
-            .WithError(CommonApplicationErrors.Validation.CollectionContainsDuplicates);
+            .WithError(ApplicationErrors.Validation.CollectionContainsDuplicates);
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ public static partial class FluentValidationExtensions
     {
         return ruleBuilder
             .Must(url => !string.IsNullOrWhiteSpace(url) && UrlRegex().IsMatch(url))
-            .WithError(CommonApplicationErrors.Validation.InvalidUrl);
+            .WithError(ApplicationErrors.Validation.InvalidUrl);
     }
 
     [GeneratedRegex(@"^https?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$", RegexOptions.IgnoreCase, "en-US")]

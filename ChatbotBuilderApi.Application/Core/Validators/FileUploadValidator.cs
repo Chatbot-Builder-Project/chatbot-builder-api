@@ -1,6 +1,7 @@
-﻿using FluentValidation;
+﻿using ChatbotBuilderApi.Application.Core.Shared;
+using FluentValidation;
 
-namespace ChatbotBuilderApi.Application.Core.Shared.Validators;
+namespace ChatbotBuilderApi.Application.Core.Validators;
 
 public sealed class FileUploadValidator : AbstractValidator<FileUpload>
 {

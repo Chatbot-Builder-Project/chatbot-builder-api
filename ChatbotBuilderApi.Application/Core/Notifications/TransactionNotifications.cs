@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace ChatbotBuilderApi.Application.Core.Shared.Notifications;
+namespace ChatbotBuilderApi.Application.Core.Notifications;
 
 public sealed class TransactionStartNotification : INotification;
 

@@ -2,6 +2,6 @@
 
 public sealed class PageResponse<TItem>
 {
-    public required int TotalCount { get; set; }
-    public required IReadOnlyList<TItem> Items { get; set; }
+    public required int TotalCount { get; init; }
+    public required IReadOnlyList<TItem> Items { get; init; }
 }
