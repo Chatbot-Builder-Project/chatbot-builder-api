@@ -14,9 +14,14 @@ internal sealed class EnumConfiguration : IEntityTypeConfiguration<Enum>
         builder.Property(e => e.Id).ApplyEntityIdConversion();
 
         builder.OwnsOne(e => e.Info, i => i.ConfigureInfoMeta());
-        builder.OwnsMany(e => e.Options)
-            .WithOwner()
-            .HasForeignKey("EnumId");
+        builder.OwnsMany(e => e.Options, optionBuilder =>
+        {
+            optionBuilder
+                .WithOwner()
+                .HasForeignKey("EnumId");
+
+            optionBuilder.ConfigureOptionData();
+        });
 
         builder.Navigation(e => e.Options).AutoInclude();
     }
