@@ -1,6 +1,6 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 
-namespace ChatbotBuilderApi.Domain.Graphs.Abstract;
+namespace ChatbotBuilderApi.Domain.Graphs.Abstract.Services;
 
 public interface IGraphTraversalService
 {

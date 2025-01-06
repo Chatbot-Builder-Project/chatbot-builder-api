@@ -1,6 +1,7 @@
 ﻿using ChatbotBuilderApi.Domain.Core;
 using ChatbotBuilderApi.Domain.Graphs.Abstract;
 using ChatbotBuilderApi.Domain.Graphs.Abstract.Behaviors;
+using ChatbotBuilderApi.Domain.Graphs.Abstract.Services;
 using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 
@@ -8,6 +9,13 @@ namespace ChatbotBuilderApi.Domain.Graphs;
 
 public sealed class GraphTraversalService : IGraphTraversalService
 {
+    private readonly NodeExecutionContext _nodeExecutionContext;
+
+    public GraphTraversalService()
+    {
+        _nodeExecutionContext = new NodeExecutionContext();
+    }
+
     private Graph? _graph;
 
     public Graph Graph
@@ -37,9 +45,9 @@ public sealed class GraphTraversalService : IGraphTraversalService
     /// </list>
     /// </summary>
     /// <param name="node"></param>
-    private static async Task ActivateNodeAsync(Node node)
+    private async Task ActivateNodeAsync(Node node)
     {
-        await node.RunAsync();
+        await node.RunAsync(_nodeExecutionContext);
 
         if (node is IOutputNode outputNode)
         {

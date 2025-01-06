@@ -30,5 +30,5 @@ public abstract class Node : Entity<NodeId>
     /// <remarks>
     /// The graph will call this method before publishing outputs, or getting the successor node, etc.
     /// </remarks>
-    public virtual Task RunAsync() => Task.CompletedTask;
+    public virtual Task RunAsync(NodeExecutionContext context) => Task.CompletedTask;
 }

@@ -1,5 +1,5 @@
 ﻿using ChatbotBuilderApi.Domain.Conversations.ValueObjects;
-using ChatbotBuilderApi.Domain.Graphs.Abstract;
+using ChatbotBuilderApi.Domain.Graphs.Abstract.Services;
 
 namespace ChatbotBuilderApi.Domain.Conversations.Abstract;
 

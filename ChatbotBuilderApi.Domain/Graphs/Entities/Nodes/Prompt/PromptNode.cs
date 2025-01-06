@@ -67,7 +67,7 @@ public sealed class PromptNode : Node,
         return new PromptNode(id, info, visual, template, outputPort, inputPortsSet);
     }
 
-    public override Task RunAsync()
+    public override Task RunAsync(NodeExecutionContext context)
     {
         var values = InputPorts.ToDictionary(
             ip => ip.Info.Identifier.ToString(),

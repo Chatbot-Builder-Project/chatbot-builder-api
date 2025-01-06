@@ -49,7 +49,7 @@ public sealed class SwitchNode : Node,
         return new SwitchNode(id, info, visual, inputPort, @enum, bindings);
     }
 
-    public override Task RunAsync()
+    public override Task RunAsync(NodeExecutionContext context)
     {
         SelectedOption = InputPort.GetData();
         return Task.CompletedTask;

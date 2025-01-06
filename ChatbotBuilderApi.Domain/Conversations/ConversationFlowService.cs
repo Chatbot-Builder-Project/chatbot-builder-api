@@ -2,7 +2,7 @@
 using ChatbotBuilderApi.Domain.Conversations.ValueObjects;
 using ChatbotBuilderApi.Domain.Core;
 using ChatbotBuilderApi.Domain.Graphs;
-using ChatbotBuilderApi.Domain.Graphs.Abstract;
+using ChatbotBuilderApi.Domain.Graphs.Abstract.Services;
 using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
 
 namespace ChatbotBuilderApi.Domain.Conversations;
