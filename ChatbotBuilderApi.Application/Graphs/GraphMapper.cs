@@ -2,6 +2,7 @@
 using ChatbotBuilderApi.Application.Graphs.Links.DataLinks;
 using ChatbotBuilderApi.Application.Graphs.Links.FlowLinks;
 using ChatbotBuilderApi.Application.Graphs.Nodes;
+using ChatbotBuilderApi.Application.Graphs.Nodes.ApiAction;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Interaction;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Prompt;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Static;
@@ -66,6 +67,9 @@ public static partial class GraphMapper
                             switchNode.Bindings.ToDictionary(
                                 b => b.Key,
                                 b => flowLinkIdByIdentifier[b.Value]));
+
+                    case ApiActionNodeDto apiActionNode:
+                        return apiActionNode.ToDomain();
 
                     default:
                         throw new ArgumentOutOfRangeException(nameof(node));
@@ -153,6 +157,7 @@ public static partial class GraphMapper
                     SwitchNode switchNode => switchNode.ToDto(switchNode.Bindings.ToDictionary(
                         b => b.Key,
                         b => flowLinkIdentifierById[b.Value])),
+                    ApiActionNode apiActionNode => apiActionNode.ToDto(),
                     _ => throw new ArgumentOutOfRangeException(nameof(node))
                 };
             })

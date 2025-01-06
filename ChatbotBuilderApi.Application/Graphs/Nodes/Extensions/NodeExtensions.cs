@@ -1,4 +1,5 @@
-﻿using ChatbotBuilderApi.Application.Graphs.Nodes.Interaction;
+﻿using ChatbotBuilderApi.Application.Graphs.Nodes.ApiAction;
+using ChatbotBuilderApi.Application.Graphs.Nodes.Interaction;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Prompt;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Static;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Switch;
@@ -17,6 +18,7 @@ public static class NodeExtensions
             StaticNodeDto staticNode => new StaticNodeValidator() as AbstractValidator<TNode>,
             PromptNodeDto promptNode => new PromptNodeValidator() as AbstractValidator<TNode>,
             SwitchNodeDto switchNode => new SwitchNodeValidator() as AbstractValidator<TNode>,
+            ApiActionNodeDto apiActionNode => new ApiActionNodeValidator() as AbstractValidator<TNode>,
             _ => throw new ArgumentOutOfRangeException(nameof(node))!
         };
     }

@@ -5,5 +5,6 @@ public enum NodeType
     Interaction,
     Static,
     Switch,
-    Prompt
+    Prompt,
+    ApiAction
 }
