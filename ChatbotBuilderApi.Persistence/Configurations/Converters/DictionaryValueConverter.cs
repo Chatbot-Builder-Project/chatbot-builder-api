@@ -10,6 +10,7 @@ namespace ChatbotBuilderApi.Persistence.Configurations.Converters;
 /// So you would need to call <see cref="DbLoggerCategory.Update"/> explicitly on the entity.
 /// </remarks>
 public class DictionaryValueConverter<TKey, TValue> : ValueConverter<IReadOnlyDictionary<TKey, TValue>, string>
+    where TKey : notnull
 {
     public DictionaryValueConverter(
         JsonConverter<TKey>? keyConverter = null,
@@ -49,6 +50,7 @@ public class DictionaryValueConverter<TKey, TValue> : ValueConverter<IReadOnlyDi
 /// JSON converter for nullable dictionaries.
 /// </summary>
 public class NullableDictionaryValueConverter<TKey, TValue> : ValueConverter<IReadOnlyDictionary<TKey, TValue>?, string>
+    where TKey : notnull
 {
     public NullableDictionaryValueConverter(
         JsonConverter<TKey>? keyConverter = null,
