@@ -28,4 +28,4 @@ public sealed record OutputMessageViewModel(
     TextDataModel? TextOutput,
     bool TextExpected,
     bool OptionExpected,
-    IReadOnlyDictionary<OptionDataModel, InteractionOptionMeta>? ExpectedOptionMetas);
+    IReadOnlyDictionary<string, InteractionOptionMeta>? ExpectedOptionMetas);

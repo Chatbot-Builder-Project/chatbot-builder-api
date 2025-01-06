@@ -27,7 +27,7 @@ public static partial class MessageViewModelsMappers
             message.Output.TextExpected,
             message.Output.OptionExpected,
             message.Output.ExpectedOptionMetas?.ToDictionary(
-                kvp => kvp.Key.ToModel(),
+                kvp => kvp.Key.ToModel().Option,
                 kvp => kvp.Value)
         );
     }
