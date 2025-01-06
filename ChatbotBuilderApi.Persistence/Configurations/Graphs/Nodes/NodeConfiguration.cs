@@ -19,7 +19,8 @@ internal sealed class NodeConfiguration : IEntityTypeConfiguration<Node>
             .HasValue<StaticNode<ImageData>>(nameof(StaticNode<ImageData>) + nameof(ImageData))
             .HasValue<StaticNode<OptionData>>(nameof(StaticNode<OptionData>) + nameof(OptionData))
             .HasValue<SwitchNode>(nameof(SwitchNode))
-            .HasValue<PromptNode>(nameof(PromptNode));
+            .HasValue<PromptNode>(nameof(PromptNode))
+            .HasValue<ApiActionNode>(nameof(ApiActionNode));
 
         builder.HasKey(n => n.Id);
         builder.Property(n => n.Id).ApplyEntityIdConversion();

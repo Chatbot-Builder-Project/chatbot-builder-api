@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using ChatbotBuilderApi.Domain.Core.Primitives;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -11,11 +10,10 @@ namespace ChatbotBuilderApi.Persistence.Configurations.Converters;
 /// So you would need to call <see cref="DbLoggerCategory.Update"/> explicitly on the entity.
 /// </remarks>
 public class DictionaryValueConverter<TKey, TValue> : ValueConverter<IReadOnlyDictionary<TKey, TValue>, string>
-    where TKey : ValueObject
 {
     public DictionaryValueConverter(
-        JsonConverter<TKey> keyConverter,
-        JsonConverter<TValue> valueConverter)
+        JsonConverter<TKey>? keyConverter = null,
+        JsonConverter<TValue>? valueConverter = null)
         : base(
             dict => JsonSerializer.Serialize(
                 dict, CreateOptions(keyConverter, valueConverter)),
@@ -25,18 +23,25 @@ public class DictionaryValueConverter<TKey, TValue> : ValueConverter<IReadOnlyDi
     }
 
     internal static JsonSerializerOptions CreateOptions(
-        JsonConverter<TKey> keyConverter,
-        JsonConverter<TValue> valueConverter)
+        JsonConverter<TKey>? keyConverter,
+        JsonConverter<TValue>? valueConverter)
     {
-        return new JsonSerializerOptions
+        var options = new JsonSerializerOptions
         {
-            WriteIndented = false,
-            Converters =
-            {
-                keyConverter,
-                valueConverter
-            }
+            WriteIndented = false
         };
+
+        if (keyConverter != null)
+        {
+            options.Converters.Add(keyConverter);
+        }
+
+        if (valueConverter != null)
+        {
+            options.Converters.Add(valueConverter);
+        }
+
+        return options;
     }
 }
 
@@ -44,11 +49,10 @@ public class DictionaryValueConverter<TKey, TValue> : ValueConverter<IReadOnlyDi
 /// JSON converter for nullable dictionaries.
 /// </summary>
 public class NullableDictionaryValueConverter<TKey, TValue> : ValueConverter<IReadOnlyDictionary<TKey, TValue>?, string>
-    where TKey : ValueObject
 {
     public NullableDictionaryValueConverter(
-        JsonConverter<TKey> keyConverter,
-        JsonConverter<TValue> valueConverter)
+        JsonConverter<TKey>? keyConverter = null,
+        JsonConverter<TValue>? valueConverter = null)
         : base(
             dict => dict == null
                 ? null!
