@@ -1,5 +1,6 @@
 ﻿using ChatbotBuilderApi.Application.Graphs.Nodes;
 using ChatbotBuilderApi.Presentation.Graphs.Metas;
+using ChatbotBuilderApi.Presentation.Graphs.Nodes.ApiAction;
 using ChatbotBuilderApi.Presentation.Graphs.Nodes.Interaction;
 using ChatbotBuilderApi.Presentation.Graphs.Nodes.Prompt;
 using ChatbotBuilderApi.Presentation.Graphs.Nodes.Static;
@@ -15,11 +16,13 @@ namespace ChatbotBuilderApi.Presentation.Graphs.Nodes;
 [JsonSubtypes.KnownSubType(typeof(PromptNodeModel), NodeType.Prompt)]
 [JsonSubtypes.KnownSubType(typeof(InteractionNodeModel), NodeType.Interaction)]
 [JsonSubtypes.KnownSubType(typeof(SwitchNodeModel), NodeType.Switch)]
+[JsonSubtypes.KnownSubType(typeof(ApiActionNodeModel), NodeType.ApiAction)]
 [SwaggerDiscriminator(nameof(NodeType))]
 [SwaggerSubType(typeof(StaticNodeModel), DiscriminatorValue = nameof(NodeType.Static))]
 [SwaggerSubType(typeof(PromptNodeModel), DiscriminatorValue = nameof(NodeType.Prompt))]
 [SwaggerSubType(typeof(InteractionNodeModel), DiscriminatorValue = nameof(NodeType.Interaction))]
 [SwaggerSubType(typeof(SwitchNodeModel), DiscriminatorValue = nameof(NodeType.Switch))]
+[SwaggerSubType(typeof(ApiActionNodeModel), DiscriminatorValue = nameof(NodeType.ApiAction))]
 public abstract record NodeModel(
     InfoMetaModel Info,
     VisualMetaModel Visual,
