@@ -12,6 +12,11 @@ public sealed class Version : ValueObject
         Major = major;
     }
 
+    /// <inheritdoc/>
+    private Version()
+    {
+    }
+
     public static Version Create(int major)
     {
         if (major < 1)
