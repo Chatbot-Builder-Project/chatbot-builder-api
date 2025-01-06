@@ -94,12 +94,14 @@ public sealed class GraphTraversalService : IGraphTraversalService
             throw new DomainException(GraphDomainErrors.Graph.InteractionNodeNotFound);
         }
 
-        var currentNodeId = GetSuccessor(interactionNodeId);
+        var currentNodeId = interactionNodeId;
+        var currentNode = interactionNode;
         do
         {
-            await ActivateNodeAsync(interactionNode);
+            await ActivateNodeAsync(currentNode);
             currentNodeId = GetSuccessor(currentNodeId);
-        } while (Graph.NodesMap[currentNodeId] is not InteractionNode);
+            currentNode = Graph.NodesMap[currentNodeId];
+        } while (currentNode is not InteractionNode);
 
         return currentNodeId;
     }
