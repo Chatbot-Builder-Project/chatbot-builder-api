@@ -1,6 +1,7 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Interactions;
 using ChatbotBuilderApi.Persistence.Configurations.Converters;
+using ChatbotBuilderApi.Persistence.Configurations.Converters.Json;
 using ChatbotBuilderApi.Persistence.Configurations.Graphs.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -32,7 +33,9 @@ internal sealed class InteractionOutputConfiguration : IEntityTypeConfiguration<
         builder.Property(o => o.OptionExpected);
 
         builder.Property(o => o.ExpectedOptionMetas)
-            .HasConversion(new NullableDictionaryJsonConverter<OptionData, InteractionOptionMeta>())
+            .HasConversion(new NullableDictionaryValueConverter<OptionData, InteractionOptionMeta>(
+                new OptionDataJsonConverter(),
+                new InteractionOptionMetaJsonConverter()))
             .HasColumnType("NVARCHAR(MAX)")
             .IsRequired(false);
     }
