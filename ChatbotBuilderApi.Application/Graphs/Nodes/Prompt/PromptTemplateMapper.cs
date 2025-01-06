@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes.Prompt;
+﻿using ChatbotBuilderApi.Domain.Graphs.Nodes.Prompt;
 using Riok.Mapperly.Abstractions;
 
 namespace ChatbotBuilderApi.Application.Graphs.Nodes.Prompt;

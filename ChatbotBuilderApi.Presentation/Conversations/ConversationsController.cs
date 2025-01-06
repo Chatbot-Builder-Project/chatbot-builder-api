@@ -7,7 +7,6 @@ using ChatbotBuilderApi.Application.Conversations.UpdateConversation;
 using ChatbotBuilderApi.Domain.Chatbots.ValueObjects;
 using ChatbotBuilderApi.Domain.Conversations.ValueObjects;
 using ChatbotBuilderApi.Domain.Users;
-using ChatbotBuilderApi.Domain.Workflows;
 using ChatbotBuilderApi.Presentation.Conversations.QueryParams;
 using ChatbotBuilderApi.Presentation.Conversations.Requests;
 using ChatbotBuilderApi.Presentation.Conversations.ViewModels;

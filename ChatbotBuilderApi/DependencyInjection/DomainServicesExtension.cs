@@ -1,7 +1,6 @@
 ﻿using ChatbotBuilderApi.Domain.Conversations;
-using ChatbotBuilderApi.Domain.Conversations.Abstract;
-using ChatbotBuilderApi.Domain.Graphs;
-using ChatbotBuilderApi.Domain.Graphs.Abstract.Services;
+using ChatbotBuilderApi.Domain.Conversations.Flow;
+using ChatbotBuilderApi.Domain.Graphs.Traversal;
 
 namespace ChatbotBuilderApi.DependencyInjection;
 

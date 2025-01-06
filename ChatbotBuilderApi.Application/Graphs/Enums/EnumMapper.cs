@@ -1,6 +1,6 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using Riok.Mapperly.Abstractions;
-using Enum = ChatbotBuilderApi.Domain.Graphs.Entities.Enum;
+using Enum = ChatbotBuilderApi.Domain.Graphs.Enum;
 
 namespace ChatbotBuilderApi.Application.Graphs.Enums;
 

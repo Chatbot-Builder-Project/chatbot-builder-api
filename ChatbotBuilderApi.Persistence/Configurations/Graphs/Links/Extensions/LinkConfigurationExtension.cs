@@ -1,5 +1,5 @@
 ﻿using ChatbotBuilderApi.Domain.Core.Primitives;
-using ChatbotBuilderApi.Domain.Graphs.Abstract;
+using ChatbotBuilderApi.Domain.Graphs.Links;
 using ChatbotBuilderApi.Persistence.Configurations.Graphs.Extensions;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

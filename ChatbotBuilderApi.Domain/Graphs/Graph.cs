@@ -1,11 +1,10 @@
 ﻿using ChatbotBuilderApi.Domain.Core;
 using ChatbotBuilderApi.Domain.Core.Primitives;
-using ChatbotBuilderApi.Domain.Graphs.Abstract;
-using ChatbotBuilderApi.Domain.Graphs.Abstract.Behaviors;
-using ChatbotBuilderApi.Domain.Graphs.Entities.Links;
-using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
+using ChatbotBuilderApi.Domain.Graphs.Links;
+using ChatbotBuilderApi.Domain.Graphs.Nodes;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.Behaviors;
+using ChatbotBuilderApi.Domain.Graphs.Ports;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
-using Enum = ChatbotBuilderApi.Domain.Graphs.Entities.Enum;
 
 namespace ChatbotBuilderApi.Domain.Graphs;
 

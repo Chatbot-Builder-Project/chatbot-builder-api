@@ -1,12 +1,12 @@
 ﻿using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
 using ChatbotBuilderApi.Application.Graphs.Ports.OutputPorts;
 using ChatbotBuilderApi.Application.Graphs.Shared.Data;
-using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
-using ChatbotBuilderApi.Domain.Graphs.Entities.Ports;
+using ChatbotBuilderApi.Domain.Graphs.Nodes;
+using ChatbotBuilderApi.Domain.Graphs.Ports;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using Riok.Mapperly.Abstractions;
-using Enum = ChatbotBuilderApi.Domain.Graphs.Entities.Enum;
+using Enum = ChatbotBuilderApi.Domain.Graphs.Enum;
 
 namespace ChatbotBuilderApi.Application.Graphs.Nodes.Interaction;
 

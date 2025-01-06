@@ -1,7 +1,7 @@
 ﻿using ChatbotBuilderApi.Application.Graphs.Nodes.Abstract;
 using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
 using ChatbotBuilderApi.Application.Graphs.Ports.OutputPorts;
-using ChatbotBuilderApi.Domain.Graphs.Abstract.Services;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.ApiAction;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
 
 namespace ChatbotBuilderApi.Application.Graphs.Nodes.ApiAction;

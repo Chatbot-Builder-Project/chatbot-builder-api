@@ -1,6 +1,6 @@
-﻿using ChatbotBuilderApi.Domain.Graphs.Abstract;
-using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
-using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes.Prompt;
+﻿using ChatbotBuilderApi.Domain.Graphs.Nodes;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.ApiAction;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.Prompt;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Persistence.Configurations.Extensions;
 using ChatbotBuilderApi.Persistence.Configurations.Graphs.Extensions;

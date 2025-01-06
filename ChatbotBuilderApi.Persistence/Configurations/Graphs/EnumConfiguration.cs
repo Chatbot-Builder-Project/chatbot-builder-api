@@ -2,7 +2,7 @@
 using ChatbotBuilderApi.Persistence.Configurations.Graphs.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Enum = ChatbotBuilderApi.Domain.Graphs.Entities.Enum;
+using Enum = ChatbotBuilderApi.Domain.Graphs.Enum;
 
 namespace ChatbotBuilderApi.Persistence.Configurations.Graphs;
 

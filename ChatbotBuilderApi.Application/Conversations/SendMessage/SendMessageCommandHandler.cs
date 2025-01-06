@@ -1,7 +1,7 @@
 using ChatbotBuilderApi.Application.Core.Abstract;
 using ChatbotBuilderApi.Application.Core.Abstract.Messaging;
 using ChatbotBuilderApi.Application.Core.Shared;
-using ChatbotBuilderApi.Domain.Conversations.Abstract;
+using ChatbotBuilderApi.Domain.Conversations.Flow;
 
 namespace ChatbotBuilderApi.Application.Conversations.SendMessage;
 

@@ -1,5 +1,5 @@
 ﻿using ChatbotBuilderApi.Application.Core.Abstract;
-using ChatbotBuilderApi.Domain.Graphs.Abstract.Services;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.ApiAction;
 using ChatbotBuilderApi.Infrastructure.Files;
 using ChatbotBuilderApi.Infrastructure.Graphs;
 using ChatbotBuilderApi.Infrastructure.PipelineBehaviors;
@@ -18,7 +18,7 @@ public static class InfrastructureServicesExtension
         services.AddAuthentication()
             .AddBearerToken(IdentityConstants.BearerScheme);
 
-        services.AddHttpClient<IApiActionService, ReliableApiActionService>();
+        services.AddHttpClient<IApiActionService, ApiActionService>();
 
         if (env.IsDevelopment())
         {

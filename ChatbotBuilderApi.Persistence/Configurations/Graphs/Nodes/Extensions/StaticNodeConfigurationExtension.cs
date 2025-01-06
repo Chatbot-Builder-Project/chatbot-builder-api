@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Domain.Graphs.Entities.Nodes;
+﻿using ChatbotBuilderApi.Domain.Graphs.Nodes;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using Microsoft.EntityFrameworkCore;

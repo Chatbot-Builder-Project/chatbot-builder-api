@@ -1,5 +1,5 @@
 ﻿using ChatbotBuilderApi.Application.Graphs.Nodes;
-using ChatbotBuilderApi.Domain.Graphs.Abstract.Services;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.ApiAction;
 using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using ChatbotBuilderApi.Presentation.Graphs.Ports;
 

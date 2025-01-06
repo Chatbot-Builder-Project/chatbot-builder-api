@@ -1,4 +1,4 @@
-using ChatbotBuilderApi.Domain.Graphs.Entities.Ports;
+using ChatbotBuilderApi.Domain.Graphs.Ports;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using ChatbotBuilderApi.Persistence.Configurations.Extensions;

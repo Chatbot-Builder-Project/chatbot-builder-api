@@ -3,7 +3,7 @@ using ChatbotBuilderApi.Application.Core.Abstract.Messaging;
 using ChatbotBuilderApi.Application.Core.Shared;
 using ChatbotBuilderApi.Application.Graphs;
 using ChatbotBuilderApi.Domain.Conversations;
-using ChatbotBuilderApi.Domain.Conversations.Abstract;
+using ChatbotBuilderApi.Domain.Conversations.Flow;
 using ChatbotBuilderApi.Domain.Conversations.ValueObjects;
 
 namespace ChatbotBuilderApi.Application.Conversations.StartConversation;
