@@ -11,9 +11,9 @@ public sealed class GraphTraversalService : IGraphTraversalService
 {
     private readonly NodeExecutionContext _nodeExecutionContext;
 
-    public GraphTraversalService()
+    public GraphTraversalService(IApiActionService apiActionService)
     {
-        _nodeExecutionContext = new NodeExecutionContext();
+        _nodeExecutionContext = new NodeExecutionContext(apiActionService);
     }
 
     private Graph? _graph;

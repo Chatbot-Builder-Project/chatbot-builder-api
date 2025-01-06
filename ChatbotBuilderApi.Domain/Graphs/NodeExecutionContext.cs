@@ -1,6 +1,9 @@
-﻿namespace ChatbotBuilderApi.Domain.Graphs;
+﻿using ChatbotBuilderApi.Domain.Graphs.Abstract.Services;
+
+namespace ChatbotBuilderApi.Domain.Graphs;
 
 /// <summary>
 /// Contains all needed services for any node to execute.
 /// </summary>
-public sealed record NodeExecutionContext;
+public sealed record NodeExecutionContext(
+    IApiActionService ApiActionService);
