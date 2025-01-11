@@ -18,7 +18,8 @@ public static partial class SmartSwitchNodeMapper
             dto.EnumIdentifier,
             dto.Bindings.ToDictionary(
                 kvp => kvp.Key.Value,
-                kvp => kvp.Value));
+                kvp => kvp.Value),
+            dto.FallbackFlowLinkId);
     }
 
     public static SmartSwitchNodeDto ToDto(this SmartSwitchNodeModel model)
@@ -30,6 +31,7 @@ public static partial class SmartSwitchNodeMapper
             model.EnumId,
             model.OptionFlowLinkIds.ToDictionary(
                 kvp => new OptionDataModel(kvp.Key).ToDomain(),
-                kvp => kvp.Value));
+                kvp => kvp.Value),
+            model.FallbackFlowLinkId);
     }
 }

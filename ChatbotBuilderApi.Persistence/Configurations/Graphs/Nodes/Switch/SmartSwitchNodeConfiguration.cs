@@ -1,5 +1,6 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.Nodes.Switch;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
+using ChatbotBuilderApi.Persistence.Configurations.Extensions;
 using ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -17,6 +18,9 @@ internal sealed class SmartSwitchNodeConfiguration : IEntityTypeConfiguration<Sm
             .HasForeignKey<SmartSwitchNode>()
             .IsRequired()
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.Property(n => n.FallbackFlowLinkId)
+            .ApplyEntityIdConversion();
 
         builder.Navigation(n => n.InputPort).AutoInclude();
 

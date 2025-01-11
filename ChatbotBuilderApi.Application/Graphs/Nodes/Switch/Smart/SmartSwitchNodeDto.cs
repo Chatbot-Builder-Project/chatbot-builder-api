@@ -9,5 +9,6 @@ public sealed record SmartSwitchNodeDto(
     VisualMeta Visual,
     InputPortDto InputPort,
     int EnumIdentifier,
-    IReadOnlyDictionary<OptionData, int> Bindings
+    IReadOnlyDictionary<OptionData, int> Bindings,
+    int FallbackFlowLinkId
 ) : SwitchNodeDtoBase(Info, Visual, InputPort, EnumIdentifier, Bindings);

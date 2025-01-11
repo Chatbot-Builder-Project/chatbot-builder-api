@@ -19,10 +19,12 @@ namespace ChatbotBuilderApi.Presentation.Graphs.Nodes.Switch;
 /// <param name="InputPort">Input port of the node. Must be of Text data type.</param>
 /// <param name="EnumId">ID of the enum to use for the options.</param>
 /// <param name="OptionFlowLinkIds">Map of each option value to its FlowLinkId</param>
+/// <param name="FallbackFlowLinkId">Fallback FlowLinkId to use if the prediction fails</param>
 public sealed record SmartSwitchNodeModel(
     InfoMetaModel Info,
     VisualMetaModel Visual,
     InputPortModel InputPort,
     int EnumId,
-    IReadOnlyDictionary<string, int> OptionFlowLinkIds)
+    IReadOnlyDictionary<string, int> OptionFlowLinkIds,
+    int FallbackFlowLinkId)
     : NodeModel(Info, Visual, NodeType.SmartSwitch);

@@ -81,7 +81,8 @@ public static partial class GraphMapper
                             enumByIdentifier[smartSwitchNode.EnumIdentifier],
                             smartSwitchNode.Bindings.ToDictionary(
                                 b => b.Key,
-                                b => flowLinkIdByIdentifier[b.Value]));
+                                b => flowLinkIdByIdentifier[b.Value]),
+                            flowLinkIdByIdentifier[smartSwitchNode.FallbackFlowLinkId]);
 
                     case GenerationNodeDto generationNode:
                         return generationNode.ToDomain();
@@ -174,8 +175,9 @@ public static partial class GraphMapper
                         b => flowLinkIdentifierById[b.Value])),
                     ApiActionNode apiActionNode => apiActionNode.ToDto(),
                     SmartSwitchNode smartSwitchNode => smartSwitchNode.ToDto(smartSwitchNode.Bindings.ToDictionary(
-                        b => b.Key,
-                        b => flowLinkIdentifierById[b.Value])),
+                            b => b.Key,
+                            b => flowLinkIdentifierById[b.Value]),
+                        flowLinkIdentifierById[smartSwitchNode.FallbackFlowLinkId]),
                     GenerationNode generationNode => generationNode.ToDto(),
                     _ => throw new ArgumentOutOfRangeException(nameof(node))
                 };

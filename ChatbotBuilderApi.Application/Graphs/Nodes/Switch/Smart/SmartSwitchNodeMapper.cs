@@ -15,7 +15,8 @@ public static partial class SmartSwitchNodeMapper
     public static SmartSwitchNode ToDomain(
         this SmartSwitchNodeDto dto,
         Enum @enum,
-        IReadOnlyDictionary<OptionData, FlowLinkId> bindings)
+        IReadOnlyDictionary<OptionData, FlowLinkId> bindings,
+        FlowLinkId fallbackFlowLinkId)
     {
         var nodeId = new NodeId(Guid.NewGuid());
         return SmartSwitchNode.Create(
@@ -28,12 +29,14 @@ public static partial class SmartSwitchNodeMapper
                 dto.InputPort.Visual,
                 nodeId),
             @enum,
-            bindings);
+            bindings,
+            fallbackFlowLinkId);
     }
 
     public static SmartSwitchNodeDto ToDto(
         this SmartSwitchNode domain,
-        IReadOnlyDictionary<OptionData, int> bindings)
+        IReadOnlyDictionary<OptionData, int> bindings,
+        int fallbackFlowLinkId)
     {
         return new SmartSwitchNodeDto(
             domain.Info,
@@ -44,6 +47,7 @@ public static partial class SmartSwitchNodeMapper
                 domain.Info.Identifier,
                 DataType.Text),
             domain.Enum.Info.Identifier,
-            bindings);
+            bindings,
+            fallbackFlowLinkId);
     }
 }

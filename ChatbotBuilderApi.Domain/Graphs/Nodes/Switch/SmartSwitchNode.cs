@@ -10,6 +10,7 @@ namespace ChatbotBuilderApi.Domain.Graphs.Nodes.Switch;
 public sealed class SmartSwitchNode : SwitchNodeBase, IInputNode
 {
     public InputPort<TextData> InputPort { get; } = null!;
+    public FlowLinkId FallbackFlowLinkId { get; } = null!;
 
     private SmartSwitchNode(
         NodeId id,
@@ -17,7 +18,8 @@ public sealed class SmartSwitchNode : SwitchNodeBase, IInputNode
         VisualMeta visual,
         InputPort<TextData> inputPort,
         Enum @enum,
-        IReadOnlyDictionary<OptionData, FlowLinkId> bindings)
+        IReadOnlyDictionary<OptionData, FlowLinkId> bindings,
+        FlowLinkId fallbackFlowLinkId)
         : base(id, info, visual, @enum, bindings)
     {
         InputPort = inputPort;
@@ -34,12 +36,13 @@ public sealed class SmartSwitchNode : SwitchNodeBase, IInputNode
         VisualMeta visual,
         InputPort<TextData> inputPort,
         Enum @enum,
-        IReadOnlyDictionary<OptionData, FlowLinkId> bindings)
+        IReadOnlyDictionary<OptionData, FlowLinkId> bindings,
+        FlowLinkId fallbackFlowLinkId)
     {
         @enum.EnsureValidBindings(bindings);
         inputPort.EnsureNodeIdIs(id);
 
-        return new SmartSwitchNode(id, info, visual, inputPort, @enum, bindings);
+        return new SmartSwitchNode(id, info, visual, inputPort, @enum, bindings, fallbackFlowLinkId);
     }
 
     public override Task RunAsync(NodeExecutionContext context)
@@ -50,5 +53,15 @@ public sealed class SmartSwitchNode : SwitchNodeBase, IInputNode
     public IEnumerable<Port<InputPortId>> GetInputPorts()
     {
         yield return InputPort;
+    }
+
+    public override IEnumerable<FlowLinkId> GetFlowLinkIds()
+    {
+        foreach (var flowLinkId in base.GetFlowLinkIds())
+        {
+            yield return flowLinkId;
+        }
+
+        yield return FallbackFlowLinkId;
     }
 }

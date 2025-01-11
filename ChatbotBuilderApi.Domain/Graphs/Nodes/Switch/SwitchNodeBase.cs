@@ -39,7 +39,7 @@ public abstract class SwitchNodeBase : Node,
         yield return Enum.Id;
     }
 
-    public IEnumerable<FlowLinkId> GetFlowLinkIds()
+    public virtual IEnumerable<FlowLinkId> GetFlowLinkIds()
     {
         return Bindings.Values;
     }
