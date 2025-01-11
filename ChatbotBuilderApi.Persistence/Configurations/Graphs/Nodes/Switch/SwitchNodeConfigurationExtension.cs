@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Domain.Graphs.Nodes;
+﻿using ChatbotBuilderApi.Domain.Graphs.Nodes.Switch;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using ChatbotBuilderApi.Persistence.Configurations.Converters;
@@ -8,27 +8,21 @@ using ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes;
+namespace ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Switch;
 
-internal sealed class SwitchNodeConfiguration : IEntityTypeConfiguration<SwitchNode>
+internal static class SwitchNodeConfigurationExtension
 {
-    public void Configure(EntityTypeBuilder<SwitchNode> builder)
+    public static void ConfigureSwitchNodeBase<TSwitch>(
+        this EntityTypeBuilder<TSwitch> builder)
+        where TSwitch : SwitchNodeBase
     {
-        builder.HasOne(n => n.InputPort)
-            .WithOne()
-            .HasForeignKey<SwitchNode>()
-            .IsRequired()
-            .OnDelete(DeleteBehavior.NoAction);
-
         builder.HasOne(n => n.Enum)
             .WithMany()
             .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
 
-        builder.Navigation(n => n.InputPort).AutoInclude();
         builder.Navigation(n => n.Enum).AutoInclude();
 
-        builder.FixNodePort<InputPortId>(nameof(SwitchNode.InputPort));
         builder.FixNodeEnum(nameof(SwitchNode.Enum));
 
         builder.Property(n => n.Bindings)

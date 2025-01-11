@@ -1,10 +1,11 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.Nodes;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
+using ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Extensions;
+namespace ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Static;
 
 internal static class StaticNodeConfigurationExtension
 {
