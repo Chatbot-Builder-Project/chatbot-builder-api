@@ -3,10 +3,12 @@ using ChatbotBuilderApi.Application.Graphs.Links.DataLinks;
 using ChatbotBuilderApi.Application.Graphs.Links.FlowLinks;
 using ChatbotBuilderApi.Application.Graphs.Nodes;
 using ChatbotBuilderApi.Application.Graphs.Nodes.ApiAction;
+using ChatbotBuilderApi.Application.Graphs.Nodes.Generation;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Interaction;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Prompt;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Static;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Switch;
+using ChatbotBuilderApi.Application.Graphs.Nodes.Switch.Smart;
 using ChatbotBuilderApi.Application.Graphs.Shared.Data;
 using ChatbotBuilderApi.Application.Graphs.Shared.Data.Extensions;
 using ChatbotBuilderApi.Domain.Graphs;
@@ -14,6 +16,7 @@ using ChatbotBuilderApi.Domain.Graphs.Links;
 using ChatbotBuilderApi.Domain.Graphs.Nodes;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.ApiAction;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Behaviors;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.Generation;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Prompt;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Switch;
 using ChatbotBuilderApi.Domain.Graphs.Ports;
@@ -72,6 +75,16 @@ public static partial class GraphMapper
 
                     case ApiActionNodeDto apiActionNode:
                         return apiActionNode.ToDomain();
+
+                    case SmartSwitchNodeDto smartSwitchNode:
+                        return smartSwitchNode.ToDomain(
+                            enumByIdentifier[smartSwitchNode.EnumIdentifier],
+                            smartSwitchNode.Bindings.ToDictionary(
+                                b => b.Key,
+                                b => flowLinkIdByIdentifier[b.Value]));
+
+                    case GenerationNodeDto generationNode:
+                        return generationNode.ToDomain();
 
                     default:
                         throw new ArgumentOutOfRangeException(nameof(node));
@@ -160,6 +173,10 @@ public static partial class GraphMapper
                         b => b.Key,
                         b => flowLinkIdentifierById[b.Value])),
                     ApiActionNode apiActionNode => apiActionNode.ToDto(),
+                    SmartSwitchNode smartSwitchNode => smartSwitchNode.ToDto(smartSwitchNode.Bindings.ToDictionary(
+                        b => b.Key,
+                        b => flowLinkIdentifierById[b.Value])),
+                    GenerationNode generationNode => generationNode.ToDto(),
                     _ => throw new ArgumentOutOfRangeException(nameof(node))
                 };
             })

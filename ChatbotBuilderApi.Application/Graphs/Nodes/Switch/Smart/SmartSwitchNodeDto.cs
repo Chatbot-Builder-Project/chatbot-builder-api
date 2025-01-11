@@ -2,9 +2,9 @@
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
 
-namespace ChatbotBuilderApi.Application.Graphs.Nodes.Switch;
+namespace ChatbotBuilderApi.Application.Graphs.Nodes.Switch.Smart;
 
-public sealed record SwitchNodeDto(
+public sealed record SmartSwitchNodeDto(
     InfoMeta Info,
     VisualMeta Visual,
     InputPortDto InputPort,

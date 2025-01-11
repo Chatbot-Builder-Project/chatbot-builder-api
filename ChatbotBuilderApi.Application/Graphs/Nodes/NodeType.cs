@@ -6,5 +6,7 @@ public enum NodeType
     Static,
     Switch,
     Prompt,
-    ApiAction
+    ApiAction,
+    SmartSwitch,
+    Generation
 }
