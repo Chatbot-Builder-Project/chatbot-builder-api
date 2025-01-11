@@ -1,63 +1,37 @@
 ﻿using ChatbotBuilderApi.Domain.Core;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Behaviors;
-using ChatbotBuilderApi.Domain.Graphs.Ports;
-using ChatbotBuilderApi.Domain.Graphs.Traversal;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
 
-namespace ChatbotBuilderApi.Domain.Graphs.Nodes;
+namespace ChatbotBuilderApi.Domain.Graphs.Nodes.Switch;
 
-public sealed class SwitchNode : Node,
-    IInputNode, IEnumNode, ISwitchNode
+/// <summary>
+/// A node that determines the flow link to follow based on its current state.
+/// Leaves the implementation of setting the SelectedOption to the derived class.
+/// </summary>
+public abstract class SwitchNodeBase : Node,
+    IEnumNode, ISwitchNode
 {
-    public InputPort<OptionData> InputPort { get; } = null!;
     public Enum Enum { get; } = null!;
     public IReadOnlyDictionary<OptionData, FlowLinkId> Bindings { get; } = null!;
-    public OptionData? SelectedOption { get; private set; }
+    public OptionData? SelectedOption { get; protected set; }
 
-    private SwitchNode(
+    protected SwitchNodeBase(
         NodeId id,
         InfoMeta info,
         VisualMeta visual,
-        InputPort<OptionData> inputPort,
         Enum @enum,
         IReadOnlyDictionary<OptionData, FlowLinkId> bindings)
         : base(id, info, visual)
     {
-        InputPort = inputPort;
         Enum = @enum;
         Bindings = bindings;
     }
 
     /// <inheritdoc/>
-    private SwitchNode()
+    protected SwitchNodeBase()
     {
-    }
-
-    public static SwitchNode Create(
-        NodeId id,
-        InfoMeta info,
-        VisualMeta visual,
-        InputPort<OptionData> inputPort,
-        Enum @enum,
-        IReadOnlyDictionary<OptionData, FlowLinkId> bindings)
-    {
-        @enum.EnsureValidBindings(bindings);
-        inputPort.EnsureNodeIdIs(id);
-
-        return new SwitchNode(id, info, visual, inputPort, @enum, bindings);
-    }
-
-    public override Task RunAsync(NodeExecutionContext context)
-    {
-        SelectedOption = InputPort.GetData();
-        return Task.CompletedTask;
-    }
-
-    public IEnumerable<Port<InputPortId>> GetInputPorts()
-    {
-        yield return InputPort;
     }
 
     public IEnumerable<EnumId> GetEnumIds()

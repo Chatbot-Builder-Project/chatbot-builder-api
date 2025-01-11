@@ -9,6 +9,7 @@
     <ItemGroup>
       <PackageReference Include="MediatR" Version="12.4.1" />
       <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.11" />
+      <PackageReference Include="Newtonsoft.Json.Schema" Version="4.0.1" />
     </ItemGroup>
 
 </Project>

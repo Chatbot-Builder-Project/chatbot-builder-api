@@ -198,4 +198,11 @@ public static class GraphDomainErrors
             "GraphTraversal.GraphNotSet",
             "Graph not set");
     }
+
+    public static class GenerationNode
+    {
+        public static readonly Error GeneratedOutputIsMissing = Error.DomainInvariant(
+            "GenerationNode.GeneratedOutputIsMissing",
+            "The generated output is missing");
+    }
 }
