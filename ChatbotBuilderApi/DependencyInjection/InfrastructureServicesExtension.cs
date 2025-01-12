@@ -3,6 +3,7 @@ using ChatbotBuilderApi.Domain.Graphs.Nodes.ApiAction;
 using ChatbotBuilderApi.Infrastructure.Files;
 using ChatbotBuilderApi.Infrastructure.Graphs;
 using ChatbotBuilderApi.Infrastructure.PipelineBehaviors;
+using ChatbotBuilderProtos.V1.Executor;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -10,7 +11,10 @@ namespace ChatbotBuilderApi.DependencyInjection;
 
 public static class InfrastructureServicesExtension
 {
-    public static void AddInfrastructureServices(this IServiceCollection services, IWebHostEnvironment env)
+    public static void AddInfrastructureServices(
+        this IServiceCollection services,
+        IWebHostEnvironment env,
+        IConfiguration configuration)
     {
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
@@ -34,5 +38,12 @@ public static class InfrastructureServicesExtension
                 .BindConfiguration("AzureBlobStorageSettings");
             services.AddScoped<IFileService, AzureFileService>();
         }
+
+        services.AddGrpcClient<ExecutorService.ExecutorServiceClient>(options =>
+        {
+            var executorUri = configuration["ExecutorService:Uri"]
+                              ?? throw new ArgumentException("ExecutorService:Uri not found");
+            options.Address = new Uri(executorUri);
+        });
     }
 }
