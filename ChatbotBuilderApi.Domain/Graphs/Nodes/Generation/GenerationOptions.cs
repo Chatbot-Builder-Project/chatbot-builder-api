@@ -6,11 +6,11 @@ namespace ChatbotBuilderApi.Domain.Graphs.Nodes.Generation;
 public sealed class GenerationOptions : ValueObject
 {
     public bool UseMemory { get; }
-    public JObject ResponseSchema { get; } = null!;
+    public JObject? ResponseSchema { get; }
 
     private GenerationOptions(
         bool useMemory,
-        JObject responseSchema)
+        JObject? responseSchema)
     {
         UseMemory = useMemory;
         ResponseSchema = responseSchema;
@@ -21,7 +21,7 @@ public sealed class GenerationOptions : ValueObject
     {
     }
 
-    public static GenerationOptions Create(bool useMemory, JObject responseSchema) => new(useMemory, responseSchema);
+    public static GenerationOptions Create(bool useMemory, JObject? responseSchema) => new(useMemory, responseSchema);
 
     protected override IEnumerable<object> GetAtomicValues()
     {

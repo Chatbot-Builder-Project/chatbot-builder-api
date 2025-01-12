@@ -35,7 +35,8 @@ internal sealed class GenerationNodeConfiguration : IEntityTypeConfiguration<Gen
             config.Property(o => o.UseMemory).IsRequired();
             config.Property(o => o.ResponseSchema)
                 .HasConversion(new JObjectValueConverter())
-                .HasColumnType("NVARCHAR(MAX)");
+                .HasColumnType("NVARCHAR(MAX)")
+                .IsRequired(false);
         });
 
         builder.OwnsOne(n => n.GeneratedOutput, config => config.ConfigureTextData());

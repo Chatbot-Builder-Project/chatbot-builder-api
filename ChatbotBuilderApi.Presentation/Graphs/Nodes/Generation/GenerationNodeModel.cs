@@ -26,8 +26,8 @@ public sealed record GenerationNodeModel(
 /// Options for the generation.
 /// </summary>
 /// <param name="UseMemory">Whether the node take into account previous interactions (has internal memory).</param>
-/// <param name="ResponseSchema">Whether the output should conform to a specific schema.
-/// The LLM will be asked to generate based on this schema and its output will be repeatidly validated.</param>
+/// <param name="ResponseSchema">(Optional) Whether the output should conform to a specific schema.
+/// The LLM will be asked to generate based on this schema and its output will be repeatedly validated.</param>
 public sealed record GenerationOptionsModel(
     bool UseMemory,
-    JObject ResponseSchema);
+    JObject? ResponseSchema);

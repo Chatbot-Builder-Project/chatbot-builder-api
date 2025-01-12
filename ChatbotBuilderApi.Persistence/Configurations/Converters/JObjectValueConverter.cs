@@ -4,12 +4,12 @@ using Newtonsoft.Json.Linq;
 
 namespace ChatbotBuilderApi.Persistence.Configurations.Converters;
 
-public class JObjectValueConverter : ValueConverter<JObject, string>
+public class JObjectValueConverter : ValueConverter<JObject?, string>
 {
     public JObjectValueConverter()
         : base(
-            v => v.ToString(Formatting.None),
-            v => JObject.Parse(v))
+            v => v == null ? string.Empty : v.ToString(Formatting.None),
+            v => string.IsNullOrEmpty(v) ? null : JObject.Parse(v))
     {
     }
 }
