@@ -1,4 +1,5 @@
-﻿using ChatbotBuilderApi.Application.Core.Shared;
+﻿using ChatbotBuilderApi.Application.Core.Exceptions;
+using ChatbotBuilderApi.Application.Core.Shared;
 using ChatbotBuilderApi.Domain.Core;
 using FluentValidation;
 using MediatR;
@@ -60,6 +61,18 @@ public class LoggingPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TR
         {
             _logger.LogError(
                 "Request domain failure {@RequestName}, {@Error}, {@DateTimeUtc}\n" +
+                "Request details: {@Request}",
+                typeof(TRequest).Name,
+                ex.Error,
+                DateTime.UtcNow,
+                request);
+
+            throw;
+        }
+        catch (ExternalException ex)
+        {
+            _logger.LogError(
+                "Request external failure {@RequestName}, {@Error}, {@DateTimeUtc}\n" +
                 "Request details: {@Request}",
                 typeof(TRequest).Name,
                 ex.Error,
