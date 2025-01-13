@@ -1,6 +1,7 @@
 ﻿using ChatbotBuilderApi.Application.Core.Abstract;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.ApiAction;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Generation;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.Switch.Smart;
 using ChatbotBuilderApi.Infrastructure.Files;
 using ChatbotBuilderApi.Infrastructure.GraphServices;
 using ChatbotBuilderApi.Infrastructure.PipelineBehaviors;
@@ -48,5 +49,6 @@ public static class InfrastructureServicesExtension
         });
 
         services.AddScoped<IGenerationService, GenerationService>();
+        services.AddScoped<ISmartRoutingService, SmartRoutingService>();
     }
 }
