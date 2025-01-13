@@ -19,6 +19,7 @@ using ChatbotBuilderApi.Domain.Graphs.Nodes.Behaviors;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Generation;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Prompt;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Switch;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.Switch.Smart;
 using ChatbotBuilderApi.Domain.Graphs.Ports;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;

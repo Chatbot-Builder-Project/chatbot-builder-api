@@ -5,7 +5,7 @@ using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
 
-namespace ChatbotBuilderApi.Domain.Graphs.Nodes.Switch;
+namespace ChatbotBuilderApi.Domain.Graphs.Nodes.Switch.Smart;
 
 public sealed class SmartSwitchNode : SwitchNodeBase, IInputNode
 {
@@ -23,6 +23,7 @@ public sealed class SmartSwitchNode : SwitchNodeBase, IInputNode
         : base(id, info, visual, @enum, bindings)
     {
         InputPort = inputPort;
+        FallbackFlowLinkId = fallbackFlowLinkId;
     }
 
     /// <inheritdoc/>
@@ -45,9 +46,12 @@ public sealed class SmartSwitchNode : SwitchNodeBase, IInputNode
         return new SmartSwitchNode(id, info, visual, inputPort, @enum, bindings, fallbackFlowLinkId);
     }
 
-    public override Task RunAsync(NodeExecutionContext context)
+    public override async Task RunAsync(NodeExecutionContext context)
     {
-        throw new NotImplementedException("Smart switch nodes are not supported yet.");
+        SelectedOption = await context.SmartRoutingService.RouteAsync(
+            InputPort.GetData(),
+            Enum.Options,
+            CancellationToken.None);
     }
 
     public IEnumerable<Port<InputPortId>> GetInputPorts()

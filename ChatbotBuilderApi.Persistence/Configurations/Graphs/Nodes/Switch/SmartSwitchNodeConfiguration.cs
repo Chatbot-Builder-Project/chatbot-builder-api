@@ -1,4 +1,4 @@
-﻿using ChatbotBuilderApi.Domain.Graphs.Nodes.Switch;
+﻿using ChatbotBuilderApi.Domain.Graphs.Nodes.Switch.Smart;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using ChatbotBuilderApi.Persistence.Configurations.Extensions;
 using ChatbotBuilderApi.Persistence.Configurations.Graphs.Nodes.Extensions;

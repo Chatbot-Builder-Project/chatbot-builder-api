@@ -1,5 +1,6 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.Nodes.ApiAction;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Generation;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.Switch.Smart;
 
 namespace ChatbotBuilderApi.Domain.Graphs.Traversal;
 
@@ -8,4 +9,5 @@ namespace ChatbotBuilderApi.Domain.Graphs.Traversal;
 /// </summary>
 public sealed record NodeExecutionContext(
     IApiActionService ApiActionService,
-    IGenerationService GenerationService);
+    IGenerationService GenerationService,
+    ISmartRoutingService SmartRoutingService);

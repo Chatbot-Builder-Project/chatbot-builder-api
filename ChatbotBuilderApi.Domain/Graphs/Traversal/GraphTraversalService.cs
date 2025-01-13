@@ -3,6 +3,7 @@ using ChatbotBuilderApi.Domain.Graphs.Nodes;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.ApiAction;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Behaviors;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Generation;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.Switch.Smart;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 
 namespace ChatbotBuilderApi.Domain.Graphs.Traversal;
@@ -13,11 +14,13 @@ public sealed class GraphTraversalService : IGraphTraversalService
 
     public GraphTraversalService(
         IApiActionService apiActionService,
-        IGenerationService generationService)
+        IGenerationService generationService,
+        ISmartRoutingService smartRoutingService)
     {
         _nodeExecutionContext = new NodeExecutionContext(
             apiActionService,
-            generationService);
+            generationService,
+            smartRoutingService);
     }
 
     private Graph? _graph;
