@@ -19,6 +19,7 @@ public sealed record InputMessageViewModel(
 /// </summary>
 /// <param name="CreatedAt">Date and time the message was created.</param>
 /// <param name="TextOutput">Text output data. If any.</param>
+/// <param name="ImageOutputs">A list of image output data. If any.</param>
 /// <param name="TextExpected">Whether a text input is expected on the next user message.</param>
 /// <param name="OptionExpected">Whether an option input is expected on the next user message.</param>
 /// <param name="ExpectedOptionMetas">If an option input is expected,
@@ -26,6 +27,7 @@ public sealed record InputMessageViewModel(
 public sealed record OutputMessageViewModel(
     DateTime CreatedAt,
     TextDataModel? TextOutput,
+    IReadOnlyList<ImageDataModel> ImageOutputs,
     bool TextExpected,
     bool OptionExpected,
     IReadOnlyDictionary<string, InteractionOptionMeta>? ExpectedOptionMetas);

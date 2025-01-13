@@ -11,6 +11,7 @@ public sealed record InteractionNodeDto(
     InfoMeta Info,
     VisualMeta Visual,
     InputPortDto? TextInputPort,
+    IReadOnlyList<InputPortDto> ImageInputPorts,
     OutputPortDto? TextOutputPort,
     int? OutputEnumIdentifier,
     OutputPortDto? OptionOutputPort,
@@ -20,9 +21,14 @@ public sealed record InteractionNodeDto(
 {
     public IEnumerable<int> GetInputPortIds()
     {
-        if (TextOutputPort is not null)
+        if (TextInputPort is not null)
         {
-            yield return TextOutputPort.Info.Identifier;
+            yield return TextInputPort.Info.Identifier;
+        }
+
+        foreach (var imageInputPort in ImageInputPorts)
+        {
+            yield return imageInputPort.Info.Identifier;
         }
     }
 

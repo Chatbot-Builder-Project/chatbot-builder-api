@@ -18,6 +18,8 @@ namespace ChatbotBuilderApi.Presentation.Graphs.Nodes.Interaction;
 /// <param name="Info">Generic information for the node.</param>
 /// <param name="Visual">Visual information for the node.</param>
 /// <param name="TextInputPort">Add this port if you want to display a text to the user.</param>
+/// <param name="ImageInputPorts">(Max of 20) Add an Image port for each image you want to display to the user.
+/// They will all be displayed to the user at once.</param>
 /// <param name="TextOutputPort">Add this port if you want the user to input a text.</param>
 /// <param name="OutputEnumId">Which enum to use for the OptionOutputPort.</param>
 /// <param name="OptionOutputPort">Add this port if you want the user to select an option.</param>
@@ -26,6 +28,7 @@ public sealed record InteractionNodeModel(
     InfoMetaModel Info,
     VisualMetaModel Visual,
     InputPortModel? TextInputPort,
+    IReadOnlyList<InputPortModel> ImageInputPorts,
     OutputPortModel? TextOutputPort,
     int? OutputEnumId,
     OutputPortModel? OptionOutputPort,

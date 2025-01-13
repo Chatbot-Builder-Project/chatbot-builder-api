@@ -12,8 +12,8 @@ public sealed class InteractionNode : Node,
     IInputNode, IEnumNode, IOutputNode
 {
     public InputPort<TextData>? TextInputPort { get; }
+    public IReadOnlySet<InputPort<ImageData>> ImageInputPorts { get; } = null!;
     public OutputPort<TextData>? TextOutputPort { get; }
-
     public Enum? OutputEnum { get; }
     public OutputPort<OptionData>? OptionOutputPort { get; }
     public IReadOnlyDictionary<OptionData, InteractionOptionMeta>? OutputOptionMetas { get; }
@@ -25,6 +25,7 @@ public sealed class InteractionNode : Node,
         InfoMeta info,
         VisualMeta visual,
         InputPort<TextData>? textInputPort,
+        IReadOnlySet<InputPort<ImageData>> imageInputPorts,
         OutputPort<TextData>? textOutputPort,
         Enum? outputEnum,
         OutputPort<OptionData>? optionOutputPort,
@@ -32,6 +33,7 @@ public sealed class InteractionNode : Node,
         : base(id, info, visual)
     {
         TextInputPort = textInputPort;
+        ImageInputPorts = imageInputPorts;
         TextOutputPort = textOutputPort;
         OutputEnum = outputEnum;
         OptionOutputPort = optionOutputPort;
@@ -48,6 +50,7 @@ public sealed class InteractionNode : Node,
         InfoMeta info,
         VisualMeta visual,
         InputPort<TextData>? textInputPort,
+        IReadOnlySet<InputPort<ImageData>> imageInputPorts,
         OutputPort<TextData>? textOutputPort,
         Enum? outputEnum,
         OutputPort<OptionData>? optionOutputPort,
@@ -98,6 +101,7 @@ public sealed class InteractionNode : Node,
             info,
             visual,
             textInputPort,
+            imageInputPorts,
             textOutputPort,
             outputEnum,
             optionOutputPort,
@@ -108,6 +112,7 @@ public sealed class InteractionNode : Node,
     {
         return InteractionOutput.Create(
             TextInputPort?.GetData(),
+            ImageInputPorts.Select(i => i.GetData()).ToList(),
             TextOutputPort is not null,
             OptionOutputPort is not null,
             OutputOptionMetas);
@@ -143,6 +148,11 @@ public sealed class InteractionNode : Node,
         if (TextInputPort is not null)
         {
             yield return TextInputPort;
+        }
+
+        foreach (var imageInputPort in ImageInputPorts)
+        {
+            yield return imageInputPort;
         }
     }
 

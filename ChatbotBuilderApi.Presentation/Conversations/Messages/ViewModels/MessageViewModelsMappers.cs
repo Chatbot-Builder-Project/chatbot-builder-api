@@ -24,6 +24,7 @@ public static partial class MessageViewModelsMappers
         return new OutputMessageViewModel(
             message.CreatedAt,
             message.Output.TextOutput?.ToModel(),
+            message.Output.ImageOutputs.Select(i => i.ToModel()).ToList(),
             message.Output.TextExpected,
             message.Output.OptionExpected,
             message.Output.ExpectedOptionMetas?.ToDictionary(

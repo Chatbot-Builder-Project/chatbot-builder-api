@@ -46,6 +46,13 @@ public static partial class InteractionNodeMapper
             dto.Info,
             dto.Visual,
             textInputPort,
+            dto.ImageInputPorts
+                .Select(i => InputPort<ImageData>.Create(
+                    new InputPortId(Guid.NewGuid()),
+                    i.Info,
+                    i.Visual,
+                    nodeId))
+                .ToHashSet(),
             textOutputPort,
             outputEnum,
             optionOutputPort,
@@ -82,6 +89,13 @@ public static partial class InteractionNodeMapper
             domain.Info,
             domain.Visual,
             textInputPort,
+            domain.ImageInputPorts
+                .Select(i => new InputPortDto(
+                    i.Info,
+                    i.Visual,
+                    domain.Info.Identifier,
+                    DataType.Image))
+                .ToList(),
             textOutputPort,
             domain.OutputEnum?.Info.Identifier,
             optionOutputPort,

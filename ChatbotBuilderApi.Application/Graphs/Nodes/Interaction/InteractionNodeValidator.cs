@@ -1,4 +1,5 @@
-﻿using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
+﻿using ChatbotBuilderApi.Application.Core.Extensions;
+using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
 using ChatbotBuilderApi.Application.Graphs.Ports.OutputPorts;
 using ChatbotBuilderApi.Application.Graphs.Shared.Data;
 using ChatbotBuilderApi.Application.Graphs.Shared.Interactions;
@@ -23,6 +24,16 @@ public sealed class InteractionNodeValidator : AbstractValidator<InteractionNode
                 .Must(x => x.TextInputPort!.NodeIdentifier == x.Info.Identifier)
                 .WithMessage("TextInputPort node identifier must match node identifier.");
         });
+
+        RuleForEach(x => x.ImageInputPorts)
+            .SetValidator(new InputPortValidator(DataType.Image));
+
+        RuleFor(x => x.ImageInputPorts)
+            .MustBeUnique();
+
+        RuleFor(x => x)
+            .Must(x => x.ImageInputPorts.Count < 20)
+            .WithMessage("ImageInputPorts count must be less than 20.");
 
         When(x => x.TextOutputPort is not null, () =>
         {
