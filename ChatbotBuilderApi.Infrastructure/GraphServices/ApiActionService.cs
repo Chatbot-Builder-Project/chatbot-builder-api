@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.ApiAction;
 
-namespace ChatbotBuilderApi.Infrastructure.Graphs;
+namespace ChatbotBuilderApi.Infrastructure.GraphServices;
 
 /// <summary>
 /// Service for executing API calls.

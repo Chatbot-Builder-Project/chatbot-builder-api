@@ -1,7 +1,8 @@
 ﻿using ChatbotBuilderApi.Application.Core.Abstract;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.ApiAction;
+using ChatbotBuilderApi.Domain.Graphs.Nodes.Generation;
 using ChatbotBuilderApi.Infrastructure.Files;
-using ChatbotBuilderApi.Infrastructure.Graphs;
+using ChatbotBuilderApi.Infrastructure.GraphServices;
 using ChatbotBuilderApi.Infrastructure.PipelineBehaviors;
 using ChatbotBuilderProtos.V1.Executor;
 using MediatR;
@@ -45,5 +46,7 @@ public static class InfrastructureServicesExtension
                               ?? throw new ArgumentException("ExecutorService:Uri not found");
             options.Address = new Uri(executorUri);
         });
+
+        services.AddScoped<IGenerationService, GenerationService>();
     }
 }
