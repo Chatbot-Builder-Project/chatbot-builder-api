@@ -23,7 +23,7 @@ internal static class SwitchNodeConfigurationExtension
 
         builder.Navigation(n => n.Enum).AutoInclude();
 
-        builder.FixNodeEnum(nameof(SwitchNode.Enum));
+        builder.FixNodeEnum(nameof(SwitchNodeBase.Enum));
 
         builder.Property(n => n.Bindings)
             .HasConversion(new DictionaryValueConverter<OptionData, FlowLinkId>(

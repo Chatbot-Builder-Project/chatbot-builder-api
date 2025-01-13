@@ -1,5 +1,6 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.Nodes.Behaviors;
 using ChatbotBuilderApi.Domain.Graphs.Ports;
+using ChatbotBuilderApi.Domain.Graphs.Traversal;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
@@ -42,6 +43,12 @@ public sealed class SwitchNode : SwitchNodeBase, IInputNode
             inputPort,
             @enum,
             bindings);
+    }
+
+    public override Task RunAsync(NodeExecutionContext context)
+    {
+        SelectedOption = InputPort.GetData();
+        return Task.CompletedTask;
     }
 
     public IEnumerable<Port<InputPortId>> GetInputPorts()
