@@ -50,9 +50,13 @@ public sealed class GenerationNode : Node,
         return new GenerationNode(id, info, visual, inputPort, outputPort, options);
     }
 
-    public override Task RunAsync(NodeExecutionContext context)
+    public override async Task RunAsync(NodeExecutionContext context)
     {
-        throw new NotImplementedException("Generation nodes are not supported yet.");
+        GeneratedOutput = await context.GenerationService.GenerateAsync(
+            InputPort.GetData(),
+            Options,
+            Id.Value,
+            CancellationToken.None);
     }
 
     public IEnumerable<Port<InputPortId>> GetInputPorts()
