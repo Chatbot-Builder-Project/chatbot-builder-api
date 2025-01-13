@@ -29,6 +29,9 @@ internal sealed class InteractionOutputConfiguration : IEntityTypeConfiguration<
 
         builder.OwnsOne(o => o.TextOutput, t => t.ConfigureTextData());
 
+        builder.OwnsMany(o => o.ImageOutputs, i => i.ConfigureImageData());
+        builder.Navigation(o => o.ImageOutputs).AutoInclude();
+
         builder.Property(o => o.TextExpected);
         builder.Property(o => o.OptionExpected);
 

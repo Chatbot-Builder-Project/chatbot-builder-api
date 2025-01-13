@@ -19,6 +19,11 @@ internal sealed class InteractionNodeConfiguration : IEntityTypeConfiguration<In
             .HasForeignKey<InteractionNode>()
             .OnDelete(DeleteBehavior.NoAction);
 
+        builder.HasMany(n => n.ImageInputPorts)
+            .WithOne()
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.NoAction);
+
         builder.HasOne(n => n.TextOutputPort)
             .WithOne()
             .HasForeignKey<InteractionNode>()
@@ -51,6 +56,7 @@ internal sealed class InteractionNodeConfiguration : IEntityTypeConfiguration<In
             .OnDelete(DeleteBehavior.NoAction); // Issue
 
         builder.Navigation(n => n.TextInputPort).AutoInclude();
+        builder.Navigation(n => n.ImageInputPorts).AutoInclude();
         builder.Navigation(n => n.TextOutputPort).AutoInclude();
         builder.Navigation(n => n.OutputEnum).AutoInclude();
         builder.Navigation(n => n.OptionOutputPort).AutoInclude();
