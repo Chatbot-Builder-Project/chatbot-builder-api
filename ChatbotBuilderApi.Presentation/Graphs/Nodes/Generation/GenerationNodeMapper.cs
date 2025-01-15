@@ -9,7 +9,7 @@ namespace ChatbotBuilderApi.Presentation.Graphs.Nodes.Generation;
 [Mapper]
 public static partial class GenerationNodeMapper
 {
-    public static GenerationNodeModel ToModel(GenerationNodeDto dto)
+    public static GenerationNodeModel ToModel(this GenerationNodeDto dto)
     {
         return new GenerationNodeModel(
             dto.Info.ToModel(),
@@ -21,7 +21,7 @@ public static partial class GenerationNodeMapper
                 dto.Options.ResponseSchema));
     }
 
-    public static GenerationNodeDto ToDto(GenerationNodeModel model)
+    public static GenerationNodeDto ToDto(this GenerationNodeModel model)
     {
         return new GenerationNodeDto(
             model.Info.ToDomain(),
