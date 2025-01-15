@@ -44,7 +44,7 @@ internal sealed class ChatbotConfiguration : IEntityTypeConfiguration<Chatbot>
             .HasColumnName("IsPublic")
             .IsRequired();
 
-        builder.HasIndex("IsPublic", "VersionMajor")
+        builder.HasIndex("WorkflowId", "IsPublic", "VersionMajor")
             .IsUnique();
     }
 }
