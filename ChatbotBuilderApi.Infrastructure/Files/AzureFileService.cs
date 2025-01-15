@@ -2,6 +2,7 @@
 using Azure.Storage.Blobs.Models;
 using ChatbotBuilderApi.Application.Core.Abstract;
 using ChatbotBuilderApi.Application.Core.Shared;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace ChatbotBuilderApi.Infrastructure.Files;
@@ -10,7 +11,9 @@ public sealed class AzureFileService : IFileService
 {
     private readonly BlobContainerClient _containerClient;
 
-    public AzureFileService(IOptions<AzureBlobStorageSettings> options)
+    public AzureFileService(
+        IOptions<AzureBlobStorageSettings> options,
+        ILogger<AzureFileService> logger)
     {
         var settings = options.Value ??
                        throw new ArgumentNullException(nameof(options));
@@ -19,6 +22,13 @@ public sealed class AzureFileService : IFileService
                                $"AccountName={settings.AccountName};" +
                                $"AccountKey={settings.AccountKey};" +
                                $"EndpointSuffix=core.windows.net";
+
+        logger.LogInformation("Azure Blob Storage with account name ending with {AccountNameEndsWith} " +
+                              "and key ending with {AccountKeyEndsWith} " +
+                              "and container name {ContainerName}",
+            settings.AccountName[^3..],
+            settings.AccountKey[^3..],
+            settings.ContainerName);
 
         _containerClient = new BlobContainerClient(connectionString, settings.ContainerName);
         _containerClient.CreateIfNotExists(PublicAccessType.Blob);
