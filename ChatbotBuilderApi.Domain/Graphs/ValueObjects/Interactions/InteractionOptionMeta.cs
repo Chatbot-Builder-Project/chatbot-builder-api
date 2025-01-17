@@ -1,4 +1,5 @@
 ﻿using ChatbotBuilderApi.Domain.Core.Primitives;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 
 namespace ChatbotBuilderApi.Domain.Graphs.ValueObjects.Interactions;
 
@@ -8,10 +9,14 @@ namespace ChatbotBuilderApi.Domain.Graphs.ValueObjects.Interactions;
 public sealed class InteractionOptionMeta : ValueObject
 {
     public string Description { get; } = null!;
+    public ImageData? ImageData { get; }
 
-    private InteractionOptionMeta(string description)
+    private InteractionOptionMeta(
+        string description,
+        ImageData? imageData)
     {
         Description = description;
+        ImageData = imageData;
     }
 
     /// <inheritdoc/>
@@ -19,10 +24,12 @@ public sealed class InteractionOptionMeta : ValueObject
     {
     }
 
-    public static InteractionOptionMeta Create(string description) => new(description);
+    public static InteractionOptionMeta Create(string description, ImageData? imageData) =>
+        new(description, imageData);
 
     protected override IEnumerable<object> GetAtomicValues()
     {
         yield return Description;
+        yield return (object?)ImageData ?? false;
     }
 }

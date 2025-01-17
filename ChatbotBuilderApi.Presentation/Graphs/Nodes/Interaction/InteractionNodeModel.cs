@@ -1,4 +1,5 @@
 ﻿using ChatbotBuilderApi.Application.Graphs.Nodes;
+using ChatbotBuilderApi.Presentation.Graphs.Data;
 using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using ChatbotBuilderApi.Presentation.Graphs.Ports;
 
@@ -39,4 +40,7 @@ public sealed record InteractionNodeModel(
 /// Metadata for the options of the InteractionNodeModel.
 /// </summary>
 /// <param name="Description">String value containing the description of the option.</param>
-public sealed record InteractionOptionMetaModel(string Description);
+/// <param name="ImageData">(Optional) image data for this option.</param>
+public sealed record InteractionOptionMetaModel(
+    string Description,
+    ImageDataModel? ImageData);

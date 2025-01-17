@@ -22,7 +22,9 @@ public static partial class InteractionNodeMapper
             dto.OptionOutputPort?.ToModel(),
             dto.OutputOptionMetas?.ToDictionary(
                 kvp => kvp.Key.Value,
-                kvp => new InteractionOptionMetaModel(kvp.Value.Description)));
+                kvp => new InteractionOptionMetaModel(
+                    kvp.Value.Description,
+                    kvp.Value.ImageData?.ToModel())));
     }
 
     public static InteractionNodeDto ToDto(this InteractionNodeModel model)
@@ -37,6 +39,8 @@ public static partial class InteractionNodeMapper
             model.OptionOutputPort?.ToDto(),
             model.OutputOptionMetas?.ToDictionary(
                 kvp => new OptionDataModel(kvp.Key).ToDomain(),
-                kvp => InteractionOptionMeta.Create(kvp.Value.Description)));
+                kvp => InteractionOptionMeta.Create(
+                    kvp.Value.Description,
+                    kvp.Value.ImageData?.ToDomain())));
     }
 }

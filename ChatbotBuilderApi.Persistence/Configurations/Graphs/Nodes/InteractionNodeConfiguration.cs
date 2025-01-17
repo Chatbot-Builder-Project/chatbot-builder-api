@@ -42,7 +42,9 @@ internal sealed class InteractionNodeConfiguration : IEntityTypeConfiguration<In
         builder.Property(n => n.OutputOptionMetas)
             .HasConversion(new NullableDictionaryValueConverter<OptionData, InteractionOptionMeta>(
                 new OptionDataJsonConverter(),
-                new InteractionOptionMetaJsonConverter()))
+                new InteractionOptionMetaJsonConverter(
+                    new ImageDataJsonConverter()
+                )))
             .HasColumnType("NVARCHAR(MAX)")
             .IsRequired(false);
 
