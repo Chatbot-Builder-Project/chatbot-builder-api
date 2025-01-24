@@ -1,6 +1,7 @@
 ﻿using ChatbotBuilderApi.Domain.Chatbots;
 using ChatbotBuilderApi.Domain.Workflows;
 using ChatbotBuilderApi.Persistence.Configurations.Extensions;
+using ChatbotBuilderApi.Persistence.Configurations.Graphs.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -17,6 +18,8 @@ internal sealed class ChatbotConfiguration : IEntityTypeConfiguration<Chatbot>
 
         builder.Property(c => c.Name).IsRequired();
         builder.Property(c => c.Description).IsRequired();
+
+        builder.OwnsOne(c => c.AvatarImageData, config => config.ConfigureImageData());
 
         builder.HasOne<Workflow>()
             .WithMany()
