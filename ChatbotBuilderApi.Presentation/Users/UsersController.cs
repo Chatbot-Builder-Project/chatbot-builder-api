@@ -1,11 +1,13 @@
 ﻿using Asp.Versioning;
 using ChatbotBuilderApi.Application.Core.Shared;
+using ChatbotBuilderApi.Application.Images.ListImages;
 using ChatbotBuilderApi.Application.Users;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Presentation.Core.Abstract;
 using ChatbotBuilderApi.Presentation.Core.Attributes;
 using ChatbotBuilderApi.Presentation.Core.Extensions;
 using ChatbotBuilderApi.Presentation.Core.Responses;
+using ChatbotBuilderApi.Presentation.Graphs.Data;
 using ChatbotBuilderApi.Presentation.Users.Requests;
 using ChatbotBuilderApi.Presentation.Users.ViewModels;
 using MediatR;
@@ -29,6 +31,26 @@ public sealed class UsersController : AbstractController
         _userManager = userManager;
     }
 
+    private async Task<Result<ImageDataModel>> GetProfileImageResultAsync(User user)
+    {
+        var query = new ListImagesQuery
+        {
+            IncludeOnlyProfilePictures = true,
+            OwnerId = new UserId(user.Id),
+            PageParams = new PageParams(1, 1)
+        };
+
+        var images = await Sender.Send(query);
+        if (images.IsFailure)
+        {
+            return Result.Failure<ImageDataModel>(UserApplicationErrors.UserProfileImageNotFound);
+        }
+
+        return Result.Success(images.Value.Page.Items
+            .Select(i => new ImageDataModel(i.Url))
+            .FirstOrDefault());
+    }
+
     /// <summary>
     /// Gets a user by ID.
     /// </summary>
@@ -49,12 +71,19 @@ public sealed class UsersController : AbstractController
                 .ToProblemDetails();
         }
 
+        var imageResult = await GetProfileImageResultAsync(user);
+        if (imageResult.IsFailure)
+        {
+            return imageResult.ToProblemDetails();
+        }
+
         return Ok(new UserViewModel(
             user.Id,
             user.UserName!,
             user.Email!,
             user.FirstName,
-            user.LastName
+            user.LastName,
+            imageResult.Value
         ));
     }
 
@@ -104,12 +133,19 @@ public sealed class UsersController : AbstractController
                 .ToProblemDetails();
         }
 
+        var imageResult = await GetProfileImageResultAsync(user);
+        if (imageResult.IsFailure)
+        {
+            return imageResult.ToProblemDetails();
+        }
+
         return Ok(new UserViewModel(
             user.Id,
             user.UserName!,
             user.Email!,
             user.FirstName,
-            user.LastName
+            user.LastName,
+            imageResult.Value
         ));
     }
 
