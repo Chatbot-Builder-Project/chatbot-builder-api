@@ -1,4 +1,5 @@
-﻿using Version = ChatbotBuilderApi.Domain.Chatbots.ValueObjects.Version;
+﻿using ChatbotBuilderApi.Presentation.Graphs.Data;
+using Version = ChatbotBuilderApi.Domain.Chatbots.ValueObjects.Version;
 
 namespace ChatbotBuilderApi.Presentation.Chatbots.ViewModels;
 
@@ -11,6 +12,7 @@ namespace ChatbotBuilderApi.Presentation.Chatbots.ViewModels;
 /// <param name="UpdatedAt">Date and time when the chatbot was last updated.</param>
 /// <param name="Name">Name of the chatbot.</param>
 /// <param name="Description">Description of the chatbot.</param>
+/// <param name="AvatarImage">(Optional) Avatar image of the chatbot.</param>
 /// <param name="AdminDetails">Admin details of the chatbot.</param>
 public sealed record ChatbotViewModel(
     Guid Id,
@@ -19,6 +21,7 @@ public sealed record ChatbotViewModel(
     DateTime UpdatedAt,
     string Name,
     string Description,
+    ImageDataModel? AvatarImage,
     ChatbotViewModelAdminDetails? AdminDetails);
 
 /// <summary>

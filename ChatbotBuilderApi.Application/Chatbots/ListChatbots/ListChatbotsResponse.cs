@@ -1,5 +1,6 @@
 using ChatbotBuilderApi.Application.Core.Shared.Responses;
 using ChatbotBuilderApi.Domain.Chatbots.ValueObjects;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Users;
 
 namespace ChatbotBuilderApi.Application.Chatbots.ListChatbots;
@@ -13,4 +14,5 @@ public sealed record ListChatbotsResponseItem(
     DateTime UpdatedAt,
     string Name,
     string Description,
-    bool IsPublic);
+    bool IsPublic,
+    ImageData? AvatarImageData);

@@ -1,4 +1,5 @@
 using ChatbotBuilderApi.Domain.Chatbots.ValueObjects;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Domain.Workflows;
 using Version = ChatbotBuilderApi.Domain.Chatbots.ValueObjects.Version;
@@ -12,6 +13,7 @@ public sealed record GetChatbotResponse(
     DateTime UpdatedAt,
     string Name,
     string Description,
+    ImageData? AvatarImageData,
     GetChatbotResponseAdminDetails? AdminDetails);
 
 public sealed record GetChatbotResponseAdminDetails(

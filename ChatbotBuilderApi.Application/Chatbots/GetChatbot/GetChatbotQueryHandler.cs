@@ -44,6 +44,7 @@ public sealed class GetChatbotQueryHandler : IQueryHandler<GetChatbotQuery, GetC
             chatbot.UpdatedAt,
             chatbot.Name,
             chatbot.Description,
+            chatbot.AvatarImageData,
             adminDetails);
 
         return Result.Success(response);
