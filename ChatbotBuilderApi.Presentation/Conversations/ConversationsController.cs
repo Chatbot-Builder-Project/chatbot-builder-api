@@ -13,6 +13,7 @@ using ChatbotBuilderApi.Presentation.Conversations.ViewModels;
 using ChatbotBuilderApi.Presentation.Core.Abstract;
 using ChatbotBuilderApi.Presentation.Core.Attributes;
 using ChatbotBuilderApi.Presentation.Core.Extensions;
+using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -185,7 +186,8 @@ public sealed class ConversationsController : AbstractController
         {
             Id = new ConversationId(id),
             UserId = new UserId(userId.Value),
-            Name = request.Name
+            Name = request.Name,
+            Visual = request.Visual.ToDomain()
         };
 
         var result = await Sender.Send(command, cancellationToken);

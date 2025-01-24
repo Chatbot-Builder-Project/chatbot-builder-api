@@ -29,7 +29,8 @@ public sealed class CreateWorkflowCommandHandler : ICommandHandler<CreateWorkflo
             request.Name,
             request.Description,
             request.OwnerId,
-            request.Graph.ToDomain());
+            request.Graph.ToDomain(),
+            request.Visual);
 
         _workflowRepository.Add(workflow);
 

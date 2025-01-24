@@ -2,6 +2,7 @@
 using ChatbotBuilderApi.Domain.Core.Primitives;
 using ChatbotBuilderApi.Domain.Graphs;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
 using ChatbotBuilderApi.Domain.Workflows;
 using Version = ChatbotBuilderApi.Domain.Chatbots.ValueObjects.Version;
 
@@ -16,6 +17,7 @@ public sealed class Chatbot : AggregateRoot<ChatbotId>
     public Graph Graph { get; } = null!;
     public bool IsPublic { get; private set; }
     public ImageData? AvatarImageData { get; private set; }
+    public VisualMeta Visual { get; private set; } = null!;
 
     private Chatbot(
         ChatbotId id,
@@ -25,7 +27,8 @@ public sealed class Chatbot : AggregateRoot<ChatbotId>
         Version version,
         Graph graph,
         bool isPublic,
-        ImageData? avatarImageData)
+        ImageData? avatarImageData,
+        VisualMeta visual)
         : base(id)
     {
         Name = name;
@@ -35,6 +38,7 @@ public sealed class Chatbot : AggregateRoot<ChatbotId>
         Graph = graph;
         IsPublic = isPublic;
         AvatarImageData = avatarImageData;
+        Visual = visual;
     }
 
     /// <inheritdoc/>
@@ -50,7 +54,8 @@ public sealed class Chatbot : AggregateRoot<ChatbotId>
         Version version,
         Graph graph,
         bool isPublic,
-        ImageData? avatarImageData)
+        ImageData? avatarImageData,
+        VisualMeta visual)
     {
         return new Chatbot(
             id,
@@ -60,18 +65,21 @@ public sealed class Chatbot : AggregateRoot<ChatbotId>
             version,
             graph,
             isPublic,
-            avatarImageData);
+            avatarImageData,
+            visual);
     }
 
     public void Update(
         string name,
         string description,
         bool isPublic,
-        ImageData? avatarImageData)
+        ImageData? avatarImageData,
+        VisualMeta visual)
     {
         Name = name;
         Description = description;
         IsPublic = isPublic;
         AvatarImageData = avatarImageData;
+        Visual = visual;
     }
 }

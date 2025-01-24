@@ -25,7 +25,12 @@ public sealed class UpdateChatbotCommandHandler : ICommandHandler<UpdateChatbotC
             return Result.Failure(ChatbotApplicationErrors.ChatbotNotFound);
         }
 
-        chatbot.Update(request.Name, request.Description, request.IsPublic, request.AvatarImageData);
+        chatbot.Update(
+            request.Name,
+            request.Description,
+            request.IsPublic,
+            request.AvatarImageData,
+            request.Visual);
         _chatbotRepository.Update(chatbot);
 
         await _unitOfWork.CommitAsync(cancellationToken);

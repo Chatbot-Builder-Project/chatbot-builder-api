@@ -29,7 +29,7 @@ public sealed class UpdateConversationCommandHandler : ICommandHandler<UpdateCon
             return Result.Failure(ConversationApplicationErrors.ConversationNotFound);
         }
 
-        conversation.Update(request.Name);
+        conversation.Update(request.Name, request.Visual);
         _repository.Update(conversation);
 
         await _unitOfWork.CommitAsync(cancellationToken);

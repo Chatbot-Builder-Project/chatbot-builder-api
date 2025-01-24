@@ -1,5 +1,6 @@
 using ChatbotBuilderApi.Application.Core;
 using ChatbotBuilderApi.Application.Graphs;
+using ChatbotBuilderApi.Application.Graphs.Shared.Metas;
 using FluentValidation;
 
 namespace ChatbotBuilderApi.Application.Workflows.CreateWorkflow;
@@ -24,5 +25,8 @@ public sealed class CreateWorkflowCommandValidator : AbstractValidator<CreateWor
 
         RuleFor(x => x.Graph)
             .SetValidator(new GraphValidator());
+
+        RuleFor(x => x.Visual)
+            .SetValidator(new VisualMetaValidator());
     }
 }

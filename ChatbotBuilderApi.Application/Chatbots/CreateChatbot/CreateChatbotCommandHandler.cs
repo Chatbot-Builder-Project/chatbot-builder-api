@@ -58,7 +58,8 @@ public sealed class CreateChatbotCommandHandler : ICommandHandler<CreateChatbotC
             Version.Create(major: latestVersion?.Major + 1 ?? 1),
             workflow.Graph.ToDto().ToDomain(), // To create a new graph
             request.IsPublic,
-            avatarImageData: null);
+            avatarImageData: null,
+            workflow.Visual); // Use the same visual as the workflow
 
         _chatbotRepository.Add(chatbot);
         await _unitOfWork.CommitAsync(cancellationToken);

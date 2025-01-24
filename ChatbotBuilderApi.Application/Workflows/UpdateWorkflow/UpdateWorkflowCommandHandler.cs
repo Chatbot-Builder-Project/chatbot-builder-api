@@ -38,7 +38,8 @@ public sealed class UpdateWorkflowCommandHandler : ICommandHandler<UpdateWorkflo
         workflow.Update(
             request.Name,
             request.Description,
-            request.Graph.ToDomain());
+            request.Graph.ToDomain(),
+            request.Visual);
 
         _repository.Update(workflow);
 

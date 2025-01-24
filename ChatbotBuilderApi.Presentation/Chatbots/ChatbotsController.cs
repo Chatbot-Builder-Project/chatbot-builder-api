@@ -15,6 +15,7 @@ using ChatbotBuilderApi.Presentation.Core.Abstract;
 using ChatbotBuilderApi.Presentation.Core.Attributes;
 using ChatbotBuilderApi.Presentation.Core.Extensions;
 using ChatbotBuilderApi.Presentation.Core.Responses;
+using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -195,7 +196,8 @@ public sealed class ChatbotsController : AbstractController
             IsPublic = request.IsPublic,
             AvatarImageData = request.AvatarImage is null
                 ? null
-                : ImageData.Create(request.AvatarImage.Url)
+                : ImageData.Create(request.AvatarImage.Url),
+            Visual = request.Visual.ToDomain()
         };
 
         var result = await Sender.Send(command, cancellationToken);

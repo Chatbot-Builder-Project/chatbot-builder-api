@@ -3,6 +3,7 @@ using ChatbotBuilderApi.Domain.Conversations.ValueObjects;
 using ChatbotBuilderApi.Domain.Core;
 using ChatbotBuilderApi.Domain.Core.Primitives;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
 
 namespace ChatbotBuilderApi.Domain.Conversations;
 
@@ -14,6 +15,7 @@ public sealed class Conversation : AggregateRoot<ConversationId>
     public string Name { get; private set; } = null!;
     public ChatbotId ChatbotId { get; } = null!;
     public GraphId GraphId { get; } = null!;
+    public VisualMeta Visual { get; private set; } = null!;
     public IReadOnlyList<InputMessage> InputMessages => _inputMessages;
     public IReadOnlyList<OutputMessage> OutputMessages => _outputMessages;
 
@@ -21,12 +23,14 @@ public sealed class Conversation : AggregateRoot<ConversationId>
         ConversationId id,
         ChatbotId chatbotId,
         GraphId graphId,
-        string name)
+        string name,
+        VisualMeta visual)
         : base(id)
     {
         ChatbotId = chatbotId;
         Name = name;
         GraphId = graphId;
+        Visual = visual;
     }
 
     /// <inheritdoc/>
@@ -38,14 +42,16 @@ public sealed class Conversation : AggregateRoot<ConversationId>
         ConversationId id,
         ChatbotId chatbotId,
         GraphId graphId,
-        string name)
+        string name,
+        VisualMeta visual)
     {
-        return new Conversation(id, chatbotId, graphId, name);
+        return new Conversation(id, chatbotId, graphId, name, visual);
     }
 
-    public void Update(string name)
+    public void Update(string name, VisualMeta visual)
     {
         Name = name;
+        Visual = visual;
     }
 
     public void AddInputMessage(InputMessage inputMessage)

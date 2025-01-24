@@ -11,6 +11,7 @@ using ChatbotBuilderApi.Presentation.Core.Attributes;
 using ChatbotBuilderApi.Presentation.Core.Extensions;
 using ChatbotBuilderApi.Presentation.Core.Responses;
 using ChatbotBuilderApi.Presentation.Graphs;
+using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using ChatbotBuilderApi.Presentation.Workflows.QueryParams;
 using ChatbotBuilderApi.Presentation.Workflows.Requests;
 using ChatbotBuilderApi.Presentation.Workflows.ViewModels;
@@ -135,6 +136,7 @@ public sealed class WorkflowsController : AbstractController
             Description = request.Description,
             Graph = request.Graph.ToDto(),
             OwnerId = new UserId(userId.Value),
+            Visual = request.Visual.ToDomain()
         };
 
         var result = await Sender.Send(command, cancellationToken);
@@ -183,7 +185,8 @@ public sealed class WorkflowsController : AbstractController
             OwnerId = new UserId(userId.Value),
             Name = request.Name,
             Description = request.Description,
-            Graph = request.Graph.ToDto()
+            Graph = request.Graph.ToDto(),
+            Visual = request.Visual.ToDomain()
         };
 
         var result = await Sender.Send(command, cancellationToken);

@@ -1,5 +1,6 @@
 using ChatbotBuilderApi.Application.Core;
 using ChatbotBuilderApi.Application.Graphs.Shared.Data;
+using ChatbotBuilderApi.Application.Graphs.Shared.Metas;
 using FluentValidation;
 
 namespace ChatbotBuilderApi.Application.Chatbots.UpdateChatbot;
@@ -23,5 +24,8 @@ public sealed class UpdateChatbotCommandValidator : AbstractValidator<UpdateChat
         RuleFor(x => x.AvatarImageData)
             .SetValidator(new ImageDataValidator()!)
             .When(x => x.AvatarImageData is not null);
+
+        RuleFor(x => x.Visual)
+            .SetValidator(new VisualMetaValidator());
     }
 }
