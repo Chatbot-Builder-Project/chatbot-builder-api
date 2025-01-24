@@ -13,6 +13,7 @@ public static class ApplicationRules
     public static class Files
     {
         public const int MaxFileSizeInBytes = 10 * 1024 * 1024; // 10 MB
+        public const int MaxJsonSizeInBytes = 1 * 1024 * 1024; // 1 MB
     }
 
     public static class Pages

@@ -1,4 +1,5 @@
-﻿using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
+﻿using ChatbotBuilderApi.Application.Core.Validators;
+using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
 using ChatbotBuilderApi.Application.Graphs.Ports.OutputPorts;
 using ChatbotBuilderApi.Application.Graphs.Shared.Data;
 using FluentValidation;
@@ -18,5 +19,10 @@ public sealed class GenerationNodeValidator : AbstractValidator<GenerationNodeDt
 
         RuleFor(x => x.OutputPort)
             .SetValidator(new OutputPortValidator(DataType.Text));
+
+        RuleFor(x => x.Options)
+            .ChildRules(x => x
+                .RuleFor(o => o.ResponseSchema)
+                .SetValidator(new JObjectValidator()));
     }
 }
