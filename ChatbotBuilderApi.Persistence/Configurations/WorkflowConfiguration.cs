@@ -1,6 +1,7 @@
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Domain.Workflows;
 using ChatbotBuilderApi.Persistence.Configurations.Extensions;
+using ChatbotBuilderApi.Persistence.Configurations.Graphs.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -28,5 +29,7 @@ internal sealed class WorkflowConfiguration : IEntityTypeConfiguration<Workflow>
             .WithMany()
             .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.OwnsOne(w => w.Visual, v => v.ConfigureVisualMeta());
     }
 }

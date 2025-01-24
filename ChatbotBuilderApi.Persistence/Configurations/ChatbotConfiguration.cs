@@ -49,5 +49,7 @@ internal sealed class ChatbotConfiguration : IEntityTypeConfiguration<Chatbot>
 
         builder.HasIndex("WorkflowId", "IsPublic", "VersionMajor")
             .IsUnique();
+
+        builder.OwnsOne(c => c.Visual, v => v.ConfigureVisualMeta());
     }
 }

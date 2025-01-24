@@ -2,6 +2,7 @@
 using ChatbotBuilderApi.Domain.Conversations;
 using ChatbotBuilderApi.Domain.Graphs;
 using ChatbotBuilderApi.Persistence.Configurations.Extensions;
+using ChatbotBuilderApi.Persistence.Configurations.Graphs.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -41,5 +42,7 @@ internal sealed class ConversationConfiguration : IEntityTypeConfiguration<Conve
             .WithOne()
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.OwnsOne(c => c.Visual, v => v.ConfigureVisualMeta());
     }
 }
