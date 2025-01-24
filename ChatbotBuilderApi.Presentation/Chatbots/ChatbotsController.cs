@@ -5,6 +5,7 @@ using ChatbotBuilderApi.Application.Chatbots.GetChatbot;
 using ChatbotBuilderApi.Application.Chatbots.ListChatbots;
 using ChatbotBuilderApi.Application.Chatbots.UpdateChatbot;
 using ChatbotBuilderApi.Domain.Chatbots.ValueObjects;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Domain.Workflows;
 using ChatbotBuilderApi.Presentation.Chatbots.QueryParams;
@@ -191,7 +192,10 @@ public sealed class ChatbotsController : AbstractController
             OwnerId = new UserId(userId.Value),
             Name = request.Name,
             Description = request.Description,
-            IsPublic = request.IsPublic
+            IsPublic = request.IsPublic,
+            AvatarImageData = request.AvatarImage is null
+                ? null
+                : ImageData.Create(request.AvatarImage.Url)
         };
 
         var result = await Sender.Send(command, cancellationToken);

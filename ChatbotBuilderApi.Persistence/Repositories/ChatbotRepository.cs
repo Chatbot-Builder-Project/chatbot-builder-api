@@ -92,7 +92,8 @@ public sealed class ChatbotRepository : CudRepository<Chatbot>, IChatbotReposito
                 c.UpdatedAt,
                 c.Name,
                 c.Description,
-                c.IsPublic))
+                c.IsPublic,
+                c.AvatarImageData))
             .PageResponseAsync(
                 query.PageParams,
                 cancellationToken);

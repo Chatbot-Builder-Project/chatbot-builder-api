@@ -1,4 +1,5 @@
 using ChatbotBuilderApi.Application.Core;
+using ChatbotBuilderApi.Application.Graphs.Shared.Data;
 using FluentValidation;
 
 namespace ChatbotBuilderApi.Application.Chatbots.UpdateChatbot;
@@ -18,5 +19,9 @@ public sealed class UpdateChatbotCommandValidator : AbstractValidator<UpdateChat
             .WithMessage("Description is required.")
             .MaximumLength(ApplicationRules.Strings.MaxLargeStringLength)
             .WithMessage($"Description must be less than {ApplicationRules.Strings.MaxLargeStringLength} characters.");
+
+        RuleFor(x => x.AvatarImageData)
+            .SetValidator(new ImageDataValidator()!)
+            .When(x => x.AvatarImageData is not null);
     }
 }

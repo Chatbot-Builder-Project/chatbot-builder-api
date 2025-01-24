@@ -1,4 +1,6 @@
-﻿namespace ChatbotBuilderApi.Presentation.Chatbots.Requests;
+﻿using ChatbotBuilderApi.Presentation.Graphs.Data;
+
+namespace ChatbotBuilderApi.Presentation.Chatbots.Requests;
 
 /// <summary>
 /// Request to update a chatbot.
@@ -6,7 +8,9 @@
 /// <param name="Name">Name of the chatbot.</param>
 /// <param name="Description">Description of the chatbot.</param>
 /// <param name="IsPublic">Whether the chatbot is publicly available.</param>
+/// <param name="AvatarImage">(Optional) Avatar image of the chatbot.</param>
 public sealed record UpdateChatbotRequest(
     string Name,
     string Description,
-    bool IsPublic);
+    bool IsPublic,
+    ImageDataModel? AvatarImage);

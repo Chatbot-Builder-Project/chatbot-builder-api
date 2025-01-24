@@ -1,6 +1,7 @@
 ﻿using ChatbotBuilderApi.Domain.Chatbots.ValueObjects;
 using ChatbotBuilderApi.Domain.Core.Primitives;
 using ChatbotBuilderApi.Domain.Graphs;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Workflows;
 using Version = ChatbotBuilderApi.Domain.Chatbots.ValueObjects.Version;
 
@@ -14,6 +15,7 @@ public sealed class Chatbot : AggregateRoot<ChatbotId>
     public Version Version { get; } = null!;
     public Graph Graph { get; } = null!;
     public bool IsPublic { get; private set; }
+    public ImageData? AvatarImageData { get; private set; }
 
     private Chatbot(
         ChatbotId id,
@@ -22,7 +24,8 @@ public sealed class Chatbot : AggregateRoot<ChatbotId>
         WorkflowId workflowId,
         Version version,
         Graph graph,
-        bool isPublic)
+        bool isPublic,
+        ImageData? avatarImageData)
         : base(id)
     {
         Name = name;
@@ -31,6 +34,7 @@ public sealed class Chatbot : AggregateRoot<ChatbotId>
         Version = version;
         Graph = graph;
         IsPublic = isPublic;
+        AvatarImageData = avatarImageData;
     }
 
     /// <inheritdoc/>
@@ -45,18 +49,29 @@ public sealed class Chatbot : AggregateRoot<ChatbotId>
         WorkflowId workflowId,
         Version version,
         Graph graph,
-        bool isPublic)
+        bool isPublic,
+        ImageData? avatarImageData)
     {
-        return new Chatbot(id, name, description, workflowId, version, graph, isPublic);
+        return new Chatbot(
+            id,
+            name,
+            description,
+            workflowId,
+            version,
+            graph,
+            isPublic,
+            avatarImageData);
     }
 
     public void Update(
         string name,
         string description,
-        bool isPublic)
+        bool isPublic,
+        ImageData? avatarImageData)
     {
         Name = name;
         Description = description;
         IsPublic = isPublic;
+        AvatarImageData = avatarImageData;
     }
 }
