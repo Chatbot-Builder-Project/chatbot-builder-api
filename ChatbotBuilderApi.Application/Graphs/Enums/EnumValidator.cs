@@ -12,6 +12,9 @@ public sealed class EnumValidator : AbstractValidator<EnumDto>
         RuleFor(x => x.Info)
             .SetValidator(new InfoMetaValidator());
 
+        RuleFor(x => x.Visual)
+            .SetValidator(new VisualMetaValidator());
+
         RuleFor(x => x.Options)
             .NotEmpty()
             .WithMessage("Options are required.")

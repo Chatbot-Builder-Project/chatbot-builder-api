@@ -5,4 +5,5 @@ namespace ChatbotBuilderApi.Application.Graphs.Enums;
 
 public sealed record EnumDto(
     InfoMeta Info,
+    VisualMeta Visual,
     IReadOnlyList<OptionData> Options);

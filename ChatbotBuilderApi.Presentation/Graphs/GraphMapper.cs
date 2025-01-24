@@ -1,6 +1,7 @@
 ﻿using ChatbotBuilderApi.Application.Graphs;
 using ChatbotBuilderApi.Presentation.Graphs.Enums;
 using ChatbotBuilderApi.Presentation.Graphs.Links;
+using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using ChatbotBuilderApi.Presentation.Graphs.Nodes;
 using Riok.Mapperly.Abstractions;
 
@@ -12,6 +13,7 @@ public static partial class GraphMapper
     public static GraphModel ToModel(this GraphDto dto)
     {
         return new GraphModel(
+            dto.Visual.ToModel(),
             dto.StartNodeIdentifier,
             dto.Nodes.Select(x => x.MapToModel()).ToList(),
             dto.DataLinks.Select(x => x.ToModel()).ToList(),
@@ -22,6 +24,7 @@ public static partial class GraphMapper
     public static GraphDto ToDto(this GraphModel model)
     {
         return new GraphDto(
+            model.Visual.ToDomain(),
             model.StartNodeId,
             model.Nodes.Select(x => x.MapToDto()).ToList(),
             model.DataLinks.Select(x => x.ToDto()).ToList(),

@@ -1,5 +1,6 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs;
 using ChatbotBuilderApi.Persistence.Configurations.Extensions;
+using ChatbotBuilderApi.Persistence.Configurations.Graphs.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,6 +12,8 @@ internal sealed class GraphConfiguration : IEntityTypeConfiguration<Graph>
     {
         builder.HasKey(g => g.Id);
         builder.Property(g => g.Id).ApplyEntityIdConversion();
+
+        builder.OwnsOne(g => g.Visual, v => v.ConfigureVisualMeta());
 
         builder.Property(g => g.StartNodeId).ApplyEntityIdConversion();
         builder.Property(g => g.CurrentNodeId).ApplyEntityIdConversion();

@@ -7,7 +7,9 @@ namespace ChatbotBuilderApi.Presentation.Graphs.Enums;
 /// Enum model.
 /// </summary>
 /// <param name="Info">Generic information for the enum.</param>
+/// <param name="Visual">Generic visual information for the enum.</param>
 /// <param name="Options">List of options for the enum.</param>
 public sealed record EnumModel(
     InfoMetaModel Info,
+    VisualMetaModel Visual,
     IReadOnlyList<OptionDataModel> Options);

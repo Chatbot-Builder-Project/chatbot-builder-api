@@ -142,6 +142,7 @@ public static partial class GraphMapper
 
         return Graph.Create(
             new GraphId(Guid.NewGuid()),
+            dto.Visual,
             enums,
             inputPorts,
             outputPorts,
@@ -214,6 +215,7 @@ public static partial class GraphMapper
             .ToList();
 
         return new GraphDto(
+            domain.Visual,
             nodeIdentifierById[domain.StartNodeId],
             nodes,
             dataLinks,

@@ -1,5 +1,6 @@
 ﻿using ChatbotBuilderApi.Presentation.Graphs.Enums;
 using ChatbotBuilderApi.Presentation.Graphs.Links;
+using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using ChatbotBuilderApi.Presentation.Graphs.Nodes;
 
 namespace ChatbotBuilderApi.Presentation.Graphs;
@@ -9,12 +10,14 @@ namespace ChatbotBuilderApi.Presentation.Graphs;
 /// These are all the elements that make up a graph.
 /// Note that ports are included within the nodes.
 /// </summary>
+/// <param name="Visual">Generic visual information for the graph.</param>
 /// <param name="StartNodeId">ID of the start node. Must be an Interaction node.</param>
 /// <param name="Nodes">List of nodes in the graph.</param>
 /// <param name="DataLinks">List of data links in the graph.</param>
 /// <param name="FlowLinks">List of flow links in the graph.</param>
 /// <param name="Enums">List of enums in the graph.</param>
 public sealed record GraphModel(
+    VisualMetaModel Visual,
     int StartNodeId,
     IReadOnlyList<NodeModel> Nodes,
     IReadOnlyList<DataLinkModel> DataLinks,

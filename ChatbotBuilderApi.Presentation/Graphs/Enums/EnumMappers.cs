@@ -12,6 +12,7 @@ public static partial class EnumMappers
     {
         return new EnumModel(
             dto.Info.ToModel(),
+            dto.Visual.ToModel(),
             dto.Options.Select(o => o.ToModel()).ToList());
     }
 
@@ -19,6 +20,7 @@ public static partial class EnumMappers
     {
         return new EnumDto(
             model.Info.ToDomain(),
+            model.Visual.ToDomain(),
             model.Options.Select(o => o.ToDomain()).ToList());
     }
 }

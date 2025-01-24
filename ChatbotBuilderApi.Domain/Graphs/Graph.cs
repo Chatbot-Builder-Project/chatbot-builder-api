@@ -5,6 +5,7 @@ using ChatbotBuilderApi.Domain.Graphs.Nodes;
 using ChatbotBuilderApi.Domain.Graphs.Nodes.Behaviors;
 using ChatbotBuilderApi.Domain.Graphs.Ports;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Ids;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
 
 namespace ChatbotBuilderApi.Domain.Graphs;
 
@@ -32,6 +33,8 @@ namespace ChatbotBuilderApi.Domain.Graphs;
 /// </remarks>
 public sealed class Graph : Entity<GraphId>
 {
+    public VisualMeta Visual { get; init; }
+
     private readonly HashSet<Enum> _enums = [];
     private readonly HashSet<Port<InputPortId>> _inputPorts = [];
     private readonly HashSet<Port<OutputPortId>> _outputPorts = [];
@@ -62,8 +65,9 @@ public sealed class Graph : Entity<GraphId>
     public IReadOnlyDictionary<FlowLinkId, FlowLink> FlowLinksMap => _flowLinksMapLazy.Value;
     public IReadOnlyDictionary<DataLinkId, DataLink> DataLinksMap => _dataLinksMapLazy.Value;
 
-    private Graph(GraphId id) : base(id)
+    private Graph(GraphId id, VisualMeta visual) : base(id)
     {
+        Visual = visual;
         _enumsMapLazy = new(() => Enums.ToDictionary(@enum => @enum.Id, @enum => @enum));
         _inputPortsMapLazy = new(() => InputPorts.ToDictionary(port => port.Id, port => port));
         _outputPortsMapLazy = new(() => OutputPorts.ToDictionary(port => port.Id, port => port));
@@ -73,7 +77,7 @@ public sealed class Graph : Entity<GraphId>
     }
 
     /// <inheritdoc/>
-    private Graph() : this(default!)
+    private Graph() : this(null!, null!)
     {
     }
 
@@ -91,6 +95,7 @@ public sealed class Graph : Entity<GraphId>
 
     public static Graph Create(
         GraphId id,
+        VisualMeta visual,
         IReadOnlyList<Enum> enums,
         IReadOnlyList<Port<InputPortId>> inputPorts,
         IReadOnlyList<Port<OutputPortId>> outputPorts,
@@ -99,7 +104,7 @@ public sealed class Graph : Entity<GraphId>
         IReadOnlyList<DataLink> dataLinks,
         IReadOnlyList<FlowLink> flowLinks)
     {
-        var graph = new Graph(id);
+        var graph = new Graph(id, visual);
 
         foreach (var @enum in enums)
         {

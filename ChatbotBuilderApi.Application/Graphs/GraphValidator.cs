@@ -5,6 +5,7 @@ using ChatbotBuilderApi.Application.Graphs.Links.FlowLinks;
 using ChatbotBuilderApi.Application.Graphs.Nodes;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Abstract;
 using ChatbotBuilderApi.Application.Graphs.Nodes.Extensions;
+using ChatbotBuilderApi.Application.Graphs.Shared.Metas;
 using FluentValidation;
 
 namespace ChatbotBuilderApi.Application.Graphs;
@@ -13,6 +14,9 @@ public sealed class GraphValidator : AbstractValidator<GraphDto>
 {
     public GraphValidator()
     {
+        RuleFor(x => x.Visual)
+            .SetValidator(new VisualMetaValidator());
+
         RuleFor(x => x)
             .Must(x =>
             {

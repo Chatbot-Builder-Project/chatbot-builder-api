@@ -14,6 +14,8 @@ internal sealed class EnumConfiguration : IEntityTypeConfiguration<Enum>
         builder.Property(e => e.Id).ApplyEntityIdConversion();
 
         builder.OwnsOne(e => e.Info, i => i.ConfigureInfoMeta());
+        builder.OwnsOne(e => e.Visual, i => i.ConfigureVisualMeta());
+
         builder.OwnsMany(e => e.Options, optionBuilder =>
         {
             optionBuilder
