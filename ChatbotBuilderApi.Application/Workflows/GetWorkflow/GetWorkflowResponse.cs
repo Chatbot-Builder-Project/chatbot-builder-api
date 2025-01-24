@@ -1,4 +1,5 @@
 using ChatbotBuilderApi.Application.Graphs;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Domain.Workflows;
 
@@ -11,4 +12,5 @@ public sealed record GetWorkflowResponse(
     DateTime UpdatedAt,
     string Name,
     string Description,
-    GraphDto Graph);
+    GraphDto Graph,
+    VisualMeta Visual);

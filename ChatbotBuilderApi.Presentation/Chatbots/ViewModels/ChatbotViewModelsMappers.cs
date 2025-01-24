@@ -2,6 +2,7 @@
 using ChatbotBuilderApi.Application.Chatbots.ListChatbots;
 using ChatbotBuilderApi.Application.Core.Shared.Responses;
 using ChatbotBuilderApi.Presentation.Graphs.Data;
+using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using Riok.Mapperly.Abstractions;
 
 namespace ChatbotBuilderApi.Presentation.Chatbots.ViewModels;
@@ -21,6 +22,7 @@ public static partial class ChatbotViewModelsMappers
             chatbot.AvatarImageData is null
                 ? null
                 : new ImageDataModel(chatbot.AvatarImageData.Url),
+            chatbot.Visual.ToModel(),
             chatbot.AdminDetails is null
                 ? null
                 : new ChatbotViewModelAdminDetails(
@@ -45,7 +47,8 @@ public static partial class ChatbotViewModelsMappers
                 x.IsPublic,
                 x.AvatarImageData is null
                     ? null
-                    : new ImageDataModel(x.AvatarImageData.Url)
+                    : new ImageDataModel(x.AvatarImageData.Url),
+                x.Visual.ToModel()
             )).ToList()
         });
     }

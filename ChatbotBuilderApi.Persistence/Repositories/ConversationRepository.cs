@@ -116,7 +116,8 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
                 c.CreatedAt,
                 c.UpdatedAt,
                 c.Name,
-                c.ChatbotId))
+                c.ChatbotId,
+                c.Visual))
             .PageResponseAsync(
                 query.PageParams,
                 cancellationToken);

@@ -93,6 +93,7 @@ public sealed class ChatbotRepository : CudRepository<Chatbot>, IChatbotReposito
                 c.Name,
                 c.Description,
                 c.IsPublic,
+                c.Visual,
                 c.AvatarImageData))
             .PageResponseAsync(
                 query.PageParams,

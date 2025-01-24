@@ -1,4 +1,5 @@
 ﻿using ChatbotBuilderApi.Presentation.Graphs;
+using ChatbotBuilderApi.Presentation.Graphs.Metas;
 
 namespace ChatbotBuilderApi.Presentation.Workflows.ViewModels;
 
@@ -12,6 +13,7 @@ namespace ChatbotBuilderApi.Presentation.Workflows.ViewModels;
 /// <param name="Name">Name of the workflow.</param>
 /// <param name="Description">Description of the workflow.</param>
 /// <param name="Graph">Graph of the workflow.</param>
+/// <param name="Visual">Generic visual metadata of the workflow.</param>
 public sealed record WorkflowViewModel(
     Guid Id,
     Guid OwnerId,
@@ -19,4 +21,5 @@ public sealed record WorkflowViewModel(
     DateTime UpdatedAt,
     string Name,
     string Description,
-    GraphModel Graph);
+    GraphModel Graph,
+    VisualMetaModel Visual);

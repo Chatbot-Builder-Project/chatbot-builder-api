@@ -1,4 +1,5 @@
 ﻿using ChatbotBuilderApi.Application.Core.Shared.Responses;
+using ChatbotBuilderApi.Presentation.Graphs.Metas;
 
 namespace ChatbotBuilderApi.Presentation.Workflows.ViewModels;
 
@@ -17,10 +18,12 @@ public sealed record WorkflowListViewModel(PageResponse<WorkflowListViewModelIte
 /// <param name="UpdatedAt">Date and time the workflow was last updated.</param>
 /// <param name="Name">Name of the workflow.</param>
 /// <param name="Description">Description of the workflow.</param>
+/// <param name="Visual">Generic visual metadata of the workflow.</param>
 public sealed record WorkflowListViewModelItem(
     Guid Id,
     Guid OwnerId,
     DateTime CreatedAt,
     DateTime UpdatedAt,
     string Name,
-    string Description);
+    string Description,
+    VisualMetaModel Visual);

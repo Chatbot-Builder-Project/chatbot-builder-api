@@ -34,7 +34,8 @@ public sealed class GetWorkflowQueryHandler : IQueryHandler<GetWorkflowQuery, Ge
             workflow.UpdatedAt,
             workflow.Name,
             workflow.Description,
-            workflow.Graph.ToDto());
+            workflow.Graph.ToDto(),
+            workflow.Visual);
 
         return Result.Success(response);
     }

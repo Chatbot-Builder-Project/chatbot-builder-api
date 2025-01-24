@@ -1,4 +1,5 @@
 using ChatbotBuilderApi.Application.Core.Shared.Responses;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Domain.Workflows;
 
@@ -12,4 +13,5 @@ public sealed record ListWorkflowsResponseItem(
     string Name,
     string Description,
     DateTime CreatedAt,
-    DateTime UpdatedAt);
+    DateTime UpdatedAt,
+    VisualMeta Visual);

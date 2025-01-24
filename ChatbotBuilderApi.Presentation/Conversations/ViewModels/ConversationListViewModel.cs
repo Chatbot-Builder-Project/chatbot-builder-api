@@ -1,4 +1,5 @@
 ﻿using ChatbotBuilderApi.Application.Core.Shared.Responses;
+using ChatbotBuilderApi.Presentation.Graphs.Metas;
 
 namespace ChatbotBuilderApi.Presentation.Conversations.ViewModels;
 
@@ -16,9 +17,11 @@ public sealed record ConversationListViewModel(PageResponse<ConversationListView
 /// <param name="CreatedAt">Date and time the conversation was created.</param>
 /// <param name="UpdatedAt">Date and time the conversation was last updated.</param>
 /// <param name="Name">Name of the conversation.</param>
+/// <param name="Visual">Generic visual metadata of the conversation.</param>
 public sealed record ConversationListViewModelItem(
     Guid Id,
     Guid ChatbotId,
     DateTime CreatedAt,
     DateTime UpdatedAt,
-    string Name);
+    string Name,
+    VisualMetaModel Visual);

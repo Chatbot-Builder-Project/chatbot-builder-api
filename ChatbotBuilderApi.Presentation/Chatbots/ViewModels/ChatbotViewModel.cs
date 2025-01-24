@@ -1,4 +1,5 @@
 ﻿using ChatbotBuilderApi.Presentation.Graphs.Data;
+using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using Version = ChatbotBuilderApi.Domain.Chatbots.ValueObjects.Version;
 
 namespace ChatbotBuilderApi.Presentation.Chatbots.ViewModels;
@@ -13,6 +14,7 @@ namespace ChatbotBuilderApi.Presentation.Chatbots.ViewModels;
 /// <param name="Name">Name of the chatbot.</param>
 /// <param name="Description">Description of the chatbot.</param>
 /// <param name="AvatarImage">(Optional) Avatar image of the chatbot.</param>
+/// <param name="Visual">Generic visual metadata of the chatbot.</param>
 /// <param name="AdminDetails">Admin details of the chatbot.</param>
 public sealed record ChatbotViewModel(
     Guid Id,
@@ -22,6 +24,7 @@ public sealed record ChatbotViewModel(
     string Name,
     string Description,
     ImageDataModel? AvatarImage,
+    VisualMetaModel Visual,
     ChatbotViewModelAdminDetails? AdminDetails);
 
 /// <summary>

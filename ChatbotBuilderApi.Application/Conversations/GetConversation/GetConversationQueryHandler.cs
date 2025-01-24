@@ -31,7 +31,8 @@ public sealed class GetConversationQueryHandler : IQueryHandler<GetConversationQ
             conversation.CreatedAt,
             conversation.UpdatedAt,
             conversation.Name,
-            conversation.ChatbotId);
+            conversation.ChatbotId,
+            conversation.Visual);
 
         return Result.Success(response);
     }

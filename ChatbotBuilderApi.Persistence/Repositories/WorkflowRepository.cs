@@ -58,7 +58,8 @@ public sealed class WorkflowRepository : CudRepository<Workflow>, IWorkflowRepos
                 w.Name,
                 w.Description,
                 w.CreatedAt,
-                w.UpdatedAt))
+                w.UpdatedAt,
+                w.Visual))
             .PageResponseAsync(query.PageParams, cancellationToken);
     }
 }
