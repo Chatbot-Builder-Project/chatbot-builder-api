@@ -1,31 +1,23 @@
 ﻿using ChatbotBuilderApi.Domain.Core.Primitives;
+using Newtonsoft.Json.Linq;
 
 namespace ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
 
-/// <remarks>
-/// Corresponds to VisualComponent base class in upper layers.
-/// </remarks>
 public sealed class VisualMeta : ValueObject
 {
-    public float X { get; }
-    public float Y { get; }
+    public JObject? Data { get; init; }
 
-    private VisualMeta(float x, float y)
-    {
-        X = x;
-        Y = y;
-    }
+    private VisualMeta(JObject? data) => Data = data;
 
     /// <inheritdoc/>
     private VisualMeta()
     {
     }
 
-    public static VisualMeta Create(float x, float y) => new(x, y);
+    public static VisualMeta Create(JObject? data) => new(data);
 
     protected override IEnumerable<object> GetAtomicValues()
     {
-        yield return X;
-        yield return Y;
+        yield return (object?)Data ?? false;
     }
 }

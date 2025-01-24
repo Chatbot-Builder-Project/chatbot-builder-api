@@ -10,7 +10,7 @@ public static partial class MetaMapper
 
     public static InfoMeta ToDomain(this InfoMetaModel model) => InfoMeta.Create(model.Id, model.Name);
 
-    public static VisualMetaModel ToModel(this VisualMeta domain) => new(domain.X, domain.Y);
+    public static VisualMetaModel ToModel(this VisualMeta domain) => new(domain.Data);
 
-    public static VisualMeta ToDomain(this VisualMetaModel model) => VisualMeta.Create(model.X, model.Y);
+    public static VisualMeta ToDomain(this VisualMetaModel model) => VisualMeta.Create(model.Data);
 }

@@ -1,4 +1,6 @@
 ﻿using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
+using ChatbotBuilderApi.Persistence.Configurations.Converters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ChatbotBuilderApi.Persistence.Configurations.Graphs.Extensions;
@@ -20,10 +22,9 @@ internal static class MetaConfigurationExtensions
         this OwnedNavigationBuilder<T, VisualMeta> builder)
         where T : class
     {
-        builder.Property(v => v.X)
-            .IsRequired();
-
-        builder.Property(v => v.Y)
-            .IsRequired();
+        builder.Property(v => v.Data)
+            .HasConversion(new JObjectValueConverter())
+            .HasColumnType("NVARCHAR(MAX)")
+            .IsRequired(false);
     }
 }
