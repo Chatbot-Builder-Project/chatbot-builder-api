@@ -1,4 +1,5 @@
-﻿using ChatbotBuilderApi.Presentation.Graphs.Data;
+﻿using ChatbotBuilderApi.Presentation.Graphs;
+using ChatbotBuilderApi.Presentation.Graphs.Data;
 using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using Version = ChatbotBuilderApi.Domain.Chatbots.ValueObjects.Version;
 
@@ -34,8 +35,11 @@ public sealed record ChatbotViewModel(
 /// <param name="WorkflowId">ID of the workflow the chatbot is part of.</param>
 /// <param name="IsPublic">Whether the chatbot is publicly available.</param>
 /// <param name="IsLatest">Whether the chatbot is the latest version of the chatbot in the workflow.</param>
+/// <param name="Graph">Graph of the chatbot. Returned only when
+/// IncludeGraphForAdmin option is selected and the user is the owner of the chatbot.</param>
 public sealed record ChatbotViewModelAdminDetails(
     Version Version,
     Guid WorkflowId,
     bool IsPublic,
-    bool IsLatest);
+    bool IsLatest,
+    GraphModel? Graph);

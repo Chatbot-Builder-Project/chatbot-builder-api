@@ -8,4 +8,5 @@ public sealed class GetChatbotQuery : IQuery<GetChatbotResponse>
 {
     public required ChatbotId Id { get; init; }
     public required UserId UserId { get; init; }
+    public required bool IncludeGraphForAdmin { get; init; }
 }

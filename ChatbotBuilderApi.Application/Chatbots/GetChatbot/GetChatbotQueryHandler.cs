@@ -1,5 +1,6 @@
 using ChatbotBuilderApi.Application.Core.Abstract.Messaging;
 using ChatbotBuilderApi.Application.Core.Shared;
+using ChatbotBuilderApi.Application.Graphs;
 
 namespace ChatbotBuilderApi.Application.Chatbots.GetChatbot;
 
@@ -30,11 +31,19 @@ public sealed class GetChatbotQueryHandler : IQueryHandler<GetChatbotQuery, GetC
                 chatbot.IsPublic,
                 cancellationToken);
 
+            GraphDto? graphDto = null;
+            if (request.IncludeGraphForAdmin)
+            {
+                var graph = await _repository.GetGraphAsync(request.Id, cancellationToken);
+                graphDto = graph?.ToDto();
+            }
+
             adminDetails = new GetChatbotResponseAdminDetails(
                 chatbot.Version,
                 chatbot.WorkflowId,
                 chatbot.IsPublic,
-                chatbot.Version == latestVersion);
+                chatbot.Version == latestVersion,
+                graphDto);
         }
 
         var response = new GetChatbotResponse(

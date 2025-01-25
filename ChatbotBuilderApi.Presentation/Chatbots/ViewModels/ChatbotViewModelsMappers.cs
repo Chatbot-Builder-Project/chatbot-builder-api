@@ -1,6 +1,7 @@
 ﻿using ChatbotBuilderApi.Application.Chatbots.GetChatbot;
 using ChatbotBuilderApi.Application.Chatbots.ListChatbots;
 using ChatbotBuilderApi.Application.Core.Shared.Responses;
+using ChatbotBuilderApi.Presentation.Graphs;
 using ChatbotBuilderApi.Presentation.Graphs.Data;
 using ChatbotBuilderApi.Presentation.Graphs.Metas;
 using Riok.Mapperly.Abstractions;
@@ -29,7 +30,8 @@ public static partial class ChatbotViewModelsMappers
                     chatbot.AdminDetails.Version,
                     chatbot.AdminDetails.WorkflowId,
                     chatbot.AdminDetails.IsPublic,
-                    chatbot.AdminDetails.IsLatest));
+                    chatbot.AdminDetails.IsLatest,
+                    chatbot.AdminDetails.Graph?.ToModel()));
     }
 
     public static ChatbotListViewModel ToViewModel(this ListChatbotsResponse chatbots)

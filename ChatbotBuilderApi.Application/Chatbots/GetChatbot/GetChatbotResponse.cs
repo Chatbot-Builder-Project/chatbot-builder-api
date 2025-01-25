@@ -1,3 +1,4 @@
+using ChatbotBuilderApi.Application.Graphs;
 using ChatbotBuilderApi.Domain.Chatbots.ValueObjects;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Data;
 using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
@@ -22,4 +23,5 @@ public sealed record GetChatbotResponseAdminDetails(
     Version Version,
     WorkflowId WorkflowId,
     bool IsPublic,
-    bool IsLatest);
+    bool IsLatest,
+    GraphDto? Graph);

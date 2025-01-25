@@ -83,6 +83,7 @@ public sealed class ChatbotsController : AbstractController
     /// AdminDetails will be included in the response if and only if the chatbot is owned by the user.
     /// </summary>
     /// <param name="id">ID of the chatbot.</param>
+    /// <param name="queryParams">Query parameters for the chatbot.</param>
     /// <param name="cancellationToken">Cancellation token for the request.</param>
     /// <returns>Details of the chatbot.</returns>
     /// <response code="200">Returns the chatbot details.</response>
@@ -94,6 +95,7 @@ public sealed class ChatbotsController : AbstractController
     [ProducesError(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ChatbotViewModel>> GetChatbot(
         [FromRoute] Guid id,
+        [FromQuery] ChatbotQueryParams queryParams,
         CancellationToken cancellationToken)
     {
         var userId = GetUserIdOrFailure();
@@ -105,7 +107,8 @@ public sealed class ChatbotsController : AbstractController
         var query = new GetChatbotQuery
         {
             Id = new ChatbotId(id),
-            UserId = new UserId(userId.Value)
+            UserId = new UserId(userId.Value),
+            IncludeGraphForAdmin = queryParams.IncludeGraphForAdmin
         };
 
         var result = await Sender.Send(query, cancellationToken);
