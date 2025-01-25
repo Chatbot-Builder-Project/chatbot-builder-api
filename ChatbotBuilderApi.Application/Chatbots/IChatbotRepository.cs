@@ -2,6 +2,7 @@ using ChatbotBuilderApi.Application.Chatbots.ListChatbots;
 using ChatbotBuilderApi.Application.Core.Shared.Responses;
 using ChatbotBuilderApi.Domain.Chatbots;
 using ChatbotBuilderApi.Domain.Chatbots.ValueObjects;
+using ChatbotBuilderApi.Domain.Graphs;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Domain.Workflows;
 using Version = ChatbotBuilderApi.Domain.Chatbots.ValueObjects.Version;
@@ -38,5 +39,10 @@ public interface IChatbotRepository
 
     Task<List<ChatbotId>> ListByWorkflowIdAsync(
         WorkflowId workflowId,
+        CancellationToken cancellationToken);
+
+    /// <remarks>Does not track graph changes</remarks>
+    Task<Graph?> GetGraphAsync(
+        ChatbotId chatbotId,
         CancellationToken cancellationToken);
 }

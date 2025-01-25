@@ -3,6 +3,7 @@ using ChatbotBuilderApi.Application.Chatbots.ListChatbots;
 using ChatbotBuilderApi.Application.Core.Shared.Responses;
 using ChatbotBuilderApi.Domain.Chatbots;
 using ChatbotBuilderApi.Domain.Chatbots.ValueObjects;
+using ChatbotBuilderApi.Domain.Graphs;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Domain.Workflows;
 using ChatbotBuilderApi.Persistence.Repositories.Extensions;
@@ -109,5 +110,16 @@ public sealed class ChatbotRepository : CudRepository<Chatbot>, IChatbotReposito
             .OrderByDescending(c => c.CreatedAt)
             .Select(c => c.Id)
             .ToListAsync(cancellationToken);
+    }
+
+    public async Task<Graph?> GetGraphAsync(
+        ChatbotId chatbotId,
+        CancellationToken cancellationToken)
+    {
+        return await Context.Set<Chatbot>()
+            .AsSplitQuery()
+            .Where(c => c.Id == chatbotId)
+            .Select(c => c.Graph)
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }
