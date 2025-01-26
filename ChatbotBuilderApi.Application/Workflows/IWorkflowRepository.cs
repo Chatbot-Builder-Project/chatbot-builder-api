@@ -1,4 +1,5 @@
 using ChatbotBuilderApi.Application.Core.Shared.Responses;
+using ChatbotBuilderApi.Application.Workflows.GetWorkflow;
 using ChatbotBuilderApi.Application.Workflows.ListWorkflows;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Domain.Workflows;
@@ -19,5 +20,9 @@ public interface IWorkflowRepository
 
     Task<PageResponse<ListWorkflowsResponseItem>> ListByQueryAsync(
         ListWorkflowsQuery query,
+        CancellationToken cancellationToken);
+
+    Task<GetWorkflowResponseStats?> GetStatsAsync(
+        WorkflowId workflowId,
         CancellationToken cancellationToken);
 }

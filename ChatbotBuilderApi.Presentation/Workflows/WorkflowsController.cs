@@ -74,6 +74,7 @@ public sealed class WorkflowsController : AbstractController
     /// Returns workflow details by id from the user's workflows.
     /// </summary>
     /// <param name="id">ID of the workflow.</param>
+    /// <param name="queryParams">Query parameters for the workflow.</param>
     /// <param name="cancellationToken">Cancellation token for the request.</param>
     /// <returns>Details of the workflow.</returns>
     /// <response code="200">Returns the workflow details.</response>
@@ -85,6 +86,7 @@ public sealed class WorkflowsController : AbstractController
     [ProducesError(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<WorkflowViewModel>> GetWorkflow(
         [FromRoute] Guid id,
+        [FromQuery] WorkflowQueryParams queryParams,
         CancellationToken cancellationToken)
     {
         var userId = GetUserIdOrFailure();
@@ -96,7 +98,8 @@ public sealed class WorkflowsController : AbstractController
         var query = new GetWorkflowQuery
         {
             Id = new WorkflowId(id),
-            OwnerId = new UserId(userId.Value)
+            OwnerId = new UserId(userId.Value),
+            IncludeStats = queryParams.IncludeStats
         };
 
         var result = await Sender.Send(query, cancellationToken);

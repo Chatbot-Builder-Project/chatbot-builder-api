@@ -17,7 +17,14 @@ public static partial class WorkflowViewModelsMappers
         workflow.Name,
         workflow.Description,
         workflow.Graph.ToModel(),
-        workflow.Visual.ToModel());
+        workflow.Visual.ToModel(),
+        workflow.Stats is null
+            ? null
+            : new WorkflowViewModelStats(
+                workflow.Stats.NumberOfChatbots,
+                workflow.Stats.NumberOfUsers,
+                workflow.Stats.NumberOfConversations,
+                workflow.Stats.NumberOfMessages));
 
     public static partial WorkflowListViewModel ToViewModel(this ListWorkflowsResponse workflows);
 }

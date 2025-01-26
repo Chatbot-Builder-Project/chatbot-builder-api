@@ -13,4 +13,11 @@ public sealed record GetWorkflowResponse(
     string Name,
     string Description,
     GraphDto Graph,
-    VisualMeta Visual);
+    VisualMeta Visual,
+    GetWorkflowResponseStats? Stats);
+
+public sealed record GetWorkflowResponseStats(
+    int NumberOfChatbots,
+    int NumberOfUsers,
+    int NumberOfConversations,
+    int NumberOfMessages);

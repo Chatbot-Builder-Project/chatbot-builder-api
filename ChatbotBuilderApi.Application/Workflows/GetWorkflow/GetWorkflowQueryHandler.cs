@@ -27,6 +27,10 @@ public sealed class GetWorkflowQueryHandler : IQueryHandler<GetWorkflowQuery, Ge
             return Result.Failure<GetWorkflowResponse>(WorkflowApplicationErrors.WorkflowNotFound);
         }
 
+        var stats = request.IncludeStats
+            ? await _repository.GetStatsAsync(request.Id, cancellationToken)
+            : null;
+
         var response = new GetWorkflowResponse(
             workflow.Id,
             new UserId(workflow.OwnerId),
@@ -35,7 +39,8 @@ public sealed class GetWorkflowQueryHandler : IQueryHandler<GetWorkflowQuery, Ge
             workflow.Name,
             workflow.Description,
             workflow.Graph.ToDto(),
-            workflow.Visual);
+            workflow.Visual,
+            stats);
 
         return Result.Success(response);
     }

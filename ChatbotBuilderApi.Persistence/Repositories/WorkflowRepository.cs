@@ -1,5 +1,6 @@
 using ChatbotBuilderApi.Application.Core.Shared.Responses;
 using ChatbotBuilderApi.Application.Workflows;
+using ChatbotBuilderApi.Application.Workflows.GetWorkflow;
 using ChatbotBuilderApi.Application.Workflows.ListWorkflows;
 using ChatbotBuilderApi.Domain.Graphs;
 using ChatbotBuilderApi.Domain.Users;
@@ -61,5 +62,12 @@ public sealed class WorkflowRepository : CudRepository<Workflow>, IWorkflowRepos
                 w.UpdatedAt,
                 w.Visual))
             .PageResponseAsync(query.PageParams, cancellationToken);
+    }
+
+    public async Task<GetWorkflowResponseStats?> GetStatsAsync(
+        WorkflowId workflowId,
+        CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 }

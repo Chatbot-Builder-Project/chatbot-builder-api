@@ -8,4 +8,5 @@ public sealed class GetWorkflowQuery : IQuery<GetWorkflowResponse>
 {
     public required WorkflowId Id { get; init; }
     public required UserId OwnerId { get; init; }
+    public required bool IncludeStats { get; init; }
 }
