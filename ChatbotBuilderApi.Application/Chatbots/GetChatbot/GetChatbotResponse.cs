@@ -17,7 +17,8 @@ public sealed record GetChatbotResponse(
     string Description,
     ImageData? AvatarImageData,
     VisualMeta Visual,
-    GetChatbotResponseAdminDetails? AdminDetails);
+    GetChatbotResponseAdminDetails? AdminDetails,
+    GetChatbotResponseStats? Stats);
 
 public sealed record GetChatbotResponseAdminDetails(
     Version Version,
@@ -25,3 +26,8 @@ public sealed record GetChatbotResponseAdminDetails(
     bool IsPublic,
     bool IsLatest,
     GraphDto? Graph);
+
+public sealed record GetChatbotResponseStats(
+    int NumberOfUsers,
+    int NumberOfConversations,
+    int NumberOfMessages);

@@ -16,7 +16,8 @@ namespace ChatbotBuilderApi.Presentation.Chatbots.ViewModels;
 /// <param name="Description">Description of the chatbot.</param>
 /// <param name="AvatarImage">(Optional) Avatar image of the chatbot.</param>
 /// <param name="Visual">Generic visual metadata of the chatbot.</param>
-/// <param name="AdminDetails">Admin details of the chatbot.</param>
+/// <param name="AdminDetails">(Optional) Admin details of the chatbot.</param>
+/// <param name="Stats">(Optional) Statistics of the chatbot.</param>
 public sealed record ChatbotViewModel(
     Guid Id,
     Guid OwnerId,
@@ -26,7 +27,8 @@ public sealed record ChatbotViewModel(
     string Description,
     ImageDataModel? AvatarImage,
     VisualMetaModel Visual,
-    ChatbotViewModelAdminDetails? AdminDetails);
+    ChatbotViewModelAdminDetails? AdminDetails,
+    ChatbotViewModelStats? Stats);
 
 /// <summary>
 /// Admin details of the chatbot.
@@ -43,3 +45,14 @@ public sealed record ChatbotViewModelAdminDetails(
     bool IsPublic,
     bool IsLatest,
     GraphModel? Graph);
+
+/// <summary>
+/// Statistics of the chatbot.
+/// </summary>
+/// <param name="NumberOfUsers">Number of users that have interacted with the chatbot.</param>
+/// <param name="NumberOfConversations">Number of conversations that have taken place with the chatbot.</param>
+/// <param name="NumberOfMessages">Number of messages that have been exchanged in all conversations.</param>
+public sealed record ChatbotViewModelStats(
+    int NumberOfUsers,
+    int NumberOfConversations,
+    int NumberOfMessages);

@@ -1,8 +1,10 @@
 using ChatbotBuilderApi.Application.Chatbots;
+using ChatbotBuilderApi.Application.Chatbots.GetChatbot;
 using ChatbotBuilderApi.Application.Chatbots.ListChatbots;
 using ChatbotBuilderApi.Application.Core.Shared.Responses;
 using ChatbotBuilderApi.Domain.Chatbots;
 using ChatbotBuilderApi.Domain.Chatbots.ValueObjects;
+using ChatbotBuilderApi.Domain.Conversations;
 using ChatbotBuilderApi.Domain.Graphs;
 using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Domain.Workflows;
@@ -121,5 +123,12 @@ public sealed class ChatbotRepository : CudRepository<Chatbot>, IChatbotReposito
             .Where(c => c.Id == chatbotId)
             .Select(c => c.Graph)
             .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<GetChatbotResponseStats?> GetStatsAsync(
+        ChatbotId chatbotId,
+        CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -1,3 +1,4 @@
+using ChatbotBuilderApi.Application.Chatbots.GetChatbot;
 using ChatbotBuilderApi.Application.Chatbots.ListChatbots;
 using ChatbotBuilderApi.Application.Core.Shared.Responses;
 using ChatbotBuilderApi.Domain.Chatbots;
@@ -43,6 +44,10 @@ public interface IChatbotRepository
 
     /// <remarks>Does not track graph changes</remarks>
     Task<Graph?> GetGraphAsync(
+        ChatbotId chatbotId,
+        CancellationToken cancellationToken);
+
+    Task<GetChatbotResponseStats?> GetStatsAsync(
         ChatbotId chatbotId,
         CancellationToken cancellationToken);
 }

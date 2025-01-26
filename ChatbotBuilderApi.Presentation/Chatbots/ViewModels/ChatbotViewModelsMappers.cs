@@ -31,7 +31,13 @@ public static partial class ChatbotViewModelsMappers
                     chatbot.AdminDetails.WorkflowId,
                     chatbot.AdminDetails.IsPublic,
                     chatbot.AdminDetails.IsLatest,
-                    chatbot.AdminDetails.Graph?.ToModel()));
+                    chatbot.AdminDetails.Graph?.ToModel()),
+            chatbot.Stats is null
+                ? null
+                : new ChatbotViewModelStats(
+                    chatbot.Stats.NumberOfUsers,
+                    chatbot.Stats.NumberOfConversations,
+                    chatbot.Stats.NumberOfMessages));
     }
 
     public static ChatbotListViewModel ToViewModel(this ListChatbotsResponse chatbots)

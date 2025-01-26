@@ -24,6 +24,8 @@ public sealed class GetChatbotQueryHandler : IQueryHandler<GetChatbotQuery, GetC
         var ownerId = (await _repository.GetOwnerIdAsync(request.Id, cancellationToken))!;
 
         GetChatbotResponseAdminDetails? adminDetails = null;
+        GetChatbotResponseStats? stats = null;
+
         if (request.UserId == ownerId)
         {
             var latestVersion = await _repository.GetLatestVersionAsync(
@@ -44,6 +46,10 @@ public sealed class GetChatbotQueryHandler : IQueryHandler<GetChatbotQuery, GetC
                 chatbot.IsPublic,
                 chatbot.Version == latestVersion,
                 graphDto);
+
+            stats = request.IncludeStatsForAdmin
+                ? await _repository.GetStatsAsync(request.Id, cancellationToken)
+                : null;
         }
 
         var response = new GetChatbotResponse(
@@ -55,7 +61,8 @@ public sealed class GetChatbotQueryHandler : IQueryHandler<GetChatbotQuery, GetC
             chatbot.Description,
             chatbot.AvatarImageData,
             chatbot.Visual,
-            adminDetails);
+            adminDetails,
+            stats);
 
         return Result.Success(response);
     }

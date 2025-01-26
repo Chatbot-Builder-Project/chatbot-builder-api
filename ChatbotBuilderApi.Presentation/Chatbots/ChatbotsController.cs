@@ -108,7 +108,8 @@ public sealed class ChatbotsController : AbstractController
         {
             Id = new ChatbotId(id),
             UserId = new UserId(userId.Value),
-            IncludeGraphForAdmin = queryParams.IncludeGraphForAdmin
+            IncludeGraphForAdmin = queryParams.IncludeGraphForAdmin,
+            IncludeStatsForAdmin = queryParams.IncludeStatsForAdmin
         };
 
         var result = await Sender.Send(query, cancellationToken);
