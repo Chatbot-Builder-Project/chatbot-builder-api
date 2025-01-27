@@ -1,5 +1,6 @@
 using ChatbotBuilderApi.Application.Core.Abstract.Messaging;
 using ChatbotBuilderApi.Application.Core.Shared;
+using ChatbotBuilderApi.Domain.Users;
 
 namespace ChatbotBuilderApi.Application.Conversations.GetConversation;
 
@@ -28,6 +29,7 @@ public sealed class GetConversationQueryHandler : IQueryHandler<GetConversationQ
 
         var response = new GetConversationResponse(
             conversation.Id,
+            new UserId(conversation.OwnerId),
             conversation.CreatedAt,
             conversation.UpdatedAt,
             conversation.Name,

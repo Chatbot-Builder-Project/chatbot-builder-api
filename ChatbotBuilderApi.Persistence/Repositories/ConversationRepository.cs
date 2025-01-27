@@ -113,6 +113,7 @@ public sealed class ConversationRepository : CudRepository<Conversation>, IConve
             .OrderByDescending(c => c.CreatedAt)
             .Select(c => new ListConversationResponseItem(
                 c.Id,
+                new UserId(c.OwnerId),
                 c.CreatedAt,
                 c.UpdatedAt,
                 c.Name,

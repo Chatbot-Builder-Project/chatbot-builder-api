@@ -6,6 +6,7 @@ namespace ChatbotBuilderApi.Presentation.Conversations.ViewModels;
 /// View model for a conversation.
 /// </summary>
 /// <param name="Id">ID of the conversation.</param>
+/// <param name="OwnerId">ID of the user that owns the conversation.</param>
 /// <param name="ChatbotId">ID of the chatbot the conversation belongs to.</param>
 /// <param name="CreatedAt">Date and time the conversation was created.</param>
 /// <param name="UpdatedAt">Date and time the conversation was last updated.</param>
@@ -13,6 +14,7 @@ namespace ChatbotBuilderApi.Presentation.Conversations.ViewModels;
 /// <param name="Visual">Generic visual metadata of the conversation.</param>
 public sealed record ConversationViewModel(
     Guid Id,
+    Guid OwnerId,
     Guid ChatbotId,
     DateTime CreatedAt,
     DateTime UpdatedAt,

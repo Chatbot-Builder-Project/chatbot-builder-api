@@ -13,6 +13,7 @@ public sealed record ConversationListViewModel(PageResponse<ConversationListView
 /// Item in the list of conversations.
 /// </summary>
 /// <param name="Id">ID of the conversation.</param>
+/// <param name="OwnerId">ID of the user that owns the conversation.</param>
 /// <param name="ChatbotId">ID of the chatbot the conversation belongs to.</param>
 /// <param name="CreatedAt">Date and time the conversation was created.</param>
 /// <param name="UpdatedAt">Date and time the conversation was last updated.</param>
@@ -20,6 +21,7 @@ public sealed record ConversationListViewModel(PageResponse<ConversationListView
 /// <param name="Visual">Generic visual metadata of the conversation.</param>
 public sealed record ConversationListViewModelItem(
     Guid Id,
+    Guid OwnerId,
     Guid ChatbotId,
     DateTime CreatedAt,
     DateTime UpdatedAt,
