@@ -51,7 +51,7 @@ public sealed record ChatbotViewModelAdminDetails(
 /// </summary>
 /// <param name="NumberOfUsers">Number of users that have interacted with the chatbot.</param>
 /// <param name="NumberOfConversations">Number of conversations that have taken place with the chatbot.</param>
-/// <param name="NumberOfMessages">Number of messages that have been exchanged in all conversations.</param>
+/// <param name="NumberOfMessages">Number of input messages that have been sent in all conversations.</param>
 public sealed record ChatbotViewModelStats(
     int NumberOfUsers,
     int NumberOfConversations,

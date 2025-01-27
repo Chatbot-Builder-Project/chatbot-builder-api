@@ -129,6 +129,18 @@ public sealed class ChatbotRepository : CudRepository<Chatbot>, IChatbotReposito
         ChatbotId chatbotId,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        const string query = """
+                             SELECT 
+                                 COUNT(DISTINCT c.OwnerId) AS NumberOfUsers,
+                                 COUNT(DISTINCT c.Id) AS NumberOfConversations,
+                                 COUNT(im.Id) AS NumberOfMessages
+                             FROM Conversation c
+                             LEFT JOIN InputMessage im ON c.Id = im.ConversationId
+                             WHERE c.ChatbotId = {0}
+                             """;
+
+        return await Context.Database
+            .SqlQueryRaw<GetChatbotResponseStats>(query, chatbotId.Value)
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }

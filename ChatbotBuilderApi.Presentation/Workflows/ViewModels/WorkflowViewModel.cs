@@ -32,7 +32,7 @@ public sealed record WorkflowViewModel(
 /// <param name="NumberOfChatbots">Number of chatbots that have been published from the workflow.</param>
 /// <param name="NumberOfUsers">Number of users that have interacted with any chatbot published from the workflow.</param>
 /// <param name="NumberOfConversations">Number of conversations that have taken place with any chatbot published from the workflow.</param>
-/// <param name="NumberOfMessages">Number of messages that have been exchanged in all conversations of any chatbot published from the workflow.</param>
+/// <param name="NumberOfMessages">Number of input messages that have been sent in all conversations of any chatbot published from the workflow.</param>
 public sealed record WorkflowViewModelStats(
     int NumberOfChatbots,
     int NumberOfUsers,

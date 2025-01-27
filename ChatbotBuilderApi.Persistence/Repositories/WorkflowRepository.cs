@@ -68,6 +68,21 @@ public sealed class WorkflowRepository : CudRepository<Workflow>, IWorkflowRepos
         WorkflowId workflowId,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        const string query = """
+                             SELECT 
+                                 COUNT(DISTINCT c.OwnerId) AS NumberOfUsers,
+                                 COUNT(DISTINCT c.Id) AS NumberOfConversations,
+                                 COUNT(im.Id) AS NumberOfMessages,
+                                 COUNT(DISTINCT cb.Id) AS NumberOfChatbots
+                             FROM Workflow w
+                             LEFT JOIN Chatbot cb ON w.Id = cb.WorkflowId
+                             LEFT JOIN Conversation c ON cb.Id = c.ChatbotId
+                             LEFT JOIN InputMessage im ON c.Id = im.ConversationId
+                             WHERE w.Id = {0}
+                             """;
+
+        return await Context.Database
+            .SqlQueryRaw<GetWorkflowResponseStats>(query, workflowId.Value)
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }
