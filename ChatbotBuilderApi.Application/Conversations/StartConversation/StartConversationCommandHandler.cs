@@ -44,6 +44,7 @@ public sealed class StartConversationCommandHandler
             new ConversationId(Guid.NewGuid()),
             chatbot.Id,
             graph.Id,
+            request.UserId,
             request.Name,
             chatbot.Visual); // Same visual as the chatbot
 

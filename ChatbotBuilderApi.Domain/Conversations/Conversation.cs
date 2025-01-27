@@ -15,6 +15,7 @@ public sealed class Conversation : AggregateRoot<ConversationId>
     public string Name { get; private set; } = null!;
     public ChatbotId ChatbotId { get; } = null!;
     public GraphId GraphId { get; } = null!;
+    public Guid OwnerId { get; } // UserId is incompatible with IdentityUser<Guid>
     public VisualMeta Visual { get; private set; } = null!;
     public IReadOnlyList<InputMessage> InputMessages => _inputMessages;
     public IReadOnlyList<OutputMessage> OutputMessages => _outputMessages;
@@ -23,6 +24,7 @@ public sealed class Conversation : AggregateRoot<ConversationId>
         ConversationId id,
         ChatbotId chatbotId,
         GraphId graphId,
+        Guid ownerId,
         string name,
         VisualMeta visual)
         : base(id)
@@ -30,6 +32,7 @@ public sealed class Conversation : AggregateRoot<ConversationId>
         ChatbotId = chatbotId;
         Name = name;
         GraphId = graphId;
+        OwnerId = ownerId;
         Visual = visual;
     }
 
@@ -42,10 +45,11 @@ public sealed class Conversation : AggregateRoot<ConversationId>
         ConversationId id,
         ChatbotId chatbotId,
         GraphId graphId,
+        Guid ownerId,
         string name,
         VisualMeta visual)
     {
-        return new Conversation(id, chatbotId, graphId, name, visual);
+        return new Conversation(id, chatbotId, graphId, ownerId, name, visual);
     }
 
     public void Update(string name, VisualMeta visual)

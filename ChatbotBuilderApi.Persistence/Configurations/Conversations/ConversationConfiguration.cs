@@ -1,6 +1,7 @@
 ﻿using ChatbotBuilderApi.Domain.Chatbots;
 using ChatbotBuilderApi.Domain.Conversations;
 using ChatbotBuilderApi.Domain.Graphs;
+using ChatbotBuilderApi.Domain.Users;
 using ChatbotBuilderApi.Persistence.Configurations.Extensions;
 using ChatbotBuilderApi.Persistence.Configurations.Graphs.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,12 @@ internal sealed class ConversationConfiguration : IEntityTypeConfiguration<Conve
             .WithMany()
             .HasForeignKey(c => c.GraphId)
             .IsRequired(false)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasOne<User>()
+            .WithMany()
+            .HasForeignKey(c => c.OwnerId)
+            .IsRequired()
             .OnDelete(DeleteBehavior.NoAction);
 
         // Owned entities cannot have navigation properties
