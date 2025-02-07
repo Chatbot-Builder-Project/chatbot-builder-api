@@ -1,6 +1,8 @@
 ﻿using ChatbotBuilderApi.Application.Graphs.Ports.InputPorts;
 using ChatbotBuilderApi.Application.Graphs.Ports.OutputPorts;
+using ChatbotBuilderApi.Domain.Graphs.ValueObjects.Meta;
 using ChatbotBuilderApi.Presentation.Graphs.Metas;
+using Newtonsoft.Json.Linq;
 using Riok.Mapperly.Abstractions;
 
 namespace ChatbotBuilderApi.Presentation.Graphs.Ports;
@@ -21,7 +23,7 @@ public static partial class PortMapper
     {
         return new InputPortDto(
             model.Info.ToDomain(),
-            model.Visual.ToDomain(),
+            model.Visual is null ? VisualMeta.Create(new JObject()) : model.Visual.ToDomain(),
             model.NodeId,
             model.DataType);
     }
@@ -39,7 +41,7 @@ public static partial class PortMapper
     {
         return new OutputPortDto(
             model.Info.ToDomain(),
-            model.Visual.ToDomain(),
+            model.Visual is null ? VisualMeta.Create(new JObject()) : model.Visual.ToDomain(),
             model.NodeId,
             model.DataType);
     }

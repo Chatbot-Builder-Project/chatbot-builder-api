@@ -12,6 +12,6 @@ namespace ChatbotBuilderApi.Presentation.Graphs.Ports;
 /// <param name="DataType">Data type of the port.</param>
 public sealed record InputPortModel(
     InfoMetaModel Info,
-    VisualMetaModel Visual,
+    VisualMetaModel? Visual,
     int NodeId,
     DataType DataType);
