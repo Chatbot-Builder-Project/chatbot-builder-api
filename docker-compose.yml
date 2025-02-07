@@ -11,6 +11,7 @@
       sqlserver:
         condition: service_started
     environment:
+      - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__AppDbContextConnection=Server=sqlserver;Database=master;User Id=sa;Password=cFj23uNY0lT&WP@t;TrustServerCertificate=True;
 
   sqlserver:
@@ -22,6 +23,13 @@
       - "1455:1433"
     volumes:
       - sqlserver-data:/var/opt/mssql
-
+  
+  chatbot-builder-executor:
+    image: chatbot-builder-executor
+    build:
+      context: .
+    ports:
+      - "50051:50051"
+    # Add environment variables
 volumes:
   sqlserver-data:
