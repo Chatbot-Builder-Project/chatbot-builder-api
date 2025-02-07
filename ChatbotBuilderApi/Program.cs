@@ -29,6 +29,12 @@ if (!app.Environment.IsProduction())
 
 await app.MigrateAsync();
 
+app.Use(async (context, next) =>
+{
+    using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+    context.RequestAborted = cts.Token;
+    await next();
+});
 app.UseHttpsRedirection();
 app.UseCors("AllowedOriginsPolicy");
 app.UseSerilogRequestLogging();
